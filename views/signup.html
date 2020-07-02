@@ -32,6 +32,7 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#masterhead">Home</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
@@ -99,7 +100,7 @@
                         </div>
                         <input type="password" class="form-control" id="checkPw" name="checkPw"
                             placeholder="insert your password again">
-                            <input type="button" class="btn btn-info" id="checkIkpassword" value="check">
+                        <input type="button" class="btn btn-info" id="checkpassword" value="check">
                     </div>
                 </div>
                 <!--name-->
@@ -162,15 +163,72 @@
     <script>
         $(document).ready(function () {
             var overlapId = false;
+            //check pw
+            //length>8 //num + upper case + lower case + Special Characters //no blank //no id //no korean
+            $("#checkpassword").off("click").on("click", function () {
+                var pw = $("#userPw").val();
+                var id = $("#userId").val();
+                var c_p = $("#checkPw").val();
+                var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+                if (false === reg.test(pw)) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'Password must be at least 8 characters long and must contain all numbers/case letters/special characters.',
+
+                            })
+                } else if (/(\w)\1\1\1/.test(pw)) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'You can not use same letter 4 times',
+
+                            })
+                } else if (pw.search(id) > -1) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'You can not use id in to password',
+
+                            })
+                } else if (pw.search(/\s/) != -1) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'You can not use blank in to password',
+
+                            })
+                } else if (hangulcheck.test(pw)) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'You can not use korean in to password',
+
+                            })
+                } else if(c_p == pw){
+                    Swal.fire({
+                                icon: 'success',
+                                title: 'Effectiveness Check',
+                                text: "You can use this password!!",
+                            })
+                }else{
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'You have to insert same password',
+                            })
+                }
+
+            })
             //check overlap user ID
             $("#checkId").off("click").on("click", function () {
-               
-                
                 $.ajax({
                     url: '/signup/overlap',
                     type: 'post',
                     data: $("#userId").serialize(),
-                   
+
                     success: function (data) {
                         console.log(data);
                         if (data = "success") {
