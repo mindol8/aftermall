@@ -1,0 +1,14 @@
+img{
+    margin-left:40%;
+    height:30%!important;
+}
+#signup_box{
+    margin-top: 0.5%;
+    width:40%;
+    margin-left:30%;
+    margin-bottom:5%;
+    border-radius: 5%;
+    background-color:gray;
+    padding:3%;
+    padding-bottom: 1%;
+}
