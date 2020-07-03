@@ -160,9 +160,11 @@
             </div>
         </div>
     </footer>
+
     <script>
         $(document).ready(function () {
             var overlapId = false;
+            var EffectivenessPw = false;
             //check pw
             //length>8 //num + upper case + lower case + Special Characters //no blank //no id //no korean
             $("#checkpassword").off("click").on("click", function () {
@@ -174,51 +176,80 @@
 
                 if (false === reg.test(pw)) {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'Password must be at least 8 characters long and must contain all numbers/case letters/special characters.',
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'Password must be at least 8 characters long and must contain all numbers/case letters/special characters.',
 
-                            })
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+                    })
+
                 } else if (/(\w)\1\1\1/.test(pw)) {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You can not use same letter 4 times',
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'You can not use same letter 4 times',
 
-                            })
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+                    })
+
                 } else if (pw.search(id) > -1) {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You can not use id in to password',
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'You can not use id in to password',
 
-                            })
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+                    })
+
                 } else if (pw.search(/\s/) != -1) {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You can not use blank in to password',
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'You can not use blank in to password',
 
-                            })
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+                    })
+
                 } else if (hangulcheck.test(pw)) {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You can not use korean in to password',
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'You can not use korean in to password',
 
-                            })
-                } else if(c_p == pw){
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+                    })
+
+                } else if (c_p == pw) {
                     Swal.fire({
-                                icon: 'success',
-                                title: 'Effectiveness Check',
-                                text: "You can use this password!!",
-                            })
-                }else{
+                        icon: 'success',
+                        title: 'Effectiveness Check',
+                        text: "You can use this password!!",
+                    }).then(function () {
+                        EffectivenessPw = true;
+                        console.log(EffectivenessPw);
+
+                    })
+
+                } else {
                     Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You have to insert same password',
-                            })
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'You have to insert same password',
+                    }).then(function () {
+                        EffectivenessPw = false;
+                        console.log(EffectivenessPw);
+
+                    })
                 }
 
             })
@@ -228,60 +259,76 @@
                     url: '/signup/overlap',
                     type: 'post',
                     data: $("#userId").serialize(),
-
                     success: function (data) {
                         console.log(data);
-                        if (data = "success") {
-                            overlapId = true;
+                        if (data == "ok") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Overlap Check',
                                 text: "You can use this Id!!",
+                            }).then(function () {
+                                overlapId = true;
+                                console.log(overlapId);
                             })
-
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Fail',
                                 text: 'You can not use this Id!!',
+                            }).then(function () {
+                                overlapId = false;
+                                console.log(overlapId);
+                            })
+                        }
+                    }
+
+                })
+            })
+            
+                //send sign up data to server
+                $("#confirm").off("click").on("click", function () {
+                    var name = $("#userName").val();
+                    var email = $("#userEmail").val();
+                    var phone = $("#userPhone").val();       
+                    if(name == null){
+                        
+                    }         
+                    else if (EffectivenessPw == true && overlapId == true) {                   
+                    $.ajax({
+                        url: '/signup/confirm',
+                        type: 'post',
+                        data: $('form').serialize(),
+                        success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sign up',
+                                text: 'Thanks for join us ' + data + "!!!",
+                            }).then(() => {
+                                location.href = "/signin";
+                            })
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'Sign up Fail!',
 
                             })
-
                         }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Fail',
+                        text: 'Please check Id overlap or password effectiveness',
 
-                    }
-
-                })
+                    })
+                }
 
             })
-            //send sign up data to server
-            $("#confirm").off("click").on("click", function () {
-
-                $.ajax({
-                    url: '/signup/confirm',
-                    type: 'post',
-                    data: $('form').serialize(),
-                    success: function (data) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Sign up',
-                            text: 'Thanks for join us ' + data + "!!!",
-                        }).then(() => {
-                            location.href = "/signin";
-                        })
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'Sign up Fail!',
-
-                        })
-                    }
-                })
             })
-        })
     </script>
+
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>

@@ -1,14 +1,15 @@
 
-var http = require('http')
-var express = require('express')
-var path = require('path')
-var static = require('serve-static')
-var bodyParser = require('body-parser')
-var cors = require('cors') // 다른 서버로 접근하기위해서 사용
+var http = require('http');
+var express = require('express');
+var path = require('path');
+var static = require('serve-static');
+var bodyParser = require('body-parser');
+var cors = require('cors'); // 다른 서버로 접근하기위해서 사용
 var hostname = '0.0.0.0';
-const { constant } = require('async')
+const { constant } = require('async');
 var session = require('express-session');
-var mysql = require('mysql');
+var mysqlDB = require("./DB/db");
+var crypto = require('crypto');
 
 
 var app = express();
@@ -31,15 +32,7 @@ app.engine('html', require('ejs').renderFile);
 
 var router = express.Router();
 
-var connection = mysql.createConnection({
-    host:'127.0.0.1',
-    port:3306,
-    user:'autoin',
-    password:'autoin1020#',
-    database:'autoinmall'
-});
 
-module.exports = connection;
 
 	
 //main page router
@@ -70,15 +63,54 @@ router.get("/signup",function(req,res){
 //signup data
 router.post("/signup/confirm",function(req,res){
     console.log(req.body);
+    var data = req.body;
+    //sign up data
+    var userId = data.userId;
+    var userPw = data.userPw;
+    var userName = data.userName;
+    var userEmail = data.userEmail;
+    var userPhone = data.userPhone;
+    //hash salt
+    var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
+    //password hashing
+    var hashPassword = crypto.createHash("sha512").update(userPw + u_salt).digest("hex");
+    var userInfo = {USER_ID:userId, USER_PW: hashPassword, EMAIL:userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone};
+    console.log(userInfo);
+    //insert sign up data into db
+    mysqlDB.query("INSERT INTO USER SET ?",userInfo,function(err, row,fields){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("sign up success");
+            res.send(req.body.userName);
+        }
+
+    })
     
-    res.send(req.body.userName);
 })
 //signup check overlap id
 router.post("/signup/overlap",function(req,res){
-    console.log(req.body.userId);  
-  
+    console.log(req.body.userId); 
+    var checkId = req.body.userId; 
+    mysqlDB.query("SELECT USER_ID FROM USER WHERE USER_ID = ?",[checkId],function(err, row,fields){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(row[0]);            
+            if(row[0] == null){
+                res.send("ok");
+            }else{
+                res.send("fail");
+            }
+          
+            
+        }
+
+    })
     //send true false
-    res.send("success");
+    
 })
 
 

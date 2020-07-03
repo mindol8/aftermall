@@ -66,42 +66,43 @@
             <!--임의로 넣은 이미지여서 정식 이미지 요청할 것-->
         </div>
         <div id="signup_box">
-        <form>
-            <!--ID-->
-            <div class="input-group mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id=""><i class="far fa-id-card"></i></span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="text" class="form-control" id="userId" name="userId" placeholder="insert your id">
+            <form>
+                <!--ID-->
+                <div class="input-group mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="far fa-id-card"></i></span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="text" class="form-control" id="userId" name="userId"
+                                placeholder="insert your id">
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--PW-->
-            <div class="input-group mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id=""><i class="fas fa-key"></i></span>
+                <!--PW-->
+                <div class="input-group mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" id="userPw" name="userPw"
+                            placeholder="insert your password">
                     </div>
-                    <input type="password" class="form-control" id="userPw" name="userPw"
-                        placeholder="insert your password">
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customControlInline">
-                    <label class="custom-control-label" for="customControlInline">Remember me</label>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customControlInline">
+                        <label class="custom-control-label" for="customControlInline">Remember me</label>
+                    </div>
                 </div>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group">
-                    <input type="button" class="btn btn-info btn-block" id="confirm" value="confirm">
+                <div class="input-group mb-3">
+                    <div class="input-group">
+                        <input type="button" class="btn btn-info btn-block" id="confirm" value="confirm">
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
                     Don't have an account? <a href="/signup" class="ml-2">Sign Up</a>
@@ -141,31 +142,35 @@
     <!-- Core theme JS-->
     <script src="../stylesheet/js/scripts.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             //send sign in data to server
-            $("#confirm").off("click").on("click", function () {                
-                $.ajax({
-                    url: '/signin/confirm',
-                    type: 'post',
-                    data: $('form').serialize(),
-                    success: function (data) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Sign in',
-                            text: 'Welcome ' + data + "!!!",
-                        }).then(() => {
-                            location.href = "/";
-                        })
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'Sign in Fail!',
+            $("#confirm").off("click").on("click", function () {
+                var userid = $("#userId").val();
+                var userpw = $("#userPw").val();
+                if (userid != null && userpw != null) {
+                    $.ajax({
+                        url: '/signin/confirm',
+                        type: 'post',
+                        data: $('form').serialize(),
+                        success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sign in',
+                                text: 'Welcome ' + data + "!!!",
+                            }).then(() => {
+                                location.href = "/";
+                            })
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'Sign in Fail!',
 
-                        })
-                    }
-                })
+                            })
+                        }
+                    })
+                }
             })
         })
     </script>
