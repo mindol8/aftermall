@@ -9,7 +9,10 @@
   <meta name="author" content="">
 
   <title>Shop Item</title>
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -29,13 +32,13 @@
     <div class="container">           
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav text-uppercase ml-auto">
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#masterhead">Home</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>                         
             </ul>
         </div>
-        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:5%">AUTOINMall
+        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:3%">AUTOINMall
         <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
         <form class="form-inline active-pink-3 active-pink-4" style="width:40%">                   
             <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
@@ -47,9 +50,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin">Signin</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Cart</a></li>                 
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li> 
+            <li class="nav-item" ><a class="nav-link js-scroll-trigger" id="account_ctrl"  href="/signin">Signin</a></li>                
         </ul>
         </div>
     </div>
@@ -61,11 +64,73 @@
     <div class="row">
 
       <div class="col-lg-3">
-        <h1 class="my-4">Autoin</h1>
-        <div class="list-group">
-          <a href="#" class="list-group-item active">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+        <h1 class="my-4" style="text-align: center;">Autoin</h1>
+        <div class="list-group"> 
+          <div class="dropright"><a href="#" style="color:black!important" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>    
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Body</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brake System</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Electric Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Interior Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Steering Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tuning Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">etc</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>         
+         
+
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -142,6 +207,14 @@
 <script src="../stylesheet/mail/contact_me.js"></script>
 <!-- Core theme JS-->
 <script src="../stylesheet/js/scripts.js"></script>
+<script>
+  var username = '<%- username %>';
+  console.log(username);
+  if(username){
+      $("#account_ctrl").html('Logout');
+      $("#account_ctrl").attr("href","/logout");
+  }
+</script>
 </body>
 
 </html>

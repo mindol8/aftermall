@@ -39,26 +39,60 @@ var router = express.Router();
 app.use('/', router);
 
 app.use(function (req, res, next) { 
-    var sess = req.session;
-    sess.username = "default";
-    res.render('index.html',{sess:sess});
+    sess = req.session;
+    console.log(sess.username);
+    res.render('index.html',{username:sess.username});
 })
 
+//logout router
+router.get("/signout",function (req, res) {
+    req.session.destroy(function () {
+        req.session;
+    });
+    res.redirect('/');
+})
 //signin router
 router.get("/signin",function(req,res){
-    res.render("signin.html");
+    res.render("signin.html",{flag:''});
 })
 
 //signin data
 router.post("/signin/confirm",function(req,res){
     console.log(req.body);    
-    res.send(req.body.userId);
+    var userid = req.body.userId;
+    var userpw = req.body.userPw;
+    mysqlDB.query("SELECT * FROM USER WHERE USER_ID = ?",[userid],function(err, row,fields){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var salt = row[0].SALT;
+            var pw = row[0].USER_PW;
+            var name = row[0].NAME;
+            var hashPassword = crypto.createHash("sha512").update(userpw + salt).digest("hex");
+            if(hashPassword === pw){
+                console.log("signin success");
+                sess = req.session;
+                sess.username = name;
+                res.send(name);
+            
+            }else{
+                console.log("fail");
+            }
+        }
+    })
 })
 
 //sign up router
 router.get("/signup",function(req,res){
     res.render("signup.html");
 })
+
+//find password router
+router.get("/findpw",function(req,res){
+    res.render("findpw.html");
+})
+
 
 //signup data
 router.post("/signup/confirm",function(req,res){
@@ -93,7 +127,7 @@ router.post("/signup/confirm",function(req,res){
 router.post("/signup/overlap",function(req,res){
     console.log(req.body.userId); 
     var checkId = req.body.userId; 
-    mysqlDB.query("SELECT USER_ID FROM USER WHERE USER_ID = ?",[checkId],function(err, row,fields){
+    mysqlDB.query("SELECT USER_ID FROM USER WHERE USER_ID = ?",[checkId],function(err, row, fields){
         if(err){
             console.log(err);
         }
@@ -116,17 +150,25 @@ router.post("/signup/overlap",function(req,res){
 
 //shopping mall router
 router.get("/shop",function(req,res){
-    res.render("shop.html");
+    sess = req.session;
+    res.render("shop.html",{username:sess.username});
 })
 
 //item router
 router.get("/item",function(req,res){
-    res.render("item.html");
+    sess = req.session;
+    res.render("item.html",{username:sess.username});
 })
 
 //cart router
 router.get("/cart",function(req,res){
-    res.render("cart.html");
+    sess = req.session;
+    if(!sess.username){
+        res.render("signin.html",{flag:'no'});
+    }else{
+        res.render("cart.html",{username:sess.username});
+    }
+    
 })
 
 

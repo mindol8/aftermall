@@ -32,13 +32,13 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#masterhead">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
                 </ul>
             </div>
-            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:5%">AUTOINMall
+            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:3%">AUTOINMall
                 <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
             <form class="form-inline active-pink-3 active-pink-4" style="width:40%">
                 <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
@@ -52,9 +52,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin">Signin</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>
+                    <li class="nav-item" id="account"><a class="nav-link js-scroll-trigger"  href="/signin">Signin</a></li>
                 </ul>
             </div>
         </div>
@@ -229,7 +229,7 @@
                         console.log(EffectivenessPw);
                     })
 
-                } else if (c_p == pw) {
+                } else if (c_p === pw) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Effectiveness Check',
@@ -255,13 +255,15 @@
             })
             //check overlap user ID
             $("#checkId").off("click").on("click", function () {
-                $.ajax({
+                var userid = $("#userId").val;
+                if(!userid){
+                    $.ajax({
                     url: '/signup/overlap',
                     type: 'post',
                     data: $("#userId").serialize(),
                     success: function (data) {
                         console.log(data);
-                        if (data == "ok") {
+                        if (data === "ok") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Overlap Check',
@@ -283,17 +285,89 @@
                     }
 
                 })
+                }else{
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Fail',
+                                text: 'Please insert your Id',
+                            })
+                }
+                
             })
             
-                //send sign up data to server
-                $("#confirm").off("click").on("click", function () {
-                    var name = $("#userName").val();
-                    var email = $("#userEmail").val();
-                    var phone = $("#userPhone").val();       
-                    if(name == null){
-                        
-                    }         
-                    else if (EffectivenessPw == true && overlapId == true) {                   
+            //send sign up data to server
+            $("#confirm").off("click").on("click", function () {
+                var id = $("#userId").val();
+                var pw = $("#userPw").val();
+                var name = $("#userName").val();
+                console.log(name);
+                var email = $("#userEmail").val();
+                var phone = $("#userPhone").val();      
+                //check id is not null
+                if(!id){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your Id'
+                        })                            
+                }
+                //check id overlap
+                else if(overlapId == false){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to check Id'
+                        }) 
+                }
+                //check password is not null
+                else if(!pw){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your Password'
+                        }) 
+                }
+                else if(EffectivenessPw == false){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to check Password Effectiveness'
+                        }) 
+                }
+                //check name is not null                   
+                else if(!name){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your name'
+                        }) 
+                }
+                //check email is not null
+                else if(!email){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your email'
+                        })   
+                }
+                //check phone number is not null
+                else if(!phone){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your phone number'
+                        })   
+                }
+                //check phone number is not a number
+                else if(isNaN(phone)){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'You have to insert your phone number only number'
+                        })   
+                }  
+                //finish all test
+                else{                   
                     $.ajax({
                         url: '/signup/confirm',
                         type: 'post',
@@ -316,17 +390,9 @@
                             })
                         }
                     })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'Please check Id overlap or password effectiveness',
-
-                    })
                 }
-
             })
-            })
+        })
     </script>
 
     <!-- Bootstrap core JS-->

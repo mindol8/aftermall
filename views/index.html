@@ -1,163 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />        
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>AUTOINMall</title>
-        <link rel="icon" type="image/x-icon" href="../stylesheet/img/favicon.ico" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js" rel="stylesheet">
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../stylesheet/css/styles.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">           
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#masterhead">Home</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
-                    </ul>
-                </div>
-                <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:5%">AUTOINMall
-                <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
-                <form class="form-inline active-pink-3 active-pink-4" style="width:40%">                   
-                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-                      aria-label="Search" style="width:300px">
-                  </form>
-                  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                  <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item" id="account"><a class="nav-link js-scroll-trigger"  href="/signin">Signin</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>                 
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AUTOINMall</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/index.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                 </ul>
-                </div>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead" id="masterhead">
-            <div class="container">
-                <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
-                <div class="masthead-subheading">Free shipping on all orders over $99</div>                
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/shop">SHOPPING NOW</a>
+            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:3%">AUTOINMall
+                <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
+            <form class="form-inline active-pink-3 active-pink-4" style="width:40%">
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search" style="width:300px">
+            </form>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ml-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" id="account_ctrl"
+                            href="/signin">Signin</a></li>
+                </ul>
             </div>
-        </header>
-        <!-- Services-->
-        <section class="page-section" id="cartegories">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Categories</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">E-Commerce</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Responsive Design</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Web Security</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-       <!-- brands-->
-       <div class = "page-section"  id="brands">
-        <div class="swiper-container">
-            <h2 class="section-heading text-uppercase" id="brand">Brands</h2>
-            <br>
-            <div class="swiper-wrapper">                
-                <div class="swiper-slide">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/envato.jpg" alt="" /></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/designmodo.jpg" alt="" /></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/themeforest.jpg" alt="" /></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/creative-market.jpg" alt="" /></a>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
         </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead" id="home">
+        <div class="container">
+            <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
+            <div class="masthead-subheading">Free shipping on all orders over $99</div>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/shop">SHOPPING NOW</a>
+        </div>
+    </header>
+    <!-- Services-->
+    <section class="page-section" id="cartegories">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Categories</h2>
+                <h3 class="section-subheading text-muted">Choose the categories what you want to buy!!</h3>
+            </div>
+            <div class="row text-center">
+                <!--show 4 items in middle size page and show 2 items in small size page-->
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Accessories</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Body</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Brake System</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Electric Parts</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Interior Parts</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Steering Parts</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Suspention Parts</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <a href="/shop">
+                        <h4 class="my-3">Tuning Parts</h4>
+                    </a>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- brands-->
+    <div class="page-section" id="brands">
+        <h2 class="section-heading text-uppercase" id="brand">Brands</h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/envato.jpg"
+                alt="" /></a></div>
+              <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/designmodo.jpg"
+                alt="" /></a></div>
+              <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto" src="../stylesheet/img/logos/themeforest.jpg"
+                alt="" /></a></div>
+              <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto"
+                src="../stylesheet/img/logos/creative-market.jpg" alt="" /></a></div>             
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        
     </div>
-    
-        <!-- About-->
-        <section class="page-section" id="about">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-                
+
+    <!-- About-->
+    <section class="page-section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">About</h2>
+                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
-        </section>
-        
-        
-        <!-- Footer-->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="col-lg-4 text-lg-right">
-                        <a class="mr-3" href="#!">Privacy Policy</a>
-                        <a href="#!">Terms of Use</a>
-                    </div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-right">
+                    <a class="mr-3" href="#!">Privacy Policy</a>
+                    <a href="#!">Terms of Use</a>
                 </div>
             </div>
-        </footer>
-      
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Contact form JS-->
-        <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-        <script src="../stylesheet/mail/contact_me.js"></script>
-        <!-- Core theme JS-->
-        <script src="../stylesheet/js/scripts.js"></script>
-        
-        <script>
-        
-        </script>
-    </body>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+    <script src="../stylesheet/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="../stylesheet/js/scripts.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var username = '<%- username %>';
+            console.log(username);
+            if (username) {
+                $("#account_ctrl").html('Signout');
+                $("#account_ctrl").attr("href", "/signout");
+            }
+            //swiper side running
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                slidesPerGroup: 3,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        })
+
+    </script>
+</body>
+
 </html>

@@ -11,11 +11,16 @@
   <title>Shop</title>
   <!-- Bootstrap core CSS -->
   <link href="../stylesheet/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
   <!-- Custom styles for this template -->
   <link href="../stylesheet/css/styles.css" rel="stylesheet" />
   <link href="../stylesheet/css/shop-homepage.css" rel="stylesheet">
@@ -23,51 +28,112 @@
 </head>
 
 <body>
-  
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color:#212529;">
-    <div class="container">           
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav text-uppercase ml-auto">
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#masterhead">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>                    
-            </ul>
-        </div>
-        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:5%">AUTOINMall
-        <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
-        <form class="form-inline active-pink-3 active-pink-4" style="width:40%">                   
-            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-              aria-label="Search" style="width:300px">
-          </form>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars ml-1"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin">Signin</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Cart</a></li>                 
+    <div class="container">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
         </ul>
-        </div>
+      </div>
+      <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:3%">AUTOINMall
+        <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
+      <form class="form-inline active-pink-3 active-pink-4" style="width:40%">
+        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search"
+          style="width:300px">
+      </form>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars ml-1"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" id="account_ctrl" href="/signin">Signin</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 
-<br>
+  <br>
   <!-- Page Content -->
   <div class="container">
-
     <div class="row">
-
       <div class="col-lg-3">
+        <h1 class="my-4" style="text-align: center;">Autoin</h1>
+        <div class="list-group"> 
+          <div class="dropright"><a href="#" style="color:black!important" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>    
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Body</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brake System</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Electric Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Interior Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Steering Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tuning Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>   
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">etc</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>         
+         
 
-        <h1 class="my-4">Autoin</h1>
-        <div class="list-group">
-          <a href="#" class="list-group-item" >Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
         </div>
 
       </div>
@@ -112,7 +178,8 @@
                   <a href="/item">Item One</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                </p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -128,7 +195,8 @@
                   <a href="#">Item Two</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                  Lorem ipsum dolor sit amet.</p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -144,7 +212,8 @@
                   <a href="#">Item Three</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                </p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -160,7 +229,8 @@
                   <a href="#">Item Four</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                </p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -176,7 +246,8 @@
                   <a href="#">Item Five</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                  Lorem ipsum dolor sit amet.</p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -192,7 +263,8 @@
                   <a href="#">Item Six</a>
                 </h4>
                 <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                </p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -212,37 +284,49 @@
   </div>
   <!-- /.container -->
 
-<!-- Footer-->
-<footer class="footer py-4">
-  <div class="container">
+  <!-- Footer-->
+  <footer class="footer py-4">
+    <div class="container">
       <div class="row align-items-center">
-          <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-          <div class="col-lg-4 my-3 my-lg-0">
-              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="col-lg-4 text-lg-right">
-              <a class="mr-3" href="#!">Privacy Policy</a>
-              <a href="#!">Terms of Use</a>
-          </div>
+        <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+        <div class="col-lg-4 my-3 my-lg-0">
+          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="col-lg-4 text-lg-right">
+          <a class="mr-3" href="#!">Privacy Policy</a>
+          <a href="#!">Terms of Use</a>
+        </div>
       </div>
-  </div>
-</footer>
+    </div>
+  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="../stylesheet/vendor/jquery/jquery.min.js"></script>
   <script src="../stylesheet/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Bootstrap core JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<!-- Third party plugin JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<!-- Contact form JS-->
-<script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-<script src="../stylesheet/mail/contact_me.js"></script>
-<!-- Core theme JS-->
-<script src="../stylesheet/js/scripts.js"></script>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Third party plugin JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <!-- Contact form JS-->
+  <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+  <script src="../stylesheet/mail/contact_me.js"></script>
+  <!-- Core theme JS-->
+  <script src="../stylesheet/js/scripts.js"></script>
+  <script>
+    $(document).ready(function () {
+      var username = '<%- username %>';
+      console.log(username);
+      if (username) {
+        $("#account_ctrl").html('Logout');
+        $("#account_ctrl").attr("href", "/logout");
+      }
+
+    })
+
+  </script>
 </body>
 
 </html>

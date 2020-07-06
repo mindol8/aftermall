@@ -6,3 +6,13 @@
 body {
   padding-top: 56px;
 }
+.list-group a:hover{
+  background-color:#fed136;
+}
+.list-group a{
+  text-decoration: none;
+}
+
+.list-group .list-group-item{
+  color:black!important;
+}

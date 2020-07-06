@@ -1,0 +1,23 @@
+#table_view{
+    margin-top:3%;
+    margin-bottom:3%;
+    box-shadow: 5px 5px 5px 5px gray;
+   
+    background-color:silver;
+    border:1px solid black;
+}
+
+#buy_btn{
+    margin-bottom:1%;
+    margin-left:40%;
+    margin-right:40%;
+    width:20%;
+}
+
+td .btn{
+    margin-left:20%;
+    margin-right:20%;
+    width:60%;
+    padding-left:5%;
+    padding-right:5%;
+}
