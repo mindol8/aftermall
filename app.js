@@ -147,6 +147,11 @@ router.post("/signup/overlap",function(req,res){
     
 })
 
+//search item
+router.post("/search",function(req,res){
+    var theme = req.body.theme;
+    var item = req.bodyd.search_thing;
+})
 
 //shopping mall router
 router.get("/shop",function(req,res){

@@ -41,13 +41,39 @@
         target: "#mainNav",
         offset: 74,
     });
+    
+    $(window).resize(function() { 
+        if($(window).width() <975) {
+            $("#resizemenu").html(
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Management</a></li>'
+            );
+         }else{
+            $("#resizemenu").html(
+                '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"'+
+                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>'+
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
+                '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>'+
+                '<a class="dropdown-item" href="/cart">Cart</a>'+
+                '<a class="dropdown-item" href="#">Management</a></div></div>'
 
+            );
+         }  
+     });
+
+
+ 
     // Collapse Navbar
     var navbarCollapse = function () {
+        var windowwidth = $(window).width();
         if ($("#mainNav").offset().top > 100) {
-            $("#mainNav").addClass("navbar-shrink");
+            $("#mainNav").addClass("navbar-shrink");      
+           
+           
         } else {
-            $("#mainNav").removeClass("navbar-shrink");
+            $("#mainNav").removeClass("navbar-shrink");        
+                
         }
     };
     // Collapse now if page is not at top
