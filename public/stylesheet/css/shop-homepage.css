@@ -16,3 +16,15 @@ body {
 .list-group .list-group-item{
   color:black!important;
 }
+#mainNav{
+  background-color:#212529;
+}
+.dropdown-menu{
+  background-color:#212529;
+}
+.dropdown-item{
+  color:white!important;
+}
+.dropdown-item:hover{
+  background-color: silver!important;
+}

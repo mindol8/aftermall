@@ -28,32 +28,34 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color:#212529;">
-    <div class="container">           
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav text-uppercase ml-auto">
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>                         
-            </ul>
-        </div>
-        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:3%">AUTOINMall
-        <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
-        <form class="form-inline active-pink-3 active-pink-4" style="width:40%">                   
-            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-              aria-label="Search" style="width:300px">
-          </form>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+
+        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">AUTOINMall
+            <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ml-1"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li> 
-            <li class="nav-item" ><a class="nav-link js-scroll-trigger" id="account_ctrl"  href="/signin">Signin</a></li>                
-        </ul>
+        <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
+                <li class="nav-item" id="resizemenu">
+                    <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
+                            <a class="dropdown-item" href="/cart">Cart</a>
+                            <a class="dropdown-item" href="#">Management</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

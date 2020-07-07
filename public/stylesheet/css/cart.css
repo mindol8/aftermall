@@ -13,7 +13,9 @@
     margin-right:40%;
     width:20%;
 }
-
+#mainNav{
+    background-color:#212529;
+  }
 td .btn{
     margin-left:20%;
     margin-right:20%;

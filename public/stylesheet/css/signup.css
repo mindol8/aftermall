@@ -12,3 +12,16 @@ img{
     padding:3%;
     padding-bottom: 1%;
 }
+#mainNav{
+  background-color:#212529;
+}
+.dropdown-menu{
+    background-color:#212529;
+  }
+  .dropdown-item{
+    color:white!important;
+  }
+  .dropdown-item:hover{
+    background-color: silver!important;
+  }
+  
