@@ -31,9 +31,6 @@ app.set('views engin', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var router = express.Router();
-
-
-
 	
 //main page router
 app.use('/', router);
@@ -47,13 +44,16 @@ app.use(function (req, res, next) {
 //logout router
 router.get("/signout",function (req, res) {
     req.session.destroy(function () {
+        console.log(req.session);
         req.session;
+        console.log(req.session);
     });
     res.redirect('/');
 })
 //signin router
 router.get("/signin",function(req,res){
-    res.render("signin.html",{flag:''});
+    var sess=req.session;
+    res.render("signin.html",{flag:'',username:sess.username});
 })
 
 //signin data
@@ -150,7 +150,31 @@ router.post("/signup/overlap",function(req,res){
 //search item
 router.post("/search",function(req,res){
     var theme = req.body.theme;
-    var item = req.bodyd.search_thing;
+    var item = req.body.search_thing;
+    var sess = req.session;
+    console.log(theme+"  "+item);
+    if(theme == "model"){
+      //  mysqlDB.query("SELECT * FROM ITEM WHERE MODEL = ?",[item],function(err, row, fields){
+
+
+       // })
+    }else if(theme == "pin"){
+       // mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[item],function(err, row, fields){
+
+
+      //  })
+
+    }else if(theme == "manufacturer"){
+       // mysqlDB.query("SELECT * FROM ITEM WHERE MANUFACTURER = ?",[item],function(err, row, fields){
+
+
+        //})
+        
+    }else{
+
+    }
+    console.log(sess);
+    res.send({username:sess.username});
 })
 
 //shopping mall router
@@ -169,7 +193,7 @@ router.get("/item",function(req,res){
 router.get("/cart",function(req,res){
     sess = req.session;
     if(!sess.username){
-        res.render("signin.html",{flag:'no'});
+        res.render("signin.html",{flag:'no',username:sess.username});
     }else{
         res.render("cart.html",{username:sess.username});
     }

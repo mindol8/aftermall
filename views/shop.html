@@ -48,12 +48,11 @@
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
                 <li class="nav-item" id="resizemenu">
-                    <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
+                    <div class="dropdown" id-="nav_drop"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
-                            <a class="dropdown-item" href="/cart">Cart</a>
-                            <a class="dropdown-item" href="#">Management</a>
+                        <div class="dropdown-menu" style="background-color:#212529" aria-labelledby="dropdownMenuButton" id="accountMenu">
+                            <a class="dropdown-item" style="color:white;" href="/signin" id="account_ctrl">Signin</a>
+                            <a class="dropdown-item" style="color:white;" href="/cart">Cart</a>                            
                         </div>
                     </div>
                 </li>
@@ -69,7 +68,7 @@
       <div class="col-lg-3">
         <h1 class="my-4" style="text-align: center;">Autoin</h1>
         <div class="list-group"> 
-          <div class="dropright"><a href="#" style="color:black!important" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
+          <div class="dropright" id="right"><a href="#" style="color:black!important" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Action</a>
               <a class="dropdown-item" href="#">Another action</a>
@@ -112,7 +111,7 @@
             </div>
           </div>   
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu shop" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Action</a>
               <a class="dropdown-item" href="#">Another action</a>
               <a class="dropdown-item" href="#">Something else here</a>
@@ -320,9 +319,14 @@
       var username = '<%- username %>';
       console.log(username);
       if (username) {
-        $("#account_ctrl").html('Logout');
-        $("#account_ctrl").attr("href", "/logout");
-      }
+        $("#account_ctrl").html('Signout');
+        $("#account_ctrl").attr("href", "/signout");
+        $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="#">Management</a>');
+      }else{
+                $("#account_ctrl").html('Signin');
+                $("#account_ctrl").attr("href", "/signin");
+                $("#accountMenu").remove("#management");
+            }
 
     })
 

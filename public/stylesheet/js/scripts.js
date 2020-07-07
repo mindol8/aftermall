@@ -43,7 +43,7 @@
     });
     
     $(window).resize(function() { 
-        if($(window).width() <975) {
+        if($(window).width() <976) {
             $("#resizemenu").html(
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+

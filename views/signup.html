@@ -51,7 +51,6 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
                                 <a class="dropdown-item" href="/cart">Cart</a>
-                                <a class="dropdown-item" href="#">Management</a>
                             </div>
                         </div>
                     </li>
@@ -256,14 +255,14 @@
             //check overlap user ID
             $("#checkId").off("click").on("click", function () {
                 var userid = $("#userId").val;
-                if(!userid){
+                if(userid){
                     $.ajax({
                     url: '/signup/overlap',
                     type: 'post',
                     data: $("#userId").serialize(),
                     success: function (data) {
                         console.log(data);
-                        if (data === "ok") {
+                        if (data == "ok") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Overlap Check',

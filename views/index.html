@@ -47,14 +47,14 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="accountMenu">
                                 <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
                                 <a class="dropdown-item" href="/cart">Cart</a>
-                                <a class="dropdown-item" href="#">Management</a>
+
                             </div>
                         </div>
                     </li>
@@ -67,20 +67,21 @@
         <div class="container">
             <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
             <div class="masthead-subheading" style="width:70%;margin-left:15%;margin-right:15%;">
-                <form action="/search" method="POST">
+                <form id="search_form">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend" id="select_theme">
-                            <select class="custom-select" name = "theme">
+                            <select class="custom-select" name="theme" id="theme">
                                 <option selected>Theme</option>
                                 <option value="model">Model</option>
                                 <option value="pin">Pin</option>
                                 <option value="manufacturer">Manufacturer</option>
                             </select>
                         </div>
-                        <input type="text" class="form-control" placeholder="search" name="search_thing">
+                        <input type="text" class="form-control" placeholder="search" name="search_thing" id="thing">
                     </div>
-                </div>
-                <input type="submit" value="SHOPPING NOW" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/shop">
+            </div>
+            <input type="button" value="SHOPPING NOW" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+                id="shop_now">
             </form>
         </div>
     </header>
@@ -93,93 +94,118 @@
             </div>
             <div class="row text-center">
                 <!--show 4 items in middle size page and show 2 items in small size page-->
+
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Accessories</h4>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
+
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Body</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Brake System</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Electric Parts</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Interior Parts</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Steering Parts</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Suspention Parts</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <a href="/shop">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+
                         <h4 class="my-3">Tuning Parts</h4>
+
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
+                            quam
+                            architecto quo inventore harum ex magni, dicta impedit.</p>
                     </a>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
             </div>
         </div>
@@ -245,7 +271,7 @@
     <script src="../stylesheet/mail/contact_me.js"></script>
     <!-- Core theme JS-->
     <script src="../stylesheet/js/scripts.js"></script>
-   
+
     <script>
         $(document).ready(function () {
 
@@ -254,6 +280,7 @@
             if (username) {
                 $("#account_ctrl").html('Signout');
                 $("#account_ctrl").attr("href", "/signout");
+                $("#accountMenu").append('<a class="dropdown-item" id="management" href="#">Management</a>');
             }
             //swiper side running
             var swiper = new Swiper('.swiper-container', {
@@ -270,6 +297,45 @@
                     clickable: true,
                 },
             });
+
+            $("#shop_now").off("click").on("click", function () {
+                var theme = $("#theme").val();
+                var thing = $("#thing").val();
+                if (!theme) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Search Fail',
+                                text: 'Please choose theme',
+
+                            })
+                } else if (!thing) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Search Fail',
+                                text: 'Please insert subject',
+
+                            })
+                } else {
+                    $.ajax({
+                        url: '/search',
+                        type: 'post',
+                        data: $('#search_form').serialize(),
+                        success:function(data){
+                            location.href="/shop";
+                            //shop으로 보낼때, 받아온 정보도 보내야한다.아니면 해당 쿼리 내용을 세션에 저장해놓고 shop호출할때 세션 읽어야한다.
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Search Fail',
+                                text: 'Wrong input',
+
+                            })
+                        }
+                    })
+                }
+
+            })
         })
 
     </script>

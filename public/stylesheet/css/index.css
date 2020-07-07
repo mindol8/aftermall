@@ -36,6 +36,8 @@
 }
 
 
+
+
 .dropdown-menu{
   background-color:#212529;
 }
@@ -44,4 +46,7 @@
 }
 .dropdown-item:hover{
   background-color: silver!important;
+}
+.shop-item{
+  background-color:white!important;
 }

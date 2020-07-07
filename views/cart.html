@@ -48,10 +48,9 @@
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"  id="accountMenu"s>
                                 <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
-                                <a class="dropdown-item" href="/cart">Cart</a>
-                                <a class="dropdown-item" href="#">Management</a>
+                                <a class="dropdown-item" href="/cart">Cart</a>                                
                             </div>
                         </div>
                     </li>
@@ -180,6 +179,11 @@
             if(username){
                 $("#account_ctrl").html('Logout');
                 $("#account_ctrl").attr("href","/logout");
+                $("#accountMenu").append('<a class="dropdown-item" href="#">Management</a>');
+            }else{
+                $("#account_ctrl").html('Signin');
+                $("#account_ctrl").attr("href", "/signin");
+                $("#accountMenu").remove("#management");
             }
            
         })

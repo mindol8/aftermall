@@ -1,3 +1,9 @@
+use autoinmall;
+
+drop table USER;
+drop table ITEM;
+
+
 CREATE TABLE USER(
     USER_ID VARCHAR(20),
     USER_PW VARCHAR(512),
@@ -17,5 +23,8 @@ CREATE TABLE ITEM(
     MOD_DET VARCHAR(50),
     MANUFACTURER VARCHAR(30),
     PRICE INT(20),
+    MAINC VARCHAR(50),
+    SUBC VARCHAR(50),
     PRIMARY KEY(PIN)   
 );
+
