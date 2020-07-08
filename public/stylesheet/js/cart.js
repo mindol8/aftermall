@@ -3,71 +3,10 @@
     * Copyright 2013-2020 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
     */
-    (function ($) {
+   (function ($) {
     "use strict"; // Start of use strict
     $(document).ready(function () {
-        if($(window).width() <976) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-         }
-        //swiper side running
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            loop: true,
-            //centeredSlides: true,
-            autoplay: {
-                delay: 1500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-
-        $("#shop_now").off("click").on("click", function () {
-            var theme = $("#theme").val();
-            var thing = $("#thing").val();
-            if (!theme) {
-                Swal.fire({
-                            icon: 'error',
-                            title: 'Search Fail',
-                            text: 'Please choose theme',
-
-                        })
-            } else if (!thing) {
-                Swal.fire({
-                            icon: 'error',
-                            title: 'Search Fail',
-                            text: 'Please insert subject',
-
-                        })
-            } else {
-                $.ajax({
-                    url: '/search',
-                    type: 'post',
-                    data: $('#search_form').serialize(),
-                    success:function(data){
-                        location.href="/shop";
-                        //shop으로 보낼때, 받아온 정보도 보내야한다.아니면 해당 쿼리 내용을 세션에 저장해놓고 shop호출할때 세션 읽어야한다.
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Search Fail',
-                            text: 'Wrong input',
-
-                        })
-                    }
-                })
-            }
-
-        })
-
+       
          // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
         if (
@@ -108,7 +47,7 @@
             $("#resizemenu").html(
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mangement">Management</a></li>'
             );
          }else{
             $("#resizemenu").html(
@@ -123,7 +62,13 @@
          }  
      });
 
-
+     if($(window).width() <976) {
+        $("#resizemenu").html(
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+        );
+     }
  
     // Collapse Navbar
     var navbarCollapse = function () {

@@ -1,0 +1,43 @@
+#mainNav{
+    background-color:#212529;
+  }
+  .dropdown-menu{
+      background-color:#212529;
+    }
+    .dropdown-item{
+      color:white!important;
+    }
+    .dropdown-item:hover{
+      background-color: silver!important;
+    }
+  #card{
+      padding-top: 6%;
+  } 
+  .card{
+      margin-left:15%!important;
+      margin-right:15%!important;
+      width:70%!important;
+  } 
+  .card-header{
+      text-align: center;
+  }
+.half{
+    width:50%!important;
+    margin-left:50%;
+}
+.quater{
+    width:25%!important;
+    margin-left:75%;
+    margin-bottom:1%;
+}
+.attr{
+    width:100%;
+    text-align: right;
+    margin-right:3%;
+    border-bottom:1px solid silver;
+    padding-bottom:1%;
+    margin-bottom:1%;
+}
+input{
+  text-align: right;
+}

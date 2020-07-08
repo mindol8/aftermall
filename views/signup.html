@@ -41,10 +41,10 @@
             </button>
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -73,12 +73,11 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id=""><i class="far fa-id-card"></i></span>
                         </div>
-                        <div class="custom-file">
+                        
                             <input type="text" class="form-control" id="userId" name="userId"
                                 placeholder="insert your id">
-
                             <input type="button" class="btn btn-info" id="checkId" value="check">
-                        </div>
+                       
                     </div>
                 </div>
                 <!--PW-->
@@ -110,6 +109,18 @@
                         </div>
                         <input type="text" class="form-control" id="userName" name="userName"
                             placeholder="insert your name">
+                    </div>
+                </div>
+                <!--address & zipcode-->
+                <div class="input-group mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fas fa-map-marked-alt"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="userZipcode" name="userZipcode"
+                            placeholder="insert your Zipcode" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
+                        <div style="width:100%;margin-top:1rem;"><input  type="text" class="form-control" id="userAddress" name="userAddress"
+                                placeholder="insert your Address" style="text-align: right;"></div>                       
                     </div>
                 </div>
                 <!--email-->
@@ -159,241 +170,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        $(document).ready(function () {
-            var overlapId = false;
-            var EffectivenessPw = false;
-            //check pw
-            //length>8 //num + upper case + lower case + Special Characters //no blank //no id //no korean
-            $("#checkpassword").off("click").on("click", function () {
-                var pw = $("#userPw").val();
-                var id = $("#userId").val();
-                var c_p = $("#checkPw").val();
-                var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
-                if (false === reg.test(pw)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'Password must be at least 8 characters long and must contain all numbers/case letters/special characters.',
-
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-                    })
-
-                } else if (/(\w)\1\1\1/.test(pw)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'You can not use same letter 4 times',
-
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-                    })
-
-                } else if (pw.search(id) > -1) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'You can not use id in to password',
-
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-                    })
-
-                } else if (pw.search(/\s/) != -1) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'You can not use blank in to password',
-
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-                    })
-
-                } else if (hangulcheck.test(pw)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'You can not use korean in to password',
-
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-                    })
-
-                } else if (c_p === pw) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Effectiveness Check',
-                        text: "You can use this password!!",
-                    }).then(function () {
-                        EffectivenessPw = true;
-                        console.log(EffectivenessPw);
-
-                    })
-
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'You have to insert same password',
-                    }).then(function () {
-                        EffectivenessPw = false;
-                        console.log(EffectivenessPw);
-
-                    })
-                }
-
-            })
-            //check overlap user ID
-            $("#checkId").off("click").on("click", function () {
-                var userid = $("#userId").val;
-                if(userid){
-                    $.ajax({
-                    url: '/signup/overlap',
-                    type: 'post',
-                    data: $("#userId").serialize(),
-                    success: function (data) {
-                        console.log(data);
-                        if (data == "ok") {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Overlap Check',
-                                text: "You can use this Id!!",
-                            }).then(function () {
-                                overlapId = true;
-                                console.log(overlapId);
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'You can not use this Id!!',
-                            }).then(function () {
-                                overlapId = false;
-                                console.log(overlapId);
-                            })
-                        }
-                    }
-
-                })
-                }else{
-                    Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'Please insert your Id',
-                            })
-                }
-                
-            })
-            
-            //send sign up data to server
-            $("#confirm").off("click").on("click", function () {
-                var id = $("#userId").val();
-                var pw = $("#userPw").val();
-                var name = $("#userName").val();
-                console.log(name);
-                var email = $("#userEmail").val();
-                var phone = $("#userPhone").val();      
-                //check id is not null
-                if(!id){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your Id'
-                        })                            
-                }
-                //check id overlap
-                else if(overlapId == false){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to check Id'
-                        }) 
-                }
-                //check password is not null
-                else if(!pw){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your Password'
-                        }) 
-                }
-                else if(EffectivenessPw == false){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to check Password Effectiveness'
-                        }) 
-                }
-                //check name is not null                   
-                else if(!name){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your name'
-                        }) 
-                }
-                //check email is not null
-                else if(!email){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your email'
-                        })   
-                }
-                //check phone number is not null
-                else if(!phone){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your phone number'
-                        })   
-                }
-                //check phone number is not a number
-                else if(isNaN(phone)){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: 'You have to insert your phone number only number'
-                        })   
-                }  
-                //finish all test
-                else{                   
-                    $.ajax({
-                        url: '/signup/confirm',
-                        type: 'post',
-                        data: $('form').serialize(),
-                        success: function (data) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sign up',
-                                text: 'Thanks for join us ' + data + "!!!",
-                            }).then(() => {
-                                location.href = "/signin";
-                            })
-                        },
-                        error: function () {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'Sign up Fail!',
-
-                            })
-                        }
-                    })
-                }
-            })
-        })
-    </script>
-
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -403,7 +179,7 @@
     <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
     <script src="../stylesheet/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="../stylesheet/js/scripts.js"></script>
+    <script src="../stylesheet/js/signup.js"></script>
 </body>
 
 </html>

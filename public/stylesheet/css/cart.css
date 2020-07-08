@@ -1,8 +1,7 @@
 #table_view{
     margin-top:3%;
     margin-bottom:3%;
-    box-shadow: 5px 5px 5px 5px gray;
-   
+    box-shadow: 5px 5px 5px 5px gray;   
     background-color:silver;
     border:1px solid black;
 }
@@ -23,3 +22,12 @@ td .btn{
     padding-left:5%;
     padding-right:5%;
 }
+.dropdown-menu{
+    background-color:#212529;
+  }
+  .dropdown-item{
+    color:white!important;
+  }
+  .dropdown-item:hover{
+    background-color: silver!important;
+  }

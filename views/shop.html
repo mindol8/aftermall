@@ -43,10 +43,10 @@
         </button>
         <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>                    
                 <li class="nav-item" id="resizemenu">
                     <div class="dropdown" id-="nav_drop"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -313,23 +313,19 @@
   <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
   <script src="../stylesheet/mail/contact_me.js"></script>
   <!-- Core theme JS-->
-  <script src="../stylesheet/js/scripts.js"></script>
+  <script src="../stylesheet/js/shop.js"></script>
   <script>
-    $(document).ready(function () {
-      var username = '<%- username %>';
-      console.log(username);
-      if (username) {
-        $("#account_ctrl").html('Signout');
-        $("#account_ctrl").attr("href", "/signout");
-        $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="#">Management</a>');
-      }else{
-                $("#account_ctrl").html('Signin');
-                $("#account_ctrl").attr("href", "/signin");
-                $("#accountMenu").remove("#management");
-            }
-
-    })
-
+ var username = '<%- username %>';
+        console.log(username);
+        if (username) {
+          $("#account_ctrl").html('Signout');
+          $("#account_ctrl").attr("href", "/signout");
+          $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="/management">Management</a>');
+        } else {
+          $("#account_ctrl").html('Signin');
+          $("#account_ctrl").attr("href", "/signin");
+          $("#accountMenu").remove("#management");
+        }
   </script>
 </body>
 

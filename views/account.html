@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Account</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/account.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+
+            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">AUTOINMall
+                <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ml-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
+                    <li class="nav-item" id="resizemenu">
+                        <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="accountMenu">
+                                <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
+                                <a class="dropdown-item" href="/cart">Cart</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" id="card">
+        <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                Account Info
+            </div>
+            <div class="card-body">
+                <div class="bodylist">
+                    <span>
+                        <h3>ID</h3>
+                    </span>
+                    <div id="id" class="attr">
+                        id
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <span>
+                        <h3>NAME</h3>
+                    </span>
+                    <div class="attr">
+                        <input type="text" class="form-control half" id="name" readonly>
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <span>
+                        <h3>PASSWORD</h3>
+                    </span>
+                    <div class="attr">
+                        <input type="button" class="btn btn-secondary" id="setting_Pw" value="Change">
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <span>
+                        <h3>EMAIL</h3>
+                    </span>
+                    <div class="attr">
+                        <input type="email" class="form-control half" id="email" readonly>
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <span>
+                        <h3>PHONE</h3>
+                    </span>
+                    <div class="attr">
+                        <input type="text" class="form-control half" id="phone" readonly>
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <span>
+                        <h3>ADDRESS</h3>
+                    </span>
+                    <div class="attr">
+                        <input type="text" class="form-control quater" id="zipcode" readonly>
+                        <input type="text" class="form-control half" id="address" readonly>
+                    </div>
+                </div>
+                <div class="bodylist">
+                    <div class="attr">
+                        <input type="button" class="btn btn-secondary" id="setting" value="setting">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-right">
+                    <a class="mr-3" href="#!">Privacy Policy</a>
+                    <a href="#!">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+    <script src="../stylesheet/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="../stylesheet/js/scripts.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var username = '<%- username %>';
+            var userid = '<%- userid %>';
+            var userphone = '<%- userphone %>';
+            var useremail = '<%- useremail %>';
+            var useraddress = '<%- useraddress %>';
+            var userzipcode = '<%- userzipcode %>';
+            var setting_flag = false;
+
+            $("#id").html(userid);
+            $("#name").val(username);
+            $("#email").val(useremail);
+            $("#phone").val(userphone);
+            $("#zipcode").val(userzipcode);
+            $("#address").val(useraddress);
+            console.log(username);
+
+            if (username) {
+                $("#account_ctrl").html('Signout');
+                $("#account_ctrl").attr("href", "/signout");
+                $("#accountMenu").append('<a class="dropdown-item" id="management" href="/management">Management</a>');
+            }
+
+            //setting password
+            $("#setting_Pw").off("click").on("click", async function () {
+                
+                const { value: password } = await Swal.fire({
+                    title: 'Change Password',
+                    html:
+                        '<p>Password must be longer than 8 characters and using numbers/case letters/special characters.</p>'+
+                        '<div class="input-group mb-3">' +
+                        '<input type="password" id="userpassword" class="form-control" placeholder="Insert new password" style="text-align:left"></div>' +
+                        '<div class="input-group mb-3">' +
+                        '<input type="password"  id="passwordCheck" class="form-control" placeholder="Insert one more time" style="text-align:left"></div>',
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    preConfirm: () => {
+                        var check_attr = {
+                            pw: $("#userpassword").val(),
+                            id: userid,
+                            c_p: $("#passwordCheck").val(),
+                        }
+                        $.ajax({
+                            url: "/signup/effectiveness",
+                            type: "post",
+                            data: check_attr,
+                            success: function (data) {
+                                if (data === "errortype1") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'Password must be at least 8 characters long and must contain all numbers/case letters/special characters.',
+
+                                    }).then(function () {
+                                        
+                                        console.log(EffectivenessPw);
+                                    })
+                                } else if (data === "errortype2") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'You can not use same letter 4 times',
+
+                                    }).then(function () {
+                                       
+                                        console.log(EffectivenessPw);
+                                    })
+                                } else if (data === "errortype3") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'You can not use id in to password',
+
+                                    }).then(function () {
+                                       
+                                        console.log(EffectivenessPw);
+                                    })
+                                } else if (data === "errortype4") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'You can not use blank in to password',
+
+                                    }).then(function () {
+                                        
+                                        console.log(EffectivenessPw);
+                                    })
+                                } else if (data === "errortype5") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'You can not use korean in to password',
+
+                                    }).then(function () {
+                                       
+                                        console.log(EffectivenessPw);
+                                    })
+                                } else if (data === "errortype6") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Fail',
+                                        text: 'You have to insert same password',
+                                    }).then(function () {
+                                       
+                                        console.log(EffectivenessPw);
+
+                                    })
+                                }
+                                else if (data === "errortype0") {
+                                   $.ajax({
+                                       url:"/account/password",
+                                       type:"post",
+                                       data:check_attr,
+                                            success:function(){
+                                                Swal.fire({
+                                                icon: 'success',
+                                                title: 'Change Password',
+                                                text: 'You have to signin with new password',
+                                                }).then(function () {                                                
+                                                   location.href="/signout";
+
+                                                })
+                                       },
+                                       error:function(){
+
+                                       }
+                                   })
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        })
+                    }
+                })
+            })
+
+            //setting account info
+            $("#setting").off("click").on("click", function () {
+                var setting = $("#setting");
+                var name = $("#name");
+
+                var email = $("#email");
+                var phone = $("#phone");
+                var zipcode = $("#zipcode");
+                var address = $("#address");
+                if (setting_flag == false) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Setting Account',
+                        text: 'Insert new attribute',
+                    }).then(value => {
+                        setting.css("background-color", "red");
+                        setting.val("finish");
+
+                        email.attr("readonly", false);
+                        phone.attr("readonly", false);
+                        zipcode.attr("readonly", false);
+                        address.attr("readonly", false);
+                        name.attr("readonly", false);
+                        setting_flag = true;
+                    })
+
+                } else {
+                    var attribute = {
+                        username: name.val(),
+                        userid: userid,
+                        useremail: email.val(),
+                        userphone: phone.val(),
+                        userzipcode: zipcode.val(),
+                        useraddress: address.val()
+
+                    }
+                    $.ajax({
+                        url: "/accout/setting",
+                        type: "post",
+                        data: attribute,
+                        success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Setting Account',
+                                text: 'Update success',
+                            }).then(value => {
+                                setting.css("background-color", "gray");
+                                setting.val("setting");
+                                email.attr("readonly", true);
+                                phone.attr("readonly", true);
+                                zipcode.attr("readonly", true);
+                                address.attr("readonly", true);
+                                name.attr("readonly", true);
+                                setting_flag = false;
+                            })
+
+                        }
+                    })
+
+                }
+
+            })
+        })
+
+    </script>
+</body>
+
+</html>

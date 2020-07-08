@@ -272,72 +272,14 @@
     <!-- Core theme JS-->
     <script src="../stylesheet/js/scripts.js"></script>
 
-    <script>
-        $(document).ready(function () {
-
-            var username = '<%- username %>';
-            console.log(username);
-            if (username) {
-                $("#account_ctrl").html('Signout');
-                $("#account_ctrl").attr("href", "/signout");
-                $("#accountMenu").append('<a class="dropdown-item" id="management" href="#">Management</a>');
-            }
-            //swiper side running
-            var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 3,
-                spaceBetween: 30,
-                loop: true,
-                //centeredSlides: true,
-                autoplay: {
-                    delay: 1500,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-            });
-
-            $("#shop_now").off("click").on("click", function () {
-                var theme = $("#theme").val();
-                var thing = $("#thing").val();
-                if (!theme) {
-                    Swal.fire({
-                                icon: 'error',
-                                title: 'Search Fail',
-                                text: 'Please choose theme',
-
-                            })
-                } else if (!thing) {
-                    Swal.fire({
-                                icon: 'error',
-                                title: 'Search Fail',
-                                text: 'Please insert subject',
-
-                            })
-                } else {
-                    $.ajax({
-                        url: '/search',
-                        type: 'post',
-                        data: $('#search_form').serialize(),
-                        success:function(data){
-                            location.href="/shop";
-                            //shop으로 보낼때, 받아온 정보도 보내야한다.아니면 해당 쿼리 내용을 세션에 저장해놓고 shop호출할때 세션 읽어야한다.
-                        },
-                        error: function () {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Search Fail',
-                                text: 'Wrong input',
-
-                            })
-                        }
-                    })
-                }
-
-            })
-        })
-
+    <script>       
+       var username = '<%- username %>';
+        console.log(username);
+        if (username) {
+            $("#account_ctrl").html('Signout');
+            $("#account_ctrl").attr("href", "/signout");
+            $("#accountMenu").append('<a class="dropdown-item" id="management" href="/management">Management</a>');
+        }
     </script>
 </body>
 

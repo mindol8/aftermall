@@ -41,10 +41,10 @@
             </button>
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>                    
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>                    
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -139,57 +139,25 @@
     <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
     <script src="../stylesheet/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="../stylesheet/js/scripts.js"></script>
+    <script src="../stylesheet/js/signin.js"></script>
     <script>
-        $(document).ready(function () {
-            var username = '<%- username %>';
-            console.log(username);
-            if(username){
-                $("#account_ctrl").html('Logout');
-                $("#account_ctrl").attr("href","/logout");
-                $("#accountMenu").append('<a class="dropdown-item" href="#">Management</a>');
-            }
-            //cart to signin
-            var flag = '<%- flag %>';
-            if (flag) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Wrong',
-                    text: 'You have to Sign in first!!',
-
-                })
-            }
-            //send sign in data to server      
-
-            $("#confirm").off("click").on("click",  function() {
-                var userid = $("#userId").val();
-                var userpw = $("#userPw").val();
-                if (userid != null && userpw != null) {
-                    $.ajax({
-                        url: '/signin/confirm',
-                        type: 'post',
-                        data: $('form').serialize(),
-                        success: function (data) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sign in',
-                                text: 'Welcome ' + data + "!!!",
-                            }).then(() => {
-                                location.href = "/";
-                            })
-                        },
-                        error: function () {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Fail',
-                                text: 'Sign in Fail!',
-
-                            })
-                        }
-                    })
-                }
-            });           
-        })
+         var username = '<%- username %>';
+        console.log(username);
+        if(username){
+            $("#account_ctrl").html('Signout');
+            $("#account_ctrl").attr("href","/Signout");
+            $("#accountMenu").append('<a class="dropdown-item" href="/management">Management</a>');
+        }
+        //cart to signin
+        var flag = '<%- flag %>';
+        if (flag) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Wrong',
+                text: 'You have to Sign in first!!',
+    
+            })
+        }
     </script>
 </body>
 
