@@ -6,13 +6,7 @@
     (function ($) {
     "use strict"; // Start of use strict
     $(document).ready(function () {
-        if($(window).width() <976) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-         }
+      
         //swiper side running
         var swiper = new Swiper('.swiper-container', {
             slidesPerView: 3,
@@ -103,27 +97,6 @@
         offset: 74,
     });
     
-    $(window).resize(function() { 
-        if($(window).width() <976) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-         }else{
-            $("#resizemenu").html(
-                '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"'+
-                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>'+
-                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>'+
-                '<a class="dropdown-item" href="/cart">Cart</a>'+
-                '<a class="dropdown-item" href="/management">Management</a></div></div>'
-
-            );
-         }  
-     });
-
-
  
     // Collapse Navbar
     var navbarCollapse = function () {

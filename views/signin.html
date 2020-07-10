@@ -9,7 +9,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <title>Sign up</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,8 +36,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
 
-            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">AUTOINMall
-                <!--이미지 삽입--img src="../stylesheet/img/navbar-logo.svg" alt="" /--></a>
+            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">
+                <img src="../stylesheet/img/autoinlogo/autoin_logo2.png" alt="" /></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -61,7 +66,7 @@
     <br><br><br><br>
     <div class="container">
         <div class="brand_logo_container">
-            <img src="../stylesheet/img/autoin_mark.png" class="brand_logo" alt="Logo">
+            <img src="../stylesheet/img/autoinlogo/autoin_icon.png" class="brand_logo" alt="Logo">
             <!--임의로 넣은 이미지여서 정식 이미지 요청할 것-->
         </div>
         <div id="signup_box">
@@ -72,11 +77,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id=""><i class="far fa-id-card"></i></span>
                         </div>
-                        <div class="custom-file">
+                        
                             <input type="text" class="form-control" id="userId" name="userId"
                                 placeholder="insert your id">
 
-                        </div>
                     </div>
                 </div>
                 <!--PW-->
@@ -147,7 +151,62 @@
             $("#account_ctrl").html('Signout');
             $("#account_ctrl").attr("href","/Signout");
             $("#accountMenu").append('<a class="dropdown-item" href="/management">Management</a>');
+        }else {
+          $("#account_ctrl").html('Signin');
+          $("#account_ctrl").attr("href", "/signin");
+          $("#accountMenu").remove("#management");
         }
+        if($(window).width() <976) {
+            if (username) {
+            $("#resizemenu").html(
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>'+
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+            );
+            }else{
+                $("#resizemenu").html(
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+            );
+            }
+         }
+        $(window).resize(function () {
+            if ($(window).width() < 976) {
+                if (username) {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                    );
+                } else {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+                }
+
+            } else {
+                if (username) {
+                    $("#resizemenu").html(
+                        '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                        'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                        '<a class="dropdown-item" href="/signout" id="account_ctrl">Signout</a>' +
+                        '<a class="dropdown-item" href="/cart">Cart</a>' +
+                        '<a class="dropdown-item" href="/management">Management</a></div></div>'
+
+                    );
+                } else {
+                    $("#resizemenu").html(
+                        '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                        'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                        '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
+                        '<a class="dropdown-item" href="/cart">Cart</a>'                 
+
+            );
+                }
+            }
+        });
         //cart to signin
         var flag = '<%- flag %>';
         if (flag) {

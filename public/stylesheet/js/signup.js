@@ -282,8 +282,8 @@
         if($(window).width() <976) {
             $("#resizemenu").html(
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+                
             );
          }else{
             $("#resizemenu").html(
@@ -291,9 +291,8 @@
                 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>'+
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
                 '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>'+
-                '<a class="dropdown-item" href="/cart">Cart</a>'+
-                '<a class="dropdown-item" href="/management">Management</a></div></div>'
-
+                '<a class="dropdown-item" href="/cart">Cart</a>'
+                
             );
          }  
      });
@@ -301,10 +300,9 @@
      if($(window).width() <976) {
         $("#resizemenu").html(
             '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-        );
-     }
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'           
+        );    
+    }
  
     // Collapse Navbar
     var navbarCollapse = function () {

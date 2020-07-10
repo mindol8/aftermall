@@ -38,7 +38,7 @@ app.use('/', router);
 app.use(function (req, res, next) {
     sess = req.session;
     console.log("username: "+sess.username);
-    res.render('index.html', { username: sess.username });
+    res.render('index.html', { username: sess.username});
 })
 
 //logout router
@@ -80,6 +80,7 @@ router.post("/signin/confirm", function (req, res) {
                     sess = req.session;
                     sess.username = name;
                     sess.userid= userid;
+                    sess.token = row[0].TOKEN;
                     console.log(name);
                     res.send(name);
 
@@ -102,19 +103,115 @@ router.get("/findpw", function (req, res) {
 //Account management
 router.get("/management", function (req, res) {
     var sess = req.session;
-    mysqlDB.query("SELECT * FROM USER WHERE USER_ID=?",[sess.userid],function(err,row){
+    if (sess.token == 0){
+        mysqlDB.query("SELECT * FROM USER WHERE USER_ID=?",[sess.userid],function(err,row){
+            if(err){
+                console.log(err);
+            }else{
+                res.render("account.html",{
+                    username:sess.username,
+                    userid:row[0].USER_ID,
+                    userpw:row[0].USER_PW,
+                    userphone:row[0].PHONE,
+                    useremail:row[0].EMAIL,
+                    useraddress:row[0].ADDRESS,
+                    userzipcode:row[0].ZIPCODE
+                });
+            }
+        })
+    }else if(sess.token == 1){
+        res.render("admin.html",{username:sess.username});
+    }
+   
+    
+})
+//admin page user info
+router.post("/admin/user",function(req,res){
+    mysqlDB.query("SELECT USER_ID,NAME,EMAIL,TOKEN,PHONE FROM USER",function(err,row){
         if(err){
             console.log(err);
         }else{
-            res.render("account.html",{
-                username:sess.username,
-                userid:row[0].USER_ID,
-                userpw:row[0].USER_PW,
-                userphone:row[0].PHONE,
-                useremail:row[0].EMAIL,
-                useraddress:row[0].ADDRESS,
-                userzipcode:row[0].ZIPCODE
-            });
+            var data = JSON.stringify(row);
+            res.send(data);
+        }
+      
+    })
+})
+//admin item search
+router.post("/admin/item/search",function(req,res){
+    console.log(req.body);
+    var theme = req.body.theme;
+    var thing = req.body.search_thing;
+    if(theme === "model"){
+        mysqlDB.query("SELECT * FROM ITEM WHERE ITEM = ?",[thing],function(err,row){
+
+        })
+    }else if(theme === "pin"){
+        mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[Number(thing)],function(err,row){
+            res.send(row[0]);
+        })
+
+    }else if(theme === "manufacturer"){
+        mysqlDB.query("SELECT * FROM ITEM WHERE MANUFACTURER= ?",[thing],function(err,row){
+            
+        })
+
+    }else{
+
+    }
+    
+})
+//admin item add
+router.post("/admin/item/add",function(req,res){
+    console.log("add");
+    console.log(req.body);
+    var item= req.body.item;
+    var pin= Number(req.body.pin);                           
+    var price= Number(req.body.price);
+    var price_w = Number(price) *1200;                   
+    var volume= Number(req.body.volume);                          
+    var mainc= req.body.mainc;                           
+    var subc= req.body.subc;                          
+    var desc= req.body.desc; 
+    var data={
+        NAME:item,
+        PIN:pin,
+        PRICE:price,
+        PRICE_W:price_w,
+        NUM:volume,
+        MAINC:mainc,
+        SUBC:subc,
+        ITEM_DESC:desc,
+    }
+    mysqlDB.query("INSERT INTO ITEM SET ?",data,function(err,row){
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success");
+        }
+
+    })
+})
+//admin item setting
+router.post("/admin/item/setting",function(req,res){
+    console.log(req.body);
+    mysqlDB.query("UPDATE ITEM SET ",[],function(err,row){
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success setting");
+        }
+    })
+   
+})
+//admin item delete
+router.post("/admin/item/delete",function(req,res){
+    console.log(req.body);
+    mysqlDB.query("DELETE FROM ITEM WHERE PIN = ?",[req.body.pin],function(err,row){
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success delete");
         }
     })
     
@@ -173,11 +270,12 @@ router.post("/signup/confirm", function (req, res) {
     var userPhone = data.userPhone;
     var userZipcode = data.userZipcode;
     var userAddress = data.userAddress;
+    var usertoken = 0;
     //hash salt
     var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
     //password hashing
     var hashPassword = crypto.createHash("sha512").update(userPw + u_salt).digest("hex");
-    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone,ZIPCODE:userZipcode,ADDRESS:userAddress };
+    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone,ZIPCODE:userZipcode,ADDRESS:userAddress,TOKEN:usertoken };
     console.log(userInfo);
     //insert sign up data into db
     mysqlDB.query("INSERT INTO USER SET ?", userInfo, function (err, row, fields) {
