@@ -148,6 +148,7 @@ router.post("/admin/item/search",function(req,res){
         })
     }else if(theme === "pin"){
         mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[Number(thing)],function(err,row){
+            console.log(row[0]);
             res.send(row[0]);
         })
 
@@ -167,20 +168,16 @@ router.post("/admin/item/add",function(req,res){
     console.log(req.body);
     var item= req.body.item;
     var pin= Number(req.body.pin);                           
-    var price= Number(req.body.price);
-    var price_w = Number(price) *1200;                   
+    var price= Number(req.body.price);       
     var volume= Number(req.body.volume);                          
     var mainc= req.body.mainc;                           
     var subc= req.body.subc;                          
     var desc= req.body.desc; 
     var data={
-        NAME:item,
+        ITEM_NAME:item,
         PIN:pin,
         PRICE:price,
-        PRICE_W:price_w,
-        NUM:volume,
-        MAINC:mainc,
-        SUBC:subc,
+        VOLUME:volume,
         ITEM_DESC:desc,
     }
     mysqlDB.query("INSERT INTO ITEM SET ?",data,function(err,row){
@@ -195,7 +192,16 @@ router.post("/admin/item/add",function(req,res){
 //admin item setting
 router.post("/admin/item/setting",function(req,res){
     console.log(req.body);
-    mysqlDB.query("UPDATE ITEM SET ",[],function(err,row){
+    var pin = req.body.pin;
+    var data = {
+        ITEM_NAME: req.body.item,
+        PIN: pin,
+        PRICE: req.body.price,
+        VOLUME: req.body.volume,
+        ITEM_DESC: req.body.desc
+    }
+    
+    mysqlDB.query("UPDATE ITEM SET ? WHERE PIN = ?",[data,pin],function(err,row){
         if(err){
             console.log(err);
         }else{

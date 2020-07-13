@@ -156,12 +156,12 @@
                         success: function (data) {
                             console.log(data);
                             console.log(setflag);
-                            $("#item").val(data.NAME);
+                            $("#item").val(data.ITEM_NAME);
                             $("#pin").val(data.PIN);
                             $("#price").val(data.PRICE);
-                            $("#volume").val(data.NUM);
-                            $("#main_category").val(data.MAINC);
-                            $("#sub_category").val(data.SUBC);
+                            $("#volume").val(data.VOLUME);
+                           //$("#main_category").val(data.MAINC);
+                           // $("#sub_category").val(data.SUBC);
                             $("#desc").val(data.ITEM_DESC);
                             if (setflag == false) {
                                 $("#btnset").append(
@@ -185,6 +185,14 @@
                                                 setflag = false;
                                                 $("#delete").remove();
                                                 $("#setting").remove();
+
+                                                $("#item").val("");
+                                                $("#pin").val("");
+                                                $("#price").val("");
+                                                $("#volume").val("");
+                                                $("#main_category").val("");
+                                                $("#sub-category").val("");
+                                                $("#desc").val("");
 
                                             })
                                         },
