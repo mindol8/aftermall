@@ -3,7 +3,7 @@ use autoinmall;
 drop table USER;
 drop table ITEM;
 drop table CART;
-drop table ORDER;
+
 drop table CATEGORY;
 drop table MODEL;
 drop table MANUFACTURER;

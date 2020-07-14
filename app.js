@@ -147,9 +147,14 @@ router.post("/admin/item/search",function(req,res){
 
         })
     }else if(theme === "pin"){
-        mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[Number(thing)],function(err,row){
-            console.log(row[0]);
-            res.send(row[0]);
+        mysqlDB.query("SELECT * FROM ITEM, CATEGORY WHERE PIN = ITEM_NUM AND PIN = ?",[Number(thing)],function(err,row){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(row[0]);
+                res.send(row[0]);
+            }
+      
         })
 
     }else if(theme === "manufacturer"){
@@ -180,11 +185,24 @@ router.post("/admin/item/add",function(req,res){
         VOLUME:volume,
         ITEM_DESC:desc,
     }
+    var c_data = {
+        MAIN:mainc,
+        SUB:subc,
+        ITEM_NUM:pin
+    }
     mysqlDB.query("INSERT INTO ITEM SET ?",data,function(err,row){
         if(err){
             console.log(err);
         }else{
-            res.send("success");
+            mysqlDB.query("INSERT INTO CATEGORY SET ?",c_data,function(err2,row2){
+                if(err2){
+                    console.log(err2);
+                }else{
+                    res.send("success");
+                }
+
+            })
+           
         }
 
     })
@@ -200,12 +218,24 @@ router.post("/admin/item/setting",function(req,res){
         VOLUME: req.body.volume,
         ITEM_DESC: req.body.desc
     }
+    var c_data={
+        MAIN:req.body.mainc,
+        SUB: req.body.subc,
+        ITEM_NUM: pin
+    }
     
     mysqlDB.query("UPDATE ITEM SET ? WHERE PIN = ?",[data,pin],function(err,row){
         if(err){
             console.log(err);
         }else{
-            res.send("success setting");
+            mysqlDB.query("UPDATE CATEGORY SET ? WHERE ITEM_NUM = ?",[c_data,pin],function(err2,row2){
+                if(err2){
+                    console.log(err2)
+                }else{
+                    res.send("success setting");
+                }
+            })
+            
         }
     })
    
@@ -213,11 +243,18 @@ router.post("/admin/item/setting",function(req,res){
 //admin item delete
 router.post("/admin/item/delete",function(req,res){
     console.log(req.body);
-    mysqlDB.query("DELETE FROM ITEM WHERE PIN = ?",[req.body.pin],function(err,row){
+    mysqlDB.query("DELETE FROM CATEGORY WHERE ITEM_NUM = ?",[req.body.pin],function(err,row){
         if(err){
             console.log(err);
         }else{
-            res.send("success delete");
+            mysqlDB.query("DELETE FROM ITEM WHERE PIN = ?",[req.body.pin],function(err2,row2){
+                if(err2){
+                    console.log(err2);
+                }else{
+                    res.send("success delete");
+                }
+            })
+           
         }
     })
     
@@ -368,10 +405,23 @@ router.post("/search", function (req, res) {
 
         // })
     } else if (theme == "pin") {
-        // mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[item],function(err, row, fields){
+        mysqlDB.query("SELECT * FROM ITEM WHERE PIN = ?",[item],function(err, row ){
+            if(err){
+                console.log(err);
+            }else{
+                mysqlDB.query("SELECT * FROM CATEGORY WHERE ITEM_NUM = ?",[item],function(err2, row2){
+                    if(err2){
+                        console.log(err2);
+                    }else{
+                        var data = JSON.stringify(row) 
+                        var data2 = JSON.stringify(row2);
+                        
+                        res.render("shop.html",{username:sess.username,info:data,category:data2});
+                     }
+                })
+            }
 
-
-        //  })
+    })
 
     } else if (theme == "manufacturer") {
         // mysqlDB.query("SELECT * FROM ITEM WHERE MANUFACTURER = ?",[item],function(err, row, fields){
@@ -382,14 +432,13 @@ router.post("/search", function (req, res) {
     } else {
 
     }
-    console.log(sess);
-    res.send({ username: sess.username });
+   
 })
 
 //shopping mall router
 router.get("/shop", function (req, res) {
     sess = req.session;
-    res.render("shop.html", { username: sess.username });
+    res.render("shop.html", { username: sess.username,info:sess.info,category:sess.category});
 })
 
 //item router

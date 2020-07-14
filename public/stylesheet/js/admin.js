@@ -80,27 +80,27 @@
                             '<form id="addinput"><div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >ITEM</span></div>' +
-                            '<input type="text" class="form-control" id="additem"  aria-describedby="basic-addon1" ></div>' +
+                            '<input type="text" class="form-control" id="additem" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >PIN</span></div>' +
-                            '<input type="text" class="form-control" id="addpin" aria-describedby="basic-addon1" ></div>' +
+                            '<input type="text" class="form-control" id="addpin" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >PRICE</span></div>' +
-                            '<input type="text" class="form-control" id="addprice"  aria-describedby="basic-addon1" ></div>' +
+                            '<input type="text" class="form-control" id="addprice"   ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >VOLUME</span></div>' +
-                            '<input type="text" class="form-control" id="addvolume" aria-describedby="basic-addon1" ></div>' +
+                            '<input type="text" class="form-control" id="addvolume" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >MAIN</span></div>' +
-                            '<input type="text" class="form-control" id="addmain_category" aria-describedby="basic-addon1" ></div>' +
+                            '<input type="text" class="form-control" id="addmain_category"  ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >SUB</span></div>' +
-                            '<input type="text" class="form-control" id="addsub_category" aria-describedby="basic-addon1"></div>' +
+                            '<input type="text" class="form-control" id="addsub_category" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >DESC</span></div>' +
@@ -160,8 +160,8 @@
                             $("#pin").val(data.PIN);
                             $("#price").val(data.PRICE);
                             $("#volume").val(data.VOLUME);
-                           //$("#main_category").val(data.MAINC);
-                           // $("#sub_category").val(data.SUBC);
+                            $("#main_category").val(data.MAIN);
+                            $("#sub_category").val(data.SUB);
                             $("#desc").val(data.ITEM_DESC);
                             if (setflag == false) {
                                 $("#btnset").append(
@@ -185,13 +185,13 @@
                                                 setflag = false;
                                                 $("#delete").remove();
                                                 $("#setting").remove();
-
+                                                $("#thing").val("");
                                                 $("#item").val("");
                                                 $("#pin").val("");
                                                 $("#price").val("");
                                                 $("#volume").val("");
                                                 $("#main_category").val("");
-                                                $("#sub-category").val("");
+                                                $("#sub_category").val("");
                                                 $("#desc").val("");
 
                                             })

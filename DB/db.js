@@ -6,5 +6,11 @@ var connection = mysql.createConnection({
     password:'autoin1020#',
     database:'autoinmall'
 });
-
+connection.connect(function(err){
+    if(err){
+        console.log(err);
+    }else{
+        console.log("no err");
+    }
+})
 module.exports = connection;
