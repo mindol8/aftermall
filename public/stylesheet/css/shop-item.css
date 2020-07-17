@@ -46,8 +46,26 @@ body {
   background-color:#212529;
 }
 .dropdown-item{
-  color:white!important;
+  color:white;
 }
 .dropdown-item:hover{
   background-color: silver!important;
+}
+
+.dropright .dropdown-menu{
+  background-color: white!important;
+ 
+}
+.dropright .dropdown-item{
+  color : black!important;
+}
+.dropright .dropdown-item:hover{
+  background-color:#fed136!important;
+}
+.navbaritem{
+  color:white;
+}
+
+.navbarmenu{
+  background-color:#212529;
 }

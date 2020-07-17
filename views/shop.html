@@ -2,347 +2,482 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Shop</title>
-  <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
-  <!-- Bootstrap core CSS -->
-  <link href="../stylesheet/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
-  <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
-    type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <!-- Custom styles for this template -->
-  <link href="../stylesheet/css/styles.css" rel="stylesheet" />
-  <link href="../stylesheet/css/shop-homepage.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AUTOINMall</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/shop-homepage.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+   
 </head>
 
-<body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+<body id="page-top">
+  <!-- Navigation-->
+ <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-
-      <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%"><img
-          src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" /></a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars ml-1"></i>
-      </button>
-      <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
-        <ul class="navbar-nav text-uppercase ml-auto">
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
-          <li class="nav-item" id="resizemenu">
-            <div class="dropdown" id-="nav_drop"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
-              <div class="dropdown-menu" style="background-color:#212529" aria-labelledby="dropdownMenuButton"
-                id="accountMenu">
-                <a class="dropdown-item" style="color:white;" href="/signin" id="account_ctrl">Signin</a>
-                <a class="dropdown-item" style="color:white;" href="/cart">Cart</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+        <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">
+            <img src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+                <li class="nav-item" id="resizemenu">
+                    <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
+                        <div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton" id="accountMenu">
+                            <a class="dropdown-item navbaritem" href="/signin" id="account_ctrl">Signin</a>
+                            <a class="dropdown-item navbaritem" href="/cart">Cart</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
   </nav>
-
-  <br>
-  <!-- Page Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3">
-        <h1 class="my-4" style="text-align: center;">Autoin</h1>
-        <div class="list-group">
-          <div class="dropright" id="right"><a href="#" style="color:black!important"
-              class="list-group-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Accessories</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Body</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Brake System</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Electric Parts</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Interior Parts</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Steering Parts</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
-            <div class="dropdown-menu shop" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Tuning Parts</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">etc</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-      <!-- /.col-lg-3 -->
-
-      <div class="col-lg-9">
-
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-
-        <div class="row" id="item_slot">
-
-
-
-        </div>
-        <!-- /.row -->
-
-      </div>
-      <!-- /.col-lg-9 -->
-
-    </div>
-    <!-- /.row -->
-
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer-->
-  <footer class="footer py-4">
+    <br>
+    <!-- Page Content -->
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-        <div class="col-lg-4 my-3 my-lg-0">
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+      <div class="row">
+        <div class="col-lg-3">
+          <h1 class="my-4" style="text-align: center;">Autoin</h1>
+          <div class="list-group">
+            <div class="dropright">
+              <a id="accessories" href="#" style="color:black!important" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=seat">Seat</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=mirror">Mirror</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=pedal">Pedal</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=gear">Gear</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=steeringwheel">Steering Wheel</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=cover">Cover</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=pad">Pad</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=holder">Holder</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=pocket">Pocket</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=handle">Handle</a>
+                <a class="dropdown-item" href="/shop/item?main=accessories&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="body" href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Body</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=body&sub=panel">Panel</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=airbag">Airbag</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=dashboard">Dash Board</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=door">Door</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=trunk">Trunk</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=bonnet">Bonnet</a>
+                <a class="dropdown-item" href="/shop/item?main=body&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="brakesystem" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brake System</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=brake system&sub=brake">Brake</a>
+                <a class="dropdown-item" href="/shop/item?main=brake system&sub=master cylinder">Master Cylinder</a>
+                <a class="dropdown-item" href="/shop/item?main=brake system&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="electricparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Electric Parts</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=electric parts&sub=contorl system">Control System</a>
+                <a class="dropdown-item" href="/shop/item?main=electric parts&sub=cooling system">Cooling System</a>
+                <a class="dropdown-item" href="/shop/item?main=electric parts&sub=lamp">Lamp</a>
+                <a class="dropdown-item" href="/shop/item?main=electric parts&sub=wiper">Wiper</a>
+                <a class="dropdown-item" href="/shop/item?main=electric parts&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="powergeneraterparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Power Generater Parts</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=engine">Engine</a>
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=fuel system">Fuel System</a>
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=start">Start</a>
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=ignition system">Ignition
+                  System</a>
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=exhaust">Exhaust</a>
+                <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="powertransferparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Power Transfer Parts</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=clutch">Clutch</a>
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=transmission">Transmission</a>
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=differential system">Differential
+                  System</a>
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=drive shaft">Drive Shaft</a>
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=wheel">Wheel</a>
+                <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="steeringparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Steering Parts</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering wheel">Steering Wheel</a>
+                <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering column">Steering Column</a>
+                <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering gear">Steering Gear</a>
+                <a class="dropdown-item" href="/shop/item?main=steering parts&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="suspentionparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
+              <div class="dropdown-menu shop" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=suspention parts&sub=shock absorber">Shock Absorber</a>
+                <a class="dropdown-item" href="/shop/item?main=suspention parts&sub=etc">etc</a>
+              </div>
+            </div>
+            <div class="dropright"><a id="tuningparts" href="#" class="list-group-item dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tuning Parts</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=build up">Build Up</a>
+                <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=tune up">Tune Up</a>
+                <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=dress up">Dress Up</a>
+              </div>
+            </div>
+            <a id="etc" href="/shop/item?main=etc&sub=" class="list-group-item" aria-haspopup="true"
+              aria-expanded="false">etc</a>
+  
+          </div>
+          <!--search item-->
+          <br>
+          <h2 style="text-align: center;"><small>SEARCH</small></h2>
+          <form action="/search" method="POST">            
+            <div class="input-group mb-1">
+              <div class="input-group-prepend" id="select_theme">
+                <span class="input-group-text">Parts Num</span>
+              </div>
+              <input type="hidden" name="theme" value="parts_num">
+              <input type="text" class="form-control" placeholder="search" name="search_thing" id="thing">
+            </div>
+            <div class="input-group mb-1">
+              <div class="input-group-prepend">
+              <span class="input-group-text" >CATEGORY</span></div>
+              <select name="category" class="custom-select" id="inputGroupSelect01">
+              <option selected>Choose...</option>
+              <optgroup label ="Accessories">
+              <option value="accessories&seat">Seat</option>
+              <option value="accessories&mirror">Mirror</option>
+              <option value="accessories&pedal">Pedal</option>
+              <option value="accessories&gear">Gear</option>
+              <option value="accessories&steering wheel">Steering Wheel</option>
+              <option value="accessories&cover">Cover</option>
+              <option value="accessories&padr">Pad</option>
+              <option value="accessories&holder">Cover</option>
+              <option value="accessories&pocket">Pocket</option>
+              <option value="accessories&handle">handle</option>
+              <option value="accessories&etc">etc(Accessories)</option></optgroup>
+              <optgroup label ="Body">
+              <option value="body&panel">Panel</option>
+              <option value="body&airbag">Airbag</option>
+              <option value="body&dash board">Dash Board</option>
+              <option value="body&door">Door</option>
+              <option value="body&trunk">Trunk</option>
+              <option value="body&bonnet">Bonnet</option>
+              <option value="body&etc">etc(Body)</option></optgroup>
+              <optgroup label ="Brake">
+              <option value="brake&brake">Brake</option>
+              <option value="brake&master cylinder">Master Cylinder</option>
+              <option value="brake&etc">etc(Brake)</option></optgroup>
+              <optgroup label ="Electric Parts">
+              <option value="eletric parts&control system">Control System</option>
+              <option value="eletric parts&cooling system">Cooling System</option>
+              <option value="eletric parts&lamp">Lamp</option>
+              <option value="eletric parts&wiper">Wiper</option>
+              <option value="eletric&etc">etc(Electric Parts)</option></optgroup>
+              <optgroup label ="Power Generater Parts">
+              <option value="power generater parts&engine">Engine</option>
+              <option value="power generater parts&fuel system">Fuel System</option>
+              <option value="power generater parts&start">Start</option>
+              <option value="power generater parts&ignition system">Ignition System</option>
+              <option value="power generater parts&exhaust">Exhaust</option>
+              <option value="power generater parts&etc">etc(Power Generater Parts)</option></optgroup>
+              <optgroup label ="Power Transfer Parts">
+              <option value="power transfer parts&clutch">Clutch</option>
+              <option value="power transfer parts&transmission">Transmission</option>
+              <option value="power transfer parts&differental system">Differental System</option>
+              <option value="power transfer parts&drive shaft">Drive Shaft</option>
+              <option value="power transfer parts&wheel">Wheel</option>
+              <option value="power transfer parts&etc">etc(Power Transfer Parts)</option></optgroup>
+              <optgroup label ="Steering Parts">
+              <option value="steering parts&steering wheel">Steering Wheel</option>
+              <option value="steering parts&steering column">Steering column</option>
+              <option value="steering parts&steering gear">Steering Gear</option>
+              <option value="steering parts&etc">etc(Steering Parts)</option></optgroup>
+              <optgroup label ="Suspention Parts">
+              <option value="suspention parts&shock absorber">Shock Absorber</option>
+              <option value="suspention parts&etc">etc(Suspention Parts)</option></optgroup>
+              <optgroup label ="Tuning Parts">
+              <option value="tuning parts&build up">Build Up</option>
+              <option value="tuning parts&tune up">Tune Up</option>
+              <option value="tuning parts&dress up">Dress Up</option>
+              <option value="tuning parts&etc">etc(Tuning Parts)</option></optgroup>
+              <optgroup label ="Etc">
+              <option value="etc&">etc</option></optgroup>
+              </select>
+          </div>
+            <div class="input-group mb-1">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" >BRANDS</span></div>
+                  <select name="brands" class="custom-select" id="brands" disabled>
+                      <option value="comp1">comp1</option>
+                      <option value="comp2">comp2</option>
+                  </select>
+            </div>
+            <div class="input-group mb-1">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" >MODEL</span></div>
+                  <select name="model" class="custom-select" id="model" disabled>
+                      <option value="model1">model1</option>
+                      <option value="model2">model2</option>
+                  </select>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" >VERSION</span></div>
+                  <select name="version" class="custom-select" id="version" disabled>
+                      <option value="ver1">ver1</option>
+                      <option value="ver1">ver2</option>
+                  </select>
+            </div>
+            
+            <input type="submit" value="search" class="btn btn-secondary btn-block" id="search">
+                   
+  
+          </form>
+          <br><br><br>
         </div>
-        <div class="col-lg-4 text-lg-right">
-          <a class="mr-3" href="#!">Privacy Policy</a>
-          <a href="#!">Terms of Use</a>
+        <!-- /.col-lg-3 -->
+  
+        <div class="col-lg-9">
+          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <img class="d-block img-fluid" src="../stylesheet/img/about/6.jpg" alt="First slide" width="900px"
+                  height="150px">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid" src="../stylesheet/img/about/4.jpg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid" src="../stylesheet/img/about/5.jpg" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          
+  
+          <div class="row" id="item_slot">
+            <div class="container">
+              <h3 style="text-align: center;margin-top: 10%;margin-bottom: 15%;">No item<br>Please Search Item</h3>
+            </div>
+          </div>
+  
+  
         </div>
       </div>
     </div>
-  </footer>
+    <!-- Footer-->
+    <footer class="footer py-4">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+          <div class="col-lg-4 my-3 my-lg-0">
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="col-lg-4 text-lg-right">
+            <a class="mr-3" href="#!">Privacy Policy</a>
+            <a href="#!">Terms of Use</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+    <script src="../stylesheet/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="../stylesheet/js/shop.js"></script>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="../stylesheet/vendor/jquery/jquery.min.js"></script>
-  <script src="../stylesheet/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-  <!-- Third party plugin JS-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-  <!-- Contact form JS-->
-  <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-  <script src="../stylesheet/mail/contact_me.js"></script>
-  <!-- Core theme JS-->
-  <script src="../stylesheet/js/shop.js"></script>
-  <script>
-    var username = '<%- username %>';
-    var info = JSON.parse('<%- info %>');
-    var category = JSON.parse('<%- category %>');
-    var length = info.length;
-    var rate;
-    //item
-    for (var i = 0; i < length; i++) {
-      switch (info[i].RATE) {
-        case 0:
-          rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
-          break;
-        case 1:
-          rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
-          break;
-        case 2:
-          rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
-          break;
-        case 3:
-          rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
-          break;
-        case 4:
-          rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
-          break;
-        case 5:
-          rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
-          break;
-
-      }
-      $("#item_slot").append(
-        '<div class="col-lg-4 col-md-6 mb-4">' +
-        '<div class="card h-100">' +
-        '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>' +
-        '<div class="card-body">' +
-        '<h4 class="card-title">' +
-        '<a href="/item">' + info[i].ITEM_NAME + '</a>' +
-        '</h4>' +
-        '<h5>$' + info[i].PRICE + '</h5>' +
-        '<p class="card-text">' + info[i].ITEM_DESC +
-        '</p>' +
-        '</div>' +
-        '<div class="card-footer">' +
-        '<small class="text-muted">' + rate + '</small></div></div></div>'
-      )
-
-    }
-
-    //navbar
-    if (username) {
-      $("#account_ctrl").html('Signout');
-      $("#account_ctrl").attr("href", "/signout");
-      $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="/management">Management</a>');
-    } else {
-      $("#account_ctrl").html('Signin');
-      $("#account_ctrl").attr("href", "/signin");
-      $("#accountMenu").remove("#management");
-    }
-    if ($(window).width() < 976) {
-      if (username) {
-        $("#resizemenu").html(
-          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
-          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
-          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-        );
-      } else {
-        $("#resizemenu").html(
-          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
-          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
-        );
-      }
-    }
-    $(window).resize(function () {
-      if ($(window).width() < 976) {
+    <script>
+        var username = '<%- username %>';
+        console.log(username);
+        var info = JSON.parse('<%- info %>');
+        var length = info.length;
+        console.log(info);
+        var rate;
+        //navbar
         if (username) {
-          $("#resizemenu").html(
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-          );
+          $("#account_ctrl").html('Signout');
+          $("#account_ctrl").attr("href", "/signout");
+          $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="/management">Management</a>');
         } else {
-          $("#resizemenu").html(
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+          $("#account_ctrl").html('Signin');
+          $("#account_ctrl").attr("href", "/signin");
+          $("#accountMenu").remove("#management");
         }
-
-      } else {
-        if (username) {
-          $("#resizemenu").html(
-            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-            '<a class="dropdown-item" href="/signout" id="account_ctrl">Signout</a>' +
-            '<a class="dropdown-item" href="/cart">Cart</a>' +
-            '<a class="dropdown-item" href="/management">Management</a></div></div>'
-
-          );
-        } else {
-          $("#resizemenu").html(
-            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-            '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
-            '<a class="dropdown-item" href="/cart">Cart</a>'
-
-          );
+        if (info != "undefined") {
+          if (info[0].MAIN_C) {
+            var main = info[0].MAIN_C.replace(" ", "");
+            console.log(info[0].MAIN_C);
+            $(".list-group").css("background-color", "white");
+            $("#" + main).css("background-color", "silver");
+          }
+          //item
+          for (var i = 0; i < length; i++) {
+            switch (info[i].RATE) {
+              case 0:
+                rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
+                break;
+              case 1:
+                rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
+                break;
+              case 2:
+                rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
+                break;
+              case 3:
+                rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
+                break;
+              case 4:
+                rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
+                break;
+              case 5:
+                rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
+                break;
+    
+            }
+            if (i == 0) {
+              $("#item_slot").html(
+                '<div class="col-lg-4 col-md-6 mb-4">' +
+                '<div class="card h-100">' +
+                '<a href="/item/info?pin='+info[i].PIN +'"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>' +
+                '<div class="card-body">' +
+                '<h4 class="card-title">' +
+                '<a href="/item/info?pin='+info[i].PIN +'">' + info[i].ITEM_NAME + '</a>' +
+                '</h4>' +
+                '<h5>$' + info[i].PRICE + '</h5>' +
+                '<p class="card-text">(' + info[i].PIN +
+                ')</p><p class="card-text">'+
+                '</div>' +
+                '<div class="card-footer">' +
+                '<small class="text-muted">' + rate + '</small></div></div></div>'
+              )
+            } else {
+              $("#item_slot").append(
+                '<div class="col-lg-4 col-md-6 mb-4">' +
+                '<div class="card h-100">' +
+                '<a href="/item/info?pin='+info[i].PIN +'"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>' +
+                '<div class="card-body">' +
+                '<h4 class="card-title">' +
+                '<a href="/item/info?pin='+info[i].PIN +'">' + info[i].ITEM_NAME + '</a>' +
+                '</h4>' +
+                '<h5>$' + info[i].PRICE + '</h5>' +
+                '<p class="card-text">(' + info[i].PIN +
+                ')</p><p class="card-text">'+
+                '</div>' +
+                '<div class="card-footer">' +
+                '<small class="text-muted">' + rate + '</small></div></div></div>'
+              )
+            }
+    
+    
+          }
         }
-      }
-    });
-  </script>
+        if ($(window).width() < 976) {
+                if (username) {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                    );
+                } else {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+                    );
+                }
+            }
+            $(window).resize(function () {
+                if ($(window).width() < 976) {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+                    }
+    
+                } else {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item navbaritem" href="/signout" id="account_ctrl">Signout</a>' +
+                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>' +
+                            '<a class="dropdown-item navbaritem" href="/management">Management</a></div></div>'
+    
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item navbaritem" href="/signin" id="account_ctrl">Signin</a>' +
+                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>'
+    
+                        );
+                    }
+                }
+            });
+      </script>
 </body>
 
 </html>

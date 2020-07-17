@@ -2,45 +2,37 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Shop Item</title>
-  <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-  <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
-    type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <!-- Custom styles for this template -->
-  <link href="../stylesheet/css/styles.css" rel="stylesheet" />
-  <link href="../stylesheet/css/shop-item.css" rel="stylesheet">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AUTOINMall</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/shop-item.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+   
 </head>
 
-<body>
-
+<body id="page-top">
+    
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
 
-      <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%"><img src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" /></a>
+      <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%"><img
+          src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" /></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -50,7 +42,7 @@
       <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#cartegories">Categories</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
@@ -80,77 +72,97 @@
           <div class="dropright"><a href="#" style="color:black!important" class="list-group-item dropdown-toggle"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accessories</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=seat">Seat</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=mirror">Mirror</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=pedal">Pedal</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=gear">Gear</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=steeringwheel">Steering Wheel</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=cover">Cover</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=pad">Pad</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=holder">Holder</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=pocket">Pocket</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=handle">Handle</a>
+              <a class="dropdown-item" href="/shop/item?main=accessories&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Body</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=panel">Panel</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=airbag">Airbag</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=dashboard">Dash Board</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=door">Door</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=trunk">Trunk</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=bonnet">Bonnet</a>
+              <a class="dropdown-item" href="/shop/item?main=body&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Brake System</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=brake system&sub=brake">Brake</a>
+              <a class="dropdown-item" href="/shop/item?main=brake system&sub=master cylinder">Master Cylinder</a>
+              <a class="dropdown-item" href="/shop/item?main=brake system&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Electric Parts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=electric parts&sub=contorl system">Control System</a>
+              <a class="dropdown-item" href="/shop/item?main=electric parts&sub=cooling system">Cooling System</a>
+              <a class="dropdown-item" href="/shop/item?main=electric parts&sub=lamp">Lamp</a>
+              <a class="dropdown-item" href="/shop/item?main=electric parts&sub=wiper">Wiper</a>
+              <a class="dropdown-item" href="/shop/item?main=electric parts&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Interior Parts</a>
+              aria-haspopup="true" aria-expanded="false">Power Generater Parts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=engine">Engine</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=fuel system">Fuel System</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=start">Start</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=ignition system">Ignition
+                System</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=exhaust">Exhaust</a>
+              <a class="dropdown-item" href="/shop/item?main=power generater parts&sub=etc">etc</a>
+            </div>
+          </div>
+          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Power Transfer Parts</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=transmission">Transmission</a>
+              <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=differential system">Differential
+                System</a>
+              <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=drive shaft">Drive Shaft</a>
+              <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=wheel">Wheel</a>
+              <a class="dropdown-item" href="/shop/item?main=power transfer parts&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Steering Parts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering wheel">Steering Wheel</a>
+              <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering column">Steering Column</a>
+              <a class="dropdown-item" href="/shop/item?main=steering parts&sub=steering gear">Steering Gear</a>
+              <a class="dropdown-item" href="/shop/item?main=steering parts&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Suspention Parts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=suspention parts&sub=shock absorber">Shock Absorber</a>
+              <a class="dropdown-item" href="/shop/item?main=suspention parts&sub=etc">etc</a>
             </div>
           </div>
           <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Tuning Parts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=build up">Build Up</a>
+              <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=tune up">Tune Up</a>
+              <a class="dropdown-item" href="/shop/item?main=tuning parts&sub=dress up">Dress Up</a>
             </div>
           </div>
-          <div class="dropright"><a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">etc</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-
-
+          <a href="#" class="list-group-item" aria-haspopup="true" aria-expanded="false">etc</a>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -161,87 +173,139 @@
             <div class="col-lg-6" id="item_img">
               <img class="img-fluid" src="http://placehold.it/900x400" alt="">
             </div>
-            <div class="col-lg-6">
-              <h3 class="title">Product Name</h3>
-              <h4>$24.99</h4>
-              <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic
-                aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi
-                perspiciatis molestias iure, ducimus!</p>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
+            <div class="col-lg-6" id="item_head">
+              <h3 class="title"></h3>
+              <h4></h4>
+              <p class="text"></p>
+              <span class="text-warning"></span>
             </div>
           </div>
-        </div>
-        <!-- /.card -->
-
-        <div class="card card-outline-secondary my-4">
-          <div class="card-header">
-            Product Reviews
+          <form id="add_cart">
+            <div class="input-group mb-3" style="float:right;width:50%;">
+              <div class="input-group-prepend"  style="float:right!important">
+                <input type="number" name = "item_volume" class="form-control"style="float:right!important" value = 1 min = 1 >
+                <span class="input-group-text" style="float:right!important">EA</span>                
+              </div>
+            </div>
+            <input type="hidden" id="item_pin" name="item_pin">
+            <input type="hidden" id="item_parts_num" name = "item_parts_num" >
+            <input type="hidden" id="item_name" name = "item_name">
+            <input type="hidden" id="item_price" name = "item_price">
+            <input type="button" class="btn btn-info btn-block" id="buy" value="BUY">
+          </form>
+          <!-- /.card -->
+          <div class="card card-outline-secondary my-4">
+            <div class="card-body">
+              <p id="item_desc">
+              </p>
+            </div>
           </div>
-          <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-              necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-              necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-              necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-              necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-              necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-              necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <a href="#" class="btn btn-success">Leave a Review</a>
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              Product Reviews
+            </div>
+            <div class="card-body">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
+                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
+                necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
+                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
+                necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
+                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
+                necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <a href="#" class="btn btn-success">Leave a Review</a>
+            </div>
           </div>
-        </div>
 
-        <!-- /.card -->
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
 
       </div>
-      <!-- /.col-lg-9 -->
 
     </div>
+    <!-- /.container -->
 
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer-->
-  <footer class="footer py-4">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-        <div class="col-lg-4 my-3 my-lg-0">
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <div class="col-lg-4 text-lg-right">
-          <a class="mr-3" href="#!">Privacy Policy</a>
-          <a href="#!">Terms of Use</a>
+    <!-- Footer-->
+    <footer class="footer py-4">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+          <div class="col-lg-4 my-3 my-lg-0">
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="col-lg-4 text-lg-right">
+            <a class="mr-3" href="#!">Privacy Policy</a>
+            <a href="#!">Terms of Use</a>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="../stylesheet/vendor/jquery/jquery.min.js"></script>
-  <script src="../stylesheet/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-  <!-- Third party plugin JS-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-  <!-- Contact form JS-->
-  <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-  <script src="../stylesheet/mail/contact_me.js"></script>
-  <!-- Core theme JS-->
-  <script src="../stylesheet/js/item.js"></script>
-  <script>
-   var username = '<%- username %>';
-        console.log(username);
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+    <script src="../stylesheet/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="../stylesheet/js/item.js"></script>
+    <script>
+        var username = '<%- username %>';
+        var info = JSON.parse('<%- info %>');
+        var rate;
+        if (info != "undefined") {
+          switch (info[0].RATE) {
+            case 0:
+              rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
+              break;
+            case 1:
+              rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
+              break;
+            case 2:
+              rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
+              break;
+            case 3:
+              rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
+              break;
+            case 4:
+              rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
+              break;
+            case 5:
+              rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
+              break;
+  
+          }
+          $("#item_head h3").html(info[0].ITEM_NAME);
+          $("#item_head h4").html("$" + info[0].PRICE);
+          $("#item_head p").html(
+            "Number: " + info[0].PARTS_NUM + "<br>" +
+            "Volume: " + info[0].VOLUME + " EA<br>" +
+            "Model: " + info[0].BASE_M + "(" + info[0].DETAIL_M + ")<br>" +
+            "Manufacturer: " + info[0].CAR_M + "<br>" +
+            "Item manufacturer: " + info[0].ITEM_M + "<br>"
+          );
+          $("#item_head span").html(rate + " " + info[0].RATE + " stars");
+          $("#item_desc").html(info[0].ITEM_DESC);
+  
+          $("#item_name").val(info[0].ITEM_NAME);
+          $("#item_pin").val(info[0].PIN);
+          $("#item_parts_num").val(info[0].PARTS_NUM);
+          $("#item_price").val(info[0].PRICE);
+        }
+  
         if (username) {
           $("#account_ctrl").html('Signout');
           $("#account_ctrl").attr("href", "/signout");
@@ -251,58 +315,59 @@
           $("#account_ctrl").attr("href", "/signin");
           $("#accountMenu").remove("#management");
         }
-        if($(window).width() <976) {
-            if (username) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-            }else{
-                $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
-            );
-            }
-         }
-        $(window).resize(function () {
-            if ($(window).width() < 976) {
+        if ($(window).width() < 976) {
                 if (username) {
                     $("#resizemenu").html(
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
                         '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
                         '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
                     );
                 } else {
                     $("#resizemenu").html(
                         '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
-                }
-
-            } else {
-                if (username) {
-                    $("#resizemenu").html(
-                        '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-                        'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                        '<a class="dropdown-item" href="/signout" id="account_ctrl">Signout</a>' +
-                        '<a class="dropdown-item" href="/cart">Cart</a>' +
-                        '<a class="dropdown-item" href="/management">Management</a></div></div>'
-
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
                     );
-                } else {
-                    $("#resizemenu").html(
-                        '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-                        'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                        '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
-                        '<a class="dropdown-item" href="/cart">Cart</a>'                 
-
-            );
                 }
             }
-        });
-  </script>
+            $(window).resize(function () {
+                if ($(window).width() < 976) {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+                    }
+    
+                } else {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item navbaritem" href="/signout" id="account_ctrl">Signout</a>' +
+                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>' +
+                            '<a class="dropdown-item navbaritem" href="/management">Management</a></div></div>'
+    
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item navbaritem" href="/signin" id="account_ctrl">Signin</a>' +
+                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>'
+    
+                        );
+                    }
+                }
+            });
+      </script>
+ 
 </body>
 
 </html>

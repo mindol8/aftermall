@@ -44,7 +44,7 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#cartegories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
@@ -66,168 +66,231 @@
         <div class="container">
             <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
             <form action="/search" method="POST" id="search_form">
-                <div class="masthead-subheading" style="width:70%;margin-left:15%;margin-right:15%;">                
-                    <div class="input-group mb-3">
+                <div class="masthead-subheading" style="width:70%;margin-left:15%;margin-right:15%;">
+                    <div class="input-group mb-1">
                         <div class="input-group-prepend" id="select_theme">
-                            <select class="custom-select" name="theme" id="theme">
-                                <option selected>Theme</option>
-                                <option value="model">Model</option>
-                                <option value="pin">Pin</option>
-                                <option value="manufacturer">Manufacturer</option>
-                            </select>
+                          <span class="input-group-text">Parts Num</span>
                         </div>
+                        <input type="hidden" name="theme" value="parts_num">
                         <input type="text" class="form-control" placeholder="search" name="search_thing" id="thing">
+                      </div>
+                      <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" >CATEGORY</span></div>
+                        <select name="category" class="custom-select" id="category">
+                        <option selected>Choose...</option>
+                        <optgroup label ="Accessories">
+                        <option value="accessories&seat">Seat</option>
+                        <option value="accessories&mirror">Mirror</option>
+                        <option value="accessories&pedal">Pedal</option>
+                        <option value="accessories&gear">Gear</option>
+                        <option value="accessories&steering wheel">Steering Wheel</option>
+                        <option value="accessories&cover">Cover</option>
+                        <option value="accessories&padr">Pad</option>
+                        <option value="accessories&holder">Cover</option>
+                        <option value="accessories&pocket">Pocket</option>
+                        <option value="accessories&handle">handle</option>
+                        <option value="accessories&etc">etc(Accessories)</option></optgroup>
+                        <optgroup label ="Body">
+                        <option value="body&panel">Panel</option>
+                        <option value="body&airbag">Airbag</option>
+                        <option value="body&dash board">Dash Board</option>
+                        <option value="body&door">Door</option>
+                        <option value="body&trunk">Trunk</option>
+                        <option value="body&bonnet">Bonnet</option>
+                        <option value="body&etc">etc(Body)</option></optgroup>
+                        <optgroup label ="Brake">
+                        <option value="brake&brake">Brake</option>
+                        <option value="brake&master cylinder">Master Cylinder</option>
+                        <option value="brake&etc">etc(Brake)</option></optgroup>
+                        <optgroup label ="Electric Parts">
+                        <option value="eletric parts&control system">Control System</option>
+                        <option value="eletric parts&cooling system">Cooling System</option>
+                        <option value="eletric parts&lamp">Lamp</option>
+                        <option value="eletric parts&wiper">Wiper</option>
+                        <option value="eletric&etc">etc(Electric Parts)</option></optgroup>
+                        <optgroup label ="Power Generater Parts">
+                        <option value="power generater parts&engine">Engine</option>
+                        <option value="power generater parts&fuel system">Fuel System</option>
+                        <option value="power generater parts&start">Start</option>
+                        <option value="power generater parts&ignition system">Ignition System</option>
+                        <option value="power generater parts&exhaust">Exhaust</option>
+                        <option value="power generater parts&etc">etc(Power Generater Parts)</option></optgroup>
+                        <optgroup label ="Power Transfer Parts">
+                        <option value="power transfer parts&clutch">Clutch</option>
+                        <option value="power transfer parts&transmission">Transmission</option>
+                        <option value="power transfer parts&differental system">Differental System</option>
+                        <option value="power transfer parts&drive shaft">Drive Shaft</option>
+                        <option value="power transfer parts&wheel">Wheel</option>
+                        <option value="power transfer parts&etc">etc(Power Transfer Parts)</option></optgroup>
+                        <optgroup label ="Steering Parts">
+                        <option value="steering parts&steering wheel">Steering Wheel</option>
+                        <option value="steering parts&steering column">Steering column</option>
+                        <option value="steering parts&steering gear">Steering Gear</option>
+                        <option value="steering parts&etc">etc(Steering Parts)</option></optgroup>
+                        <optgroup label ="Suspention Parts">
+                        <option value="suspention parts&shock absorber">Shock Absorber</option>
+                        <option value="suspention parts&etc">etc(Suspention Parts)</option></optgroup>
+                        <optgroup label ="Tuning Parts">
+                        <option value="tuning parts&build up">Build Up</option>
+                        <option value="tuning parts&tune up">Tune Up</option>
+                        <option value="tuning parts&dress up">Dress Up</option>
+                        <option value="tuning parts&etc">etc(Tuning Parts)</option></optgroup>
+                        <optgroup label ="Etc">
+                        <option value="etc&">etc</option></optgroup>
+                        </select>
                     </div>
+                   
+                      <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" >BRANDS</span></div>
+                            <select name="brands" class="custom-select" id="brands" disabled>
+                                <option value="comp1">comp1</option>
+                                <option value="comp2">comp2</option>
+                            </select>
+                      </div>
+                      <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" >MODEL</span></div>
+                            <select name="model" class="custom-select" id="model" disabled>
+                                <option value="model1">model1</option>
+                                <option value="model2">model2</option>
+                            </select>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" >VERSION</span></div>
+                            <select name="version" class="custom-select" id="version" disabled>
+                                <option value="ver1">ver1</option>
+                                <option value="ver1">ver2</option>
+                            </select>
+                      </div>
+                    
                 </div>
-                <input type="submit" value="SHOPPING NOW" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-                    id="shop_now">
+                <input type="submit" value="SHOPPING NOW"
+                    class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" id="shop_now">
             </form>
         </div>
     </header>
     <!-- Services-->
-    <section class="page-section" id="cartegories">
+    <section class="page-section" id="rank">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Categories</h2>
-                <h3 class="section-subheading text-muted">Choose the categories what you want to buy!!</h3>
+                <h2 class="section-heading text-uppercase">RANK</h2>
+                <h3 class="section-subheading text-muted"><strong>Category top 3</strong></h3>
             </div>
-            <div class="row text-center">
-                <!--show 4 items in middle size page and show 2 items in small size page-->
-
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Accessories</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div>                    
+                        <a href="/shop">
+                            <h4 class="my-3">TOP 1</h4>
+                            <span class="text-center">
+                                <img src="../stylesheet/img/about/1.jpg" class="img-fluid rounded" alt="No image">
+                            </span>
+                            <p class="text-muted" style="margin-bottom:1%;">
+                                category 1
+                            </p>
+                        </a>
+                    </div>
                 </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Body</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div>                    
+                                <a href="/shop">
+                                    <h4 class="my-3">TOP 2</h4>
+                                    <span>
+                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded" alt="No image">
+                                    </span>
+                                    
+                                    <p class="text-muted">category 2
+                                      </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6  text-center">
+                            <div>                    
+                                <a href="/shop">
+                                    <h4 class="my-3">TOP 3</h4>
+                                    <span>
+                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded" alt="No image">
+                                    </span>
+                                    
+                                    <p class="text-muted">category 3
+                                      </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>                   
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Brake System</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
+            </div>  
+            <div class="text-center">
+                <h3 class="section-subheading text-muted" style="margin-top:7%;"><strong>Most popular top 3</strong></h3>
+            </div>  
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div>                    
+                        <a href="/shop">
+                            <h4 class="my-3">TOP 1</h4>
+                            <span class="text-center">
+                                <img src="../stylesheet/img/about/1.jpg" class="img-fluid rounded" alt="No image">
+                            </span>
+                            <p class="text-muted" style="margin-bottom:1%;">
+                                ITEM NAME 1
+                            </p>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Electric Parts</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div>                    
+                                <a href="/shop">
+                                    <h4 class="my-3">TOP 2</h4>
+                                    <span>
+                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded" alt="No image">
+                                    </span>
+                                    
+                                    <p class="text-muted">ITEM NAME 2
+                                      </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6  text-center">
+                            <div>                    
+                                <a href="/shop">
+                                    <h4 class="my-3">TOP 3</h4>
+                                    <span>
+                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded" alt="No image">
+                                    </span>
+                                    
+                                    <p class="text-muted">ITEM NAME 3
+                                      </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>                   
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Interior Parts</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Steering Parts</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Suspention Parts</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="/shop">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-
-                        <h4 class="my-3">Tuning Parts</h4>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime
-                            quam
-                            architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </a>
-                </div>
-            </div>
+            </div>          
         </div>
     </section>
     <!-- brands-->
     <div class="page-section" id="brands">
         <h2 class="section-heading text-uppercase" id="brand">Brands</h2>
         <br>
-        <div class="swiper-container">
+        <div class="swiper-container" id="brand_swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto"
+                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
                             src="../stylesheet/img/logos/envato.jpg" alt="" /></a></div>
-                <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto"
+                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
                             src="../stylesheet/img/logos/designmodo.jpg" alt="" /></a></div>
-                <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto"
+                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
                             src="../stylesheet/img/logos/themeforest.jpg" alt="" /></a></div>
-                <div class="swiper-slide"><a href="#!"><img class="img-fluid d-block mx-auto"
+                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
                             src="../stylesheet/img/logos/creative-market.jpg" alt="" /></a></div>
             </div>
             <br>
-            <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
-            <!-- Add Arrows -->
+          
         </div>
 
     </div>
@@ -239,33 +302,35 @@
                 <h2 class="section-heading text-uppercase">About</h2>
                 <h3 class=" text-uppercase" style="color:gray">Get the latest Global auto-parts here
                     at an Best price!</h3>
-                    <h4><small>— AUTO-PARTS E-COMMERCE SERVICE</small></h4>
+                <h4><small>— AUTO-PARTS E-COMMERCE SERVICE</small></h4>
             </div>
             <br>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        Autoin Inc. is a service provider of data-based AUTOINSPEC, exhibition agency, trade transaction and marketing materials as well as eAUTOIN.com, a global B2B marketplace for small and medium auto parts manufacturers. Autoin will grow into a global company pursuing change through continuous development of future technologies such as big data and blockchain based on its expertise in the automotive industry.
-                    </div>
-                    
-                    <div class="col-md-6">
-                        AUTOINMall is a shopping mall specializing in automotive A/S parts and accessories, which is dedicated to more reasonable prices, convenient purchasing processes, fast delivery and various services. We will provide a variety of promotions with the opening and we will always strive to satisfy our customers based on our expertise in the automotive industry. 
-                                               
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="../stylesheet/img/autoinlogo/autoinspec.jpg" alt="" style="width:50%;margin-left:25%;"/>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" style="width:50%;margin-left:25%;margin-top:5%"/>
-                    </div>
-                </div>
-            </div>
 
+                    <div class="col-md-6">
+                        AUTOINMall is a shopping mall specializing in automotive A/S parts and accessories, which is
+                        dedicated to more reasonable prices, convenient purchasing processes, fast delivery and various
+                        services. We will provide a variety of promotions with the opening and we will always strive to
+                        satisfy our customers based on our expertise in the automotive industry.
+                        <img src="../stylesheet/img/autoinlogo/autoin_logo.png" alt=""
+                            style="width:50%;margin-left:25%;margin-top:15%;margin-bottom:10%" />
+
+                    </div>
+                    <div class="col-md-6">
+                        Autoin Inc. is a service provider of data-based AUTOINSPEC, exhibition agency, trade transaction
+                        and marketing materials as well as eAUTOIN.com, a global B2B marketplace for small and medium
+                        auto parts manufacturers. Autoin will grow into a global company pursuing change through
+                        continuous development of future technologies such as big data and blockchain based on its
+                        expertise in the automotive industry.
+                        <a href="https://autoinspec.com" target="_blank"><img
+                                src="../stylesheet/img/autoinlogo/autoinspec.jpg" alt=""
+                                style="width:50%;margin-left:25%;margin-top:5%" /></a>
+
+                    </div>
+                </div>
+            </div>
+            <br>
 
         </div>
     </section>
@@ -279,7 +344,7 @@
                 <div class="col-lg-4 my-3 my-lg-0">
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-right">
                     <a class="mr-3" href="#!">Privacy Policy</a>
@@ -314,20 +379,20 @@
             $("#accountMenu").remove("#management");
         }
 
-        if($(window).width() <976) {
+        if ($(window).width() < 976) {
             if (username) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-            }else{
                 $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
-            );
+                    '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
+                    '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                    '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                );
+            } else {
+                $("#resizemenu").html(
+                    '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                    '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+                );
             }
-         }
+        }
         $(window).resize(function () {
             if ($(window).width() < 976) {
                 if (username) {
@@ -359,9 +424,9 @@
                         'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
                         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                         '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
-                        '<a class="dropdown-item" href="/cart">Cart</a>'                 
+                        '<a class="dropdown-item" href="/cart">Cart</a>'
 
-            );
+                    );
                 }
             }
         });

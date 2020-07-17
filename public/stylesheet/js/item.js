@@ -31,6 +31,38 @@
             }
         }
     });
+    //add cart
+    $("#buy").off("click").on("click",()=>{
+        var item_name = $("#item_name").val()
+        $.ajax({
+            url:"/item/cart",
+            type:"post",
+            data:$("#add_cart").serialize(),
+            success:(data)=>{
+                if(data === "GO SIGNIN"){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sign in',
+                        text: 'Sign in first!!'
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Add',
+                        text: data+' is in the cart!!'
+                    })
+                }
+               
+            },
+            error:()=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Add',
+                    text: 'Insert cart fail'
+                })
+            }
+        })
+    })
 
     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {
@@ -43,33 +75,6 @@
         offset: 74,
     });
     
-    $(window).resize(function() { 
-        if($(window).width() <976) {
-            $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-            );
-         }else{
-            $("#resizemenu").html(
-                '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"'+
-                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>'+
-                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>'+
-                '<a class="dropdown-item" href="/cart">Cart</a>'+
-                '<a class="dropdown-item" href="/management">Management</a></div></div>'
-
-            );
-         }  
-     });
-     if($(window).width() <976) {
-        $("#resizemenu").html(
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'+
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-        );
-     }
-
  
     // Collapse Navbar
     var navbarCollapse = function () {

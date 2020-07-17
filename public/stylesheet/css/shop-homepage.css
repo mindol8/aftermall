@@ -25,10 +25,22 @@ body {
 }
 
 
-#right.dropdown-item{
-  color:black!important;
-}
-#right.dropdown-item:hover{
+.dropright .dropdown-item:hover{
   background-color: #fed136!important;
 }
 
+.country{
+  color:black!important;
+  text-decoration: none!important;
+}
+.country-card:hover{
+  background-color:#fed136!important;
+}
+
+.navbaritem{
+  color:white;
+}
+
+.navbarmenu{
+  background-color:#212529;
+}

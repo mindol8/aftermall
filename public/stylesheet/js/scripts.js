@@ -6,9 +6,48 @@
     (function ($) {
     "use strict"; // Start of use strict
     $(document).ready(function () {
+        
+        //selected value
+        $("#category").change(()=>{
+            var categ = $("#category option:selected").val();           
+            categ = categ.split('&');
+            if(categ[0] != "accessories"){
+                $("#brands").attr("disabled",false);
+            }else{
+                $("#brands").attr("disabled",true);
+            }
+        })
+        //brand select
+        $("#brands").change(()=>{
+            var brand = $("#brands option:selected").val();  
+            $.ajax({
+                url:"/",
+                type:"post",
+                data:{CAR_M:brand},
+                success:(data)=>{
+                    //model select option 출력
+                    $("#model").attr("disabled",false);
+                }
+            })         
+           
+        })
+        //model select
+        $("#model").change(()=>{
+            var model = $("#model option:selected").val();  
+            $.ajax({
+                url:"/",
+                type:"post",
+                data:{BASE_M:model},
+                success:(data)=>{
+                    //version select option 출력
+                    $("#version").attr("disabled",false);
+                }
+            })         
+           
+        })
       
-        //swiper side running
-        var swiper = new Swiper('.swiper-container', {
+        //swiper side running brand
+        var swiper = new Swiper('#brand_swiper', {
             slidesPerView: 3,
             spaceBetween: 30,
             loop: true,
@@ -17,12 +56,10 @@
                 delay: 1500,
                 disableOnInteraction: false,
             },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
+         
         });
 
+    
          // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
         if (

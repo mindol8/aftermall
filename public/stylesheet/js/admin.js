@@ -48,6 +48,10 @@
                     '<input type="text" class="form-control" id="pin" aria-describedby="basic-addon1" readonly style="text-align:right"> </div>' +
                     '<div class="input-group mb-3">' +
                     '<div class="input-group-prepend">' +
+                    '<span class="input-group-text" >PARTS NUM</span></div>' +
+                    '<input type="text" class="form-control" id="parts_number" aria-describedby="basic-addon1" readonly style="text-align:right"> </div>' +
+                    '<div class="input-group mb-3">' +
+                    '<div class="input-group-prepend">' +
                     '<span class="input-group-text" >PRICE</span></div>' +
                     '<input type="text" class="form-control" id="price"  aria-describedby="basic-addon1" readonly style="text-align:right"></div>' +
                     '<div class="input-group mb-3">' +
@@ -64,11 +68,26 @@
                     '<input type="text" class="form-control" id="sub_category" aria-describedby="basic-addon1" readonly style="text-align:right"></div>' +
                     '<div class="input-group mb-3">' +
                     '<div class="input-group-prepend">' +
+                    '<span class="input-group-text" >MODEL</span></div>' +
+                    '<input type="text" class="form-control" id="model_b" readonly style="text-align:right"></div>' +
+                    '<div class="input-group mb-3">' +
+                    '<div class="input-group-prepend">' +
+                    '<span class="input-group-text" >SUB MODEL</span></div>' +
+                    '<input type="text" class="form-control" id="model_d" readonly style="text-align:right"></div>' +
+                    '<div class="input-group mb-3">' +
+                    '<div class="input-group-prepend">' +
+                    '<span class="input-group-text" >CAR MANUF</span></div>' +
+                    '<input type="text" class="form-control" id="manuf_c" readonly style="text-align:right"></div>' +
+                    '<div class="input-group mb-3">' +
+                    '<div class="input-group-prepend">' +
+                    '<span class="input-group-text" >ITEM MANUF</span></div>' +
+                    '<input type="text" class="form-control" id="manuf_i" readonly style="text-align:right"></div>' +
+                    '<div class="input-group mb-3">' +
+                    '<div class="input-group-prepend">' +
                     '<span class="input-group-text" >DESC</span></div>' +
                     '<textarea class="form-control" id="desc" aria-label="With textarea" readonly style="resize:none"></textarea></div>' +
                     '<div id="btnset" style="float:right">' +
                     '<input type="button" class="btn btn-success" id="add" value="Add">&nbsp;' +
-
                     '</div>' +
                     '</div>'
                 );
@@ -83,8 +102,8 @@
                             '<input type="text" class="form-control" id="additem" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
-                            '<span class="input-group-text" >PIN</span></div>' +
-                            '<input type="text" class="form-control" id="addpin" ></div>' +
+                            '<span class="input-group-text" >PARTS NUM</span></div>' +
+                            '<input type="text" class="form-control" id="addparts_number" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >PRICE</span></div>' +
@@ -95,40 +114,120 @@
                             '<input type="text" class="form-control" id="addvolume" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
-                            '<span class="input-group-text" >MAIN</span></div>' +
-                            '<input type="text" class="form-control" id="addmain_category"  ></div>' +
+                            '<span class="input-group-text" >CATEGORY</span></div>' +
+                            '<select name="category" class="custom-select" id="category">'+
+                            '<option selected>Choose...</option>'+
+                            '<optgroup label ="Accessories">'+
+                            '<option value="accessories&seat">Seat</option>'+
+                            '<option value="accessories&mirror">Mirror</option>'+
+                            '<option value="accessories&pedal">Pedal</option>'+
+                            '<option value="accessories&gear">Gear</option>'+
+                            '<option value="accessories&steering wheel">Steering Wheel</option>'+
+                            '<option value="accessories&cover">Cover</option>'+
+                            '<option value="accessories&padr">Pad</option>'+
+                            '<option value="accessories&holder">Cover</option>'+
+                            '<option value="accessories&pocket">Pocket</option>'+
+                            '<option value="accessories&handle">handle</option>'+
+                            '<option value="accessories&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Body">'+
+                            '<option value="body&panel">Panel</option>'+
+                            '<option value="body&airbag">Airbag</option>'+
+                            '<option value="body&dash board">Dash Board</option>'+
+                            '<option value="body&door">Door</option>'+
+                            '<option value="body&trunk">Trunk</option>'+
+                            '<option value="body&bonnet">Bonnet</option>'+
+                            '<option value="body&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Brake">'+
+                            '<option value="brake&brake">Brake</option>'+
+                            '<option value="brake&master cylinder">Master Cylinder</option>'+
+                            '<option value="brake&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Electric Parts">'+
+                            '<option value="eletric parts&control system">Control System</option>'+
+                            '<option value="eletric parts&cooling system">Cooling System</option>'+
+                            '<option value="eletric parts&lamp">Lamp</option>'+
+                            '<option value="eletric parts&wiper">Wiper</option>'+
+                            '<option value="eletric&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Power Generater Parts">'+
+                            '<option value="power generater parts&engine">Engine</option>'+
+                            '<option value="power generater parts&fuel system">Fuel System</option>'+
+                            '<option value="power generater parts&start">Start</option>'+
+                            '<option value="power generater parts&ignition system">Ignition System</option>'+
+                            '<option value="power generater parts&exhaust">Exhaust</option>'+
+                            '<option value="power generater parts&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Power Transfer Parts">'+
+                            '<option value="power transfer parts&clutch">Clutch</option>'+
+                            '<option value="power transfer parts&transmission">Transmission</option>'+
+                            '<option value="power transfer parts&differental system">Differental System</option>'+
+                            '<option value="power transfer parts&drive shaft">Drive Shaft</option>'+
+                            '<option value="power transfer parts&wheel">Wheel</option>'+
+                            '<option value="power transfer parts&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Steering Parts">'+
+                            '<option value="steering parts&steering wheel">Steering Wheel</option>'+
+                            '<option value="steering parts&steering column">Steering column</option>'+
+                            '<option value="steering parts&steering gear">Steering Gear</option>'+
+                            '<option value="steering parts&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Suspention Parts">'+
+                            '<option value="suspention parts&shock absorber">Shock Absorber</option>'+
+                            '<option value="suspention parts&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Tuning Parts">'+
+                            '<option value="tuning parts&build up">Build Up</option>'+
+                            '<option value="tuning parts&tune up">Tune Up</option>'+
+                            '<option value="tuning parts&dress up">Dress Up</option>'+
+                            '<option value="tuning parts&etc">etc</option></optgroup>'+
+                            '<optgroup label ="Etc">'+
+                            '<option value="etc&">etc</option></optgroup>'+
+                            '</select></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
-                            '<span class="input-group-text" >SUB</span></div>' +
-                            '<input type="text" class="form-control" id="addsub_category" ></div>' +
+                            '<span class="input-group-text" >MODEL</span></div>' +
+                            '<input type="text" class="form-control" id="addmodel_b" ></div>' +
+                            '<div class="input-group mb-3">' +
+                            '<div class="input-group-prepend">' +
+                            '<span class="input-group-text" >SUB MODEL</span></div>' +
+                            '<input type="text" class="form-control" id="addmodel_d" ></div>' +
+                            '<div class="input-group mb-3">' +
+                            '<div class="input-group-prepend">' +
+                            '<span class="input-group-text" >CAR MANUF</span></div>' +
+                            '<input type="text" class="form-control" id="addmanuf_c" ></div>' +
+                            '<div class="input-group mb-3">' +
+                            '<div class="input-group-prepend">' +
+                            '<span class="input-group-text" >ITEM MANUF</span></div>' +
+                            '<input type="text" class="form-control" id="addmanuf_i" ></div>' +
                             '<div class="input-group mb-3">' +
                             '<div class="input-group-prepend">' +
                             '<span class="input-group-text" >DESC</span></div>' +
-                            '<textarea class="form-control" id="adddesc" aria-label="With textarea"  style="resize:none"></textarea></div></form>',
+                            '<textarea class="form-control" id="adddesc" aria-label="With textarea"  style="resize:none"></textarea></div>'+
+                           
+                            '</div></form>',
                         focusConfirm: false,
                         showCancelButton: true,
                         confirmButtonText: "Add",
                         preConfirm: () => {
+                            var category = $("#category").val().split('&');
                             var dataset={
+                                modelb:$("#addmodel_b").val(),
+                                manufc:$("#addmanuf_c").val(),
+                                modeld:$("#addmodel_d").val(),
+                                manufi:$("#addmanuf_i").val(),
                                 item:$("#additem").val(),
-                                pin:$("#addpin").val(),
+                                parts_num:$("#addparts_number").val(),
                                 price:$("#addprice").val(),
                                 volume:$("#addvolume").val(),
-                                mainc:$("#addmain_category").val(),
-                                subc:$("#addsub_category").val(),
-                                desc:$("#adddesc").val()
-                                
+                                mainc:category[0],
+                                subc:category[1],
+                                desc:$("#adddesc").val(),
+                                                               
                             };
                             
                             $.ajax({
                                 url: "/admin/item/add",
                                 type: "post",
                                 data: dataset,
-                                success: function () {
+                                success: function (data) {
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Add',
-                                        text: 'Add item success'
+                                        text: 'Pin: '+data
                                     })
                                 },
                                 error: function () {
@@ -158,11 +257,17 @@
                             console.log(setflag);
                             $("#item").val(data.ITEM_NAME);
                             $("#pin").val(data.PIN);
+                            $("#parts_number").val(data.PARTS_NUM);
                             $("#price").val(data.PRICE);
                             $("#volume").val(data.VOLUME);
-                            $("#main_category").val(data.MAIN);
-                            $("#sub_category").val(data.SUB);
+                            $("#main_category").val(data.MAIN_C);
+                            $("#sub_category").val(data.SUB_C);
                             $("#desc").val(data.ITEM_DESC);
+                            $("#model_b").val(data.BASE_M);
+                            $("#manuf_c").val(data.CAR_M);
+                            $("#model_d").val(data.DETAIL_M);
+                            $("#manuf_i").val(data.ITEM_M);
+
                             if (setflag == false) {
                                 $("#btnset").append(
                                     '<input type="button" class="btn btn-danger" id="delete" value="Delete">&nbsp;' +
@@ -188,12 +293,16 @@
                                                 $("#thing").val("");
                                                 $("#item").val("");
                                                 $("#pin").val("");
+                                                $("#parts_number").val("");
                                                 $("#price").val("");
                                                 $("#volume").val("");
                                                 $("#main_category").val("");
                                                 $("#sub_category").val("");
                                                 $("#desc").val("");
-
+                                                $("#model_b").val("");
+                                                $("#manuf_c").val("");
+                                                $("#model_d").val("");
+                                                $("#manuf_i").val("");
                                             })
                                         },
                                         error: function () {
@@ -211,33 +320,47 @@
                                 //setting btn event
                                 $("#setting").off("click").on("click", function () {
                                     var item = $("#item");
+                                    var partsnum = $("#parts_number");
                                     var pin = $("#pin");
                                     var price = $("#price");
                                     var volume = $("#volume");
                                     var mainc = $("#main_category");
                                     var subc = $("#sub_category");
                                     var desc = $("#desc");
+                                    var modelb = $("#model_b");
+                                    var manufc = $("#manuf_c");
+                                    var modeld = $("#model_d");
+                                    var manufi = $("#manuf_i");
 
                                     if (changeflag == false) {
                                         $("#setting").val("finish");
                                         $("#setting").css("background-color", "yellow");
                                         item.attr("readonly", false);
-                                        pin.attr("readonly", false);
+                                        partsnum.attr("readonly", false);
                                         price.attr("readonly", false);
                                         volume.attr("readonly", false);
                                         mainc.attr("readonly", false);
                                         subc.attr("readonly", false);
                                         desc.attr("readonly", false);
+                                        modelb.attr("readonly",false);
+                                        manufc.attr("readonly",false);
+                                        modeld.attr("readonly",false);
+                                        manufi.attr("readonly",false);
                                         changeflag = true;
                                     } else {
                                         var data = {
                                             item: item.val(),
-                                            pin: pin.val(),
+                                            partsnum: partsnum.val(),
+                                            pin:pin.val(),
                                             price: price.val(),
                                             volume: volume.val(),
                                             mainc: mainc.val(),
                                             subc: subc.val(),
-                                            desc: desc.val()
+                                            desc: desc.val(),
+                                            modelb: modelb.val(),
+                                            manufc: manufc.val(),
+                                            modeld: modeld.val(),
+                                            manufi: manufi.val()
                                         };
                                         $.ajax({
                                             url: "/admin/item/setting",
@@ -252,12 +375,16 @@
                                                     $("#setting").val("setting");
                                                     $("#setting").css("background-color", "gray");
                                                     item.attr("readonly", true);
-                                                    pin.attr("readonly", true);
+                                                    partsnum.attr("readonly", true);
                                                     price.attr("readonly", true);
                                                     volume.attr("readonly", true);
                                                     mainc.attr("readonly", true);
                                                     subc.attr("readonly", true);
                                                     desc.attr("readonly", true);
+                                                    modelb.attr("readonly",true);
+                                                    manufc.attr("readonly",true);
+                                                    modeld.attr("readonly",true);
+                                                    manufi.attr("readonly",true);
                                                     changeflag = false;
                                                 })
 
