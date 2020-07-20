@@ -44,6 +44,7 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#category">Category</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
@@ -144,8 +145,9 @@
                       <div class="input-group mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text" >BRANDS</span></div>
-                            <select name="brands" class="custom-select" id="brands" disabled>
-                                <option value="comp1">comp1</option>
+                            <select name="brands" class="custom-select" id="select_brands" >
+                                <option value="exption01">Choose...</option>
+                                <option value="기아">기아</option>
                                 <option value="comp2">comp2</option>
                             </select>
                       </div>
@@ -153,7 +155,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" >MODEL</span></div>
                             <select name="model" class="custom-select" id="model" disabled>
-                                <option value="model1">model1</option>
+                                <option value="exption02">Choose...</option>
+                                <option value="k9">k9</option>
                                 <option value="model2">model2</option>
                             </select>
                       </div>
@@ -161,7 +164,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" >VERSION</span></div>
                             <select name="version" class="custom-select" id="version" disabled>
-                                <option value="ver1">ver1</option>
+                                <option value="exption03">Choose...</option>
+                                <option value="20년식">20년식</option>
                                 <option value="ver1">ver2</option>
                             </select>
                       </div>
@@ -172,11 +176,91 @@
             </form>
         </div>
     </header>
+
+    <!-- category-->
+    <div class="page-section" id="category">            
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Category</h2>                
+            </div>
+            <div class = "row" id="category_link">
+                <div class="col-md-4">
+                    <h3>Accessories</h3>
+                    <a href="/shop/item?main=accessories&sub=seat">&sdot;Seat</a><br>
+                    <a href="/shop/item?main=accessories&sub=mirror">&sdot;Mirror</a><br>
+                    <a href="/shop/item?main=accessories&sub=pedal">&sdot;Pedal</a><br>
+                    <a href="/shop/item?main=accessories&sub=gear">&sdot;Gear</a><br>
+                    <a href="/shop/item?main=accessories&sub=steeringwheel">&sdot;Steering Wheel</a><br>
+                    <a href="/shop/item?main=accessories&sub=cover">&sdot;Cover</a><br>
+                    <a href="/shop/item?main=accessories&sub=pad">&sdot;Pad</a><br>
+                    <a href="/shop/item?main=accessories&sub=holder">&sdot;Holder</a><br>
+                    <a href="/shop/item?main=accessories&sub=pocket">&sdot;Pocket</a><br>
+                    <a href="/shop/item?main=accessories&sub=handle">&sdot;Handle</a><br>
+                    <a href="/shop/item?main=accessories&sub=etc">&sdot;etc</a><br>
+                    <h3>Body</h3>
+                    <a  href="/shop/item?main=body&sub=panel">&sdot;Panel</a><br>
+                    <a  href="/shop/item?main=body&sub=airbag">&sdot;Airbag</a><br>
+                    <a  href="/shop/item?main=body&sub=dashboard">&sdot;Dash Board</a><br>
+                    <a  href="/shop/item?main=body&sub=door">&sdot;Door</a><br>
+                    <a  href="/shop/item?main=body&sub=trunk">&sdot;Trunk</a><br>
+                    <a  href="/shop/item?main=body&sub=bonnet">&sdot;Bonnet</a><br>
+                    <a  href="/shop/item?main=body&sub=etc">&sdot;etc</a><br>
+                    <h3>Brake System</h3>
+                    <a  href="/shop/item?main=brake system&sub=brake">&sdot;Brake</a><br>
+                    <a  href="/shop/item?main=brake system&sub=master cylinder">&sdot;Master Cylinder</a><br>
+                    <a  href="/shop/item?main=brake system&sub=etc">&sdot;etc</a><br>
+                </div>
+                <div class="col-md-4">
+                    <h3>Electric Parts</h3>
+                    <a  href="/shop/item?main=electric parts&sub=contorl system">&sdot;Control System</a><br>
+                    <a  href="/shop/item?main=electric parts&sub=cooling system">&sdot;Cooling System</a><br>
+                    <a  href="/shop/item?main=electric parts&sub=lamp">&sdot;Lamp</a><br>
+                    <a  href="/shop/item?main=electric parts&sub=wiper">&sdot;Wiper</a><br>
+                    <a  href="/shop/item?main=electric parts&sub=etc">&sdot;etc</a><br>
+                    <h3>Power Generater Parts</h3>
+                    <a  href="/shop/item?main=power generater parts&sub=engine">&sdot;Engine</a><br>
+                    <a  href="/shop/item?main=power generater parts&sub=fuel system">&sdot;Fuel System</a><br>
+                    <a  href="/shop/item?main=power generater parts&sub=start">&sdot;Start</a><br>
+                    <a  href="/shop/item?main=power generater parts&sub=ignition system">&sdot;Ignition
+                        System</a><br>
+                    <a  href="/shop/item?main=power generater parts&sub=exhaust">&sdot;Exhaust</a><br>
+                    <a  href="/shop/item?main=power generater parts&sub=etc">&sdot;etc</a><br>
+                    <h3>Power Transfer Parts</h3>
+                    <a  href="/shop/item?main=power transfer parts&sub=clutch">&sdot;Clutch</a><br>
+                    <a  href="/shop/item?main=power transfer parts&sub=transmission">&sdot;Transmission</a><br>
+                    <a  href="/shop/item?main=power transfer parts&sub=differential system">&sdot;Differential
+                        System</a><br>
+                    <a  href="/shop/item?main=power transfer parts&sub=drive shaft">&sdot;Drive Shaft</a><br>
+                    <a  href="/shop/item?main=power transfer parts&sub=wheel">&sdot;Wheel</a><br>
+                    <a  href="/shop/item?main=power transfer parts&sub=etc">&sdot;etc</a><br>
+                </div>
+                <div class="col-md-4">
+                    <h3>Steering Parts</h3>
+                    <a  href="/shop/item?main=steering parts&sub=steering wheel">&sdot;Steering Wheel</a><br>
+                    <a  href="/shop/item?main=steering parts&sub=steering column">&sdot;Steering Column</a><br>
+                    <a  href="/shop/item?main=steering parts&sub=steering gear">&sdot;Steering Gear</a><br>
+                    <a href="/shop/item?main=steering parts&sub=etc">&sdot;etc</a><br>
+                    <h3>Suspention Parts</h3>
+                    <a  href="/shop/item?main=suspention parts&sub=shock absorber">&sdot;Shock Absorber</a><br>
+                    <a  href="/shop/item?main=suspention parts&sub=etc">&sdot;etc</a><br>
+                    <h3>Tuning Parts</h3>
+                    <a  href="/shop/item?main=tuning parts&sub=build up">&sdot;Build Up</a><br>
+                    <a  href="/shop/item?main=tuning parts&sub=tune up">&sdot;Tune Up</a><br>
+                    <a  href="/shop/item?main=tuning parts&sub=dress up">&sdot;Dress Up</a><br>
+
+                    <a href="/shop/item?main=etc&sub="><h3>etc</h3></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
     <!-- Services-->
     <section class="page-section" id="rank">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">RANK</h2>
+                <h2 class="section-heading text-uppercase">Rank</h2>
                 <h3 class="section-subheading text-muted"><strong>Category top 3</strong></h3>
             </div>
             <div class="row">

@@ -34,6 +34,7 @@
     //add cart
     $("#buy").off("click").on("click",()=>{
         var item_name = $("#item_name").val()
+        
         $.ajax({
             url:"/item/cart",
             type:"post",

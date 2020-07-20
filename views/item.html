@@ -42,6 +42,7 @@
       <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#category">Category</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
@@ -289,7 +290,11 @@
   
           }
           $("#item_head h3").html(info[0].ITEM_NAME);
-          $("#item_head h4").html("$" + info[0].PRICE);
+          if(info[0].PRICE === ""){
+            $("#item_head h4").html("<small>Please contact us.<br><a href='mailto:service@autoingroup.com' style= 'color:blue!important'>service@autoingroup.com</a></small>");
+          }else{
+            $("#item_head h4").html("$" + info[0].PRICE);
+          }
           $("#item_head p").html(
             "Number: " + info[0].PARTS_NUM + "<br>" +
             "Volume: " + info[0].VOLUME + " EA<br>" +
@@ -304,6 +309,7 @@
           $("#item_pin").val(info[0].PIN);
           $("#item_parts_num").val(info[0].PARTS_NUM);
           $("#item_price").val(info[0].PRICE);
+          
         }
   
         if (username) {

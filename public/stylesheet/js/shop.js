@@ -32,6 +32,48 @@
         }
     });
 
+    //selected value
+    $("#category").change(()=>{
+        var categ = $("#category option:selected").val();           
+        categ = categ.split('&');
+        if(categ[0] != "accessories"){
+            $("#brands").attr("disabled",false);
+        }else{
+            
+            $("#model").attr("disabled",true);
+            $("#version").attr("disabled",true);
+        }
+    })
+    //brand select
+    $("#brands").change(()=>{
+        var brand = $("#brands option:selected").val();  
+        $.ajax({
+            url:"/",
+            type:"post",
+            data:{CAR_M:brand},
+            success:(data)=>{
+                //model select option 출력
+                $("#model").attr("disabled",false);
+            }
+        })         
+       
+    })
+    //model select
+    $("#model").change(()=>{
+        var model = $("#model option:selected").val();  
+        $.ajax({
+            url:"/",
+            type:"post",
+            data:{BASE_M:model},
+            success:(data)=>{
+                //version select option 출력
+                $("#version").attr("disabled",false);
+            }
+        })         
+       
+    })
+
+    
     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {
         $(".navbar-collapse").collapse("hide");

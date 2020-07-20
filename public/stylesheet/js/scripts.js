@@ -12,14 +12,16 @@
             var categ = $("#category option:selected").val();           
             categ = categ.split('&');
             if(categ[0] != "accessories"){
-                $("#brands").attr("disabled",false);
+                $("#select_brands").attr("disabled",false);
             }else{
-                $("#brands").attr("disabled",true);
+                
+                $("#model").attr("disabled",true);
+                $("#version").attr("disabled",true);
             }
         })
         //brand select
-        $("#brands").change(()=>{
-            var brand = $("#brands option:selected").val();  
+        $("#select_brands").change(()=>{
+            var brand = $("#select_brands option:selected").val();  
             $.ajax({
                 url:"/",
                 type:"post",

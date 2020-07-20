@@ -43,6 +43,7 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#category">Category</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
@@ -117,17 +118,34 @@
             var length = data.length;
             var total = 0.0;
             for (var i = 0; i < length; i++) {
-                $("tbody").append(
+                if(data[i].PRICE!="no data"){
+                    $("tbody").append(
                     '<tr id="temp">' +
-                    '<a href="/#"><th scope="row">' + (i + 1) + '</th>' +
-                    '<td>' + data[i].ITEM + '</td>' +
+                    '<th scope="row">' + (i + 1) + '</th>' +
+                    '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
                     '<td>' + data[i].PARTS_NUM + '</td>' +
                     '<td>' + data[i].VOLUME + '</td>' +
-                    '<td>$ ' + data[i].PRICE + '</td> ' +
-                    '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn"></td></a>' +
+                    '<td>$ ' + Number(data[i].PRICE).toFixed(2) + '</td> ' +
+                    '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click('+i+');"></td>' +
                     '</tr>'
                 )
-                total = parseFloat(total) + parseFloat(data[i].PRICE);
+                }else{
+                    $("tbody").append(
+                        '<tr id="temp">' +
+                    '<th scope="row">' + (i + 1) + '</th>' +
+                    '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
+                    '<td>' + data[i].PARTS_NUM + '</td>' +
+                    '<td>' + data[i].VOLUME + '</td>' +
+                    '<td>N/A</td> ' +
+                    '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click('+i+');"></td>' +
+                    '</tr>'
+                    )
+                }
+               
+                if(!isNaN(data[i].PRICE)){
+                    total = parseFloat(total) + parseFloat(Number(data[i].PRICE));
+                }
+               
                 $("#temp").attr("id", i);
                 $("#temp_btn").attr("id", "no." + String(i));
 
@@ -141,7 +159,20 @@
             )
 
         }
-        console.log(username);
+        function on_click(i){
+            $.ajax({
+                url:"/cart/delete",
+                type:"post",
+                data:data[i],
+                success:(data)=>{
+                    location.reload();
+                },
+                error:()=>{
+
+                }
+            })
+        }
+
         if (username) {
             $("#account_ctrl").html('Signout');
             $("#account_ctrl").attr("href", "/signout");

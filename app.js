@@ -162,7 +162,7 @@ router.post("/admin/item/add", function (req, res) {
     console.log(req.body);
     var item = req.body.item;
     var parts_num = req.body.parts_num;
-    var price = Number(req.body.price);
+    var price = req.body.price;
     var volume = Number(req.body.volume);
     var mainc = req.body.mainc;
     var subc = req.body.subc;
@@ -401,112 +401,128 @@ router.post("/signup/effectiveness", function (req, res) {
 
 //search item
 router.post("/search", function (req, res) {
-    var theme = req.body.theme;
-    var item = req.body.search_thing;
+    var item = req.body.search_thing;//parts_num
     var category = req.body.category;
-    console.log(category);
+    var brand = req.body.brands;
+    var model = req.body.model;
+    var version = req.body.version;
+    console.log(req.body);
+  
     var sess = req.session;
     var category_main = "";
     var category_sub = "";
-    if(category !="Choose..."){
-        category = category.split('&');
-        category_main = category[0];
-        category_sub = category[1];
-
-        if (theme == "model") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND BASE_M = ? AND MAIN_C = ? AND SUB_C = ?", [item,category_main,category_sub], function (err, row, fields) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-    
-            })
-        } else if (theme == "pin") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PIN = ? AND MAIN_C = ? AND SUB_C = ?", [item,category_main,category_sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-        }else if (theme == "parts_num") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_CFROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ? AND MAIN_C = ? AND SUB_C = ?", [item,category_main,category_sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-        }else if (theme == "Theme") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [category_main,category_sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-        } else if (theme == "carmanufacturer") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND MAIN_C = ? AND SUB_C = ?", [item,category_main,category_sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    sess.carmanufacturer = row[0].CAR_M;
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-    
-        }
-    }else{
-        if (theme == "model") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND BASE_M = ?", [item], function (err, row, fields) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-    
-            })
-        } else if (theme == "pin") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PIN = ?", [item], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-        }else if (theme == "parts_num") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [item], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-        }else if (theme == "Theme") {
+    if(item){
+     //search for parts_number
+     mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [item], function (err, row) {
+        if (err) {
+            console.log(err);
+        } else {
+            var data = JSON.stringify(row);
+            
             res.render("shop.html", { username: sess.username, info: data });
-        } else if (theme == "carmanufacturer") {
-            mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? ", [item], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);
-                    console.log(row[0]);
-                    sess.carmanufacturer = row[0].CAR_M;
-                    res.render("shop.html", { username: sess.username, info: data });
-                }
-            })
-    
         }
-    } 
+    })
+    }else{
+        //no parts_number
+        if(category !="Choose..."){
+            category = category.split('&');
+            category_main = category[0];
+            category_sub = category[1];
+            //accessory search
+            if(category_main === "accessories"){
+                mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [category_main,category_sub], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);                        
+                        res.render("shop.html", { username: sess.username, info: data });
+                    }
+                })
+            }else{
+                //search brands model version
+                sess.carmanufacturer = brand;
+                //only car
+                if(model === "ecption02"){
+                   
+                    mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [category_main,category_sub,brand], function (err, row) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var data = JSON.stringify(row);
+                            console.log(row);
+                            
+                            res.render("shop.html", { username: sess.username, info: data });
+                        }
+                    })
+                }else if(version ==="ecption03"){
+                    //brand and model
+                    mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ?", [category_main,category_sub,brand,model], function (err, row) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var data = JSON.stringify(row);
+                            console.log(row);
+                            
+                            res.render("shop.html", { username: sess.username, info: data });
+                        }
+                    })
+                }else{
+                    mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [category_main,category_sub,brand,model,version], function (err, row) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var data = JSON.stringify(row);
+                            console.log(row);
+                           
+                            res.render("shop.html", { username: sess.username, info: data });
+                        }
+                    })
+                }
+               
+            }    
+        }else{
+             //search brands model version
+             sess.carmanufacturer = brand;
+             //only car
+             if(model === "ecption02"){
+                console.log("ecption02");
+                 mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
+                     if (err) {
+                         console.log(err);
+                     } else {
+                         var data = JSON.stringify(row);
+                         console.log(row);
+                         
+                         res.render("shop.html", { username: sess.username, info: data });
+                     }
+                 })
+             }else if(version ==="ecption03"){
+                 //brand and model
+                 mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ?", [brand,model], function (err, row) {
+                     if (err) {
+                         console.log(err);
+                     } else {
+                         var data = JSON.stringify(row);
+                         console.log(row);
+                         
+                         res.render("shop.html", { username: sess.username, info: data });
+                     }
+                 })
+             }else{
+                 mysqlDB.query("SELECT ITEM_NAME,PIN,PARTS_NUM,VOLUME,PRICE,RATE,MAIN_C,SUB_C,CAR_M FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand,model,version], function (err, row) {
+                     if (err) {
+                         console.log(err);
+                     } else {
+                         var data = JSON.stringify(row);
+                         console.log(row);
+                        
+                         res.render("shop.html", { username: sess.username, info: data });
+                     }
+                 })
+             }
+         
+        } 
+    }
 
 })
 
@@ -585,27 +601,75 @@ router.post("/item/cart",(req,res)=>{
     var parts_num = req.body.item_parts_num;
     var volume = req.body.item_volume;
     var user = req.session.userid;
-    var data = {
-        ID: user,
-        ITEM: name,
-        PRICE: price,
-        PIN: pin,
-        PARTS_NUM:parts_num,
-        VOLUME:volume
+    var data;
+    if(price===""){
+        data = {
+            ID: user,
+            ITEM: name,
+            PRICE: "no data",
+            PIN: pin,
+            PARTS_NUM:parts_num,
+            VOLUME:volume
+        }
+    }else{
+        price =  parseFloat(price) * parseFloat(volume);//new input
+        data = {
+            ID: user,
+            ITEM: name,
+            PRICE: price,
+            PIN: pin,
+            PARTS_NUM:parts_num,
+            VOLUME:volume
+        }
     }
+    
     if(!user){
         res.send("GO SIGNIN");
     }else{
-        mysqlDB.query("INSERT INTO CART SET ?",data,(err,row)=>{
+        mysqlDB.query("SELECT * FROM CART WHERE PIN = ?",[pin],(err,row)=>{
             if(err){
                 console.log(err);
-                
             }else{
-                res.send(name);
+                //first item input
+                if(row[0] == null){
+                    mysqlDB.query("INSERT INTO CART SET ?",data,(err2,row2)=>{
+                        if(err2){
+                            console.log(err2);
+                            
+                        }else{
+                            res.send(name);
+                        }
+                    })
+                }else{
+                    volume = parseInt(row[0].VOLUME)+parseInt(volume);
+                    price = parseFloat(price) + parseFloat(row[0].PRICE);//new + before
+                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE PIN = ?",[volume,price,pin],(err3,row3)=>{
+                        if(err3){
+                            console.log(err3);
+                            
+                        }else{
+                            res.send(name);
+                        }
+                    })
+                }
             }
         })
+        
     }
    
+})
+
+//delete item in the cart
+router.post("/cart/delete",(req,res)=>{
+    console.log(req.body);
+    mysqlDB.query("DELETE FROM CART WHERE PIN = ?",[req.body.PIN],(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success");
+        }
+    })
+    
 })
 
 //shopping mall router

@@ -31,12 +31,6 @@
         }
     });
 
-    $(".delete").off("click").on("click",()=>{
-        console.log(this.activeElement.id);
-
-        
-        
-    })
 
     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {

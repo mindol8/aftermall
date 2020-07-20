@@ -31,6 +31,3 @@ td .btn{
   .dropdown-item:hover{
     background-color: silver!important;
   }
-tbody tr:hover{
-  background-color: silver;
-}
