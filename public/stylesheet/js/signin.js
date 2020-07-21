@@ -30,7 +30,14 @@
 
                             })
 
-                        } else {
+                        } else if(data === "signin fail:check Email first@"){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Not checking Email',
+                                text: 'Sign in Fail!',
+
+                            })
+                        }else {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Sign in',

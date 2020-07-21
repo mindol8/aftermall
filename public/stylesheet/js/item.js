@@ -31,6 +31,10 @@
             }
         }
     });
+    //contact to admin
+    $("#contact").off("click").on("click",()=>{        
+      window.open("/item/contact","_blank",'width=700, height=600,left=100, menubar=no, status=no, toolbar=no,resizeable=no');
+    })
     //add cart
     $("#buy").off("click").on("click",()=>{
         var item_name = $("#item_name").val()

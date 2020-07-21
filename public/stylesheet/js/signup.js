@@ -227,7 +227,7 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Sign up',
-                            text: 'Thanks for join us ' + data + "!!!",
+                            text:  'You have to check your E-mail and confirm to use this account',
                         }).then(() => {
                             location.href = "/signin";
                         })

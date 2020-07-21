@@ -9,6 +9,7 @@ var hostname = '0.0.0.0';
 const { constant } = require('async');
 var session = require('express-session');
 var mysqlDB = require("./DB/db");
+var nodemailer = require("./mail/mail");
 var crypto = require('crypto');
 var multer = require('multer');
 
@@ -31,6 +32,7 @@ app.set('views engin', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var router = express.Router();
+
 
 //main page router
 app.use('/', router);
@@ -71,15 +73,17 @@ router.post("/signin/confirm", function (req, res) {
                 //console.log("err: emtpy set");
                 res.send("signin fail:wrong Id#");
             } else {
-                var salt = row[0].SALT;
-                var pw = row[0].USER_PW;
-                var name = row[0].NAME;
-                var hashPassword = crypto.createHash("sha512").update(userpw + salt).digest("hex");
-                if (hashPassword === pw) {
+                if(row[0].LOCK_ACC == 1){
+                    var salt = row[0].SALT;
+                    var pw = row[0].USER_PW;
+                    var name = row[0].NAME;
+                    var hashPassword = crypto.createHash("sha512").update(userpw + salt).digest("hex");
+                    if (hashPassword === pw) {
                     console.log("signin success");
                     sess = req.session;
                     sess.username = name;
                     sess.userid = userid;
+                    sess.email = row[0].EMAIL;
                     sess.token = row[0].TOKEN;
                     console.log(name);
                     res.send(name);
@@ -88,6 +92,10 @@ router.post("/signin/confirm", function (req, res) {
                     console.log("fail");
                     res.send("signin fail:wrong password$");
                 }
+                }else{
+                    res.send("signin fail:check Email first@");
+                }
+                
 
             }
 
@@ -306,6 +314,42 @@ router.get("/signup", function (req, res) {
     res.render("signup.html");
 })
 
+//send check email before signup
+async function checkEmail(param){
+    var data = {
+        fromEmail:"service@autoinmall.com",
+        toEmail:param.EMAIL,
+        subject:"Email Verification-AutoinMall",
+        html:"<p>Hello "+param.NAME+"</p>"+
+            "<p>Thank you for sign up to AutoinMall!</p>"+
+            "<p>Please use the verification URL below to confirm your email address</p>"+
+            "<a href='https://autoinmall.com/signup/checkaccount?email="+param.EMAIL+"&id="+param.ID+"' target = '_blank'>Go to Sign in page</a>"+
+            "<p>Thank you</p>"+
+            "<p>Autoinmall</p>"
+            
+    };
+    await nodemailer.sendmail(data);
+ }
+
+ //after email check
+ router.get("/signup/checkaccount",(req,res)=>{
+    var email = req.query.email;
+    var id = req.query.id;
+    console.log(email+"   "+id);
+    mysqlDB.query("UPDATE USER SET LOCK_ACC = 1 WHERE USER_ID = ? AND EMAIL = ?", [id,email],async function (err, row) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("sign up success");
+            //insert signup email
+            await res.redirect("/signin");
+        }
+
+    }) 
+     
+ })
+
 //signup data
 router.post("/signup/confirm", function (req, res) {
     console.log(req.body);
@@ -323,21 +367,31 @@ router.post("/signup/confirm", function (req, res) {
     var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
     //password hashing
     var hashPassword = crypto.createHash("sha512").update(userPw + u_salt).digest("hex");
-    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone, ZIPCODE: userZipcode, ADDRESS: userAddress, TOKEN: usertoken };
-    console.log(userInfo);
-    //insert sign up data into db
+     
+    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone, ZIPCODE: userZipcode, ADDRESS: userAddress, TOKEN: usertoken,LOCK_ACC:0 };
+
     mysqlDB.query("INSERT INTO USER SET ?", userInfo, function (err, row, fields) {
         if (err) {
             console.log(err);
+            
         }
         else {
             console.log("sign up success");
-            res.send(req.body.userName);
+            var data = {
+                EMAIL : userEmail,
+                NAME: userName,
+                ID: userId
+            }
+            checkEmail(data);
+            res.send("success");
         }
 
     })
+    
 
 })
+
+ 
 //signup check overlap id
 router.post("/signup/overlap", function (req, res) {
     console.log(req.body.userId);
@@ -593,6 +647,26 @@ router.get("/item/info", function (req, res) {
     })
 })
 
+//contact to admin
+router.get("/item/contact",(req,res)=>{
+    var sess = req.session;
+    res.render("sendmail.html",{from:sess.email});
+})
+//send contact mail
+router.post("/item/contact/send",(req,res)=>{
+    console.log(req.body);
+    var data = {
+        fromEmail:req.body.to,
+        toEmail:req.body.to,
+        subject:req.body.title,
+        text:"From: "+req.body.from+"\n"+req.body.text          
+    };
+    nodemailer.sendmail(data,()=>{
+        res.send("success");
+    });
+    
+})
+
 //insert item into cart
 router.post("/item/cart",(req,res)=>{
     var name = req.body.item_name;
@@ -601,9 +675,13 @@ router.post("/item/cart",(req,res)=>{
     var parts_num = req.body.item_parts_num;
     var volume = req.body.item_volume;
     var user = req.session.userid;
+    var cart_id = user+"_"+name;
     var data;
+    //console.log(req.body);
+    //no price
     if(price===""){
         data = {
+            CART_ID:cart_id,
             ID: user,
             ITEM: name,
             PRICE: "no data",
@@ -613,7 +691,9 @@ router.post("/item/cart",(req,res)=>{
         }
     }else{
         price =  parseFloat(price) * parseFloat(volume);//new input
+        //console.log("have a price");
         data = {
+            CART_ID:cart_id,
             ID: user,
             ITEM: name,
             PRICE: price,
@@ -626,24 +706,27 @@ router.post("/item/cart",(req,res)=>{
     if(!user){
         res.send("GO SIGNIN");
     }else{
-        mysqlDB.query("SELECT * FROM CART WHERE PIN = ?",[pin],(err,row)=>{
-            if(err){
+        mysqlDB.query("SELECT * FROM CART WHERE CART_ID = ?",[cart_id],(err,row)=>{
+            if(err){ 
                 console.log(err);
             }else{
                 //first item input
+                console.log(row[0]);
                 if(row[0] == null){
+                    //console.log("no item in the cart");
                     mysqlDB.query("INSERT INTO CART SET ?",data,(err2,row2)=>{
                         if(err2){
                             console.log(err2);
                             
                         }else{
+                            //console.log("success to insert item firt time");
                             res.send(name);
                         }
                     })
                 }else{
-                    volume = parseInt(row[0].VOLUME)+parseInt(volume);
-                    price = parseFloat(price) + parseFloat(row[0].PRICE);//new + before
-                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE PIN = ?",[volume,price,pin],(err3,row3)=>{
+                    volume = parseInt(row[0].VOLUME)+parseInt(volume);//add volume
+                    price = parseFloat(price) + parseFloat(row[0].PRICE);//new + before                    
+                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE CART_ID = ?",[volume,price,cart_id],(err3,row3)=>{
                         if(err3){
                             console.log(err3);
                             
