@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/index.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="input-group mb-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Pin</span></div>
+
+        <input type="text" class="form-control" id="pin">
+        <input type="button" class="btn btn-secondary" value="search" id="search-item">
+
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">PARTS NUM</th>
+                <th scope="col">VOLUME</th>
+                <th scope="col">PRICE($)</th>
+                <th scope="col">MAIN</th>
+                <th scope="col">SUB</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
+    <div class="container setting-container" style="display: none;">
+        <form>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Item name</span></div>
+            <input type="text" name="item_name" id="item_name" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Price</span></div>
+            <input type="text" name="item_price" id="item_price" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Parts Num</span></div>
+            <input type="text" name="parts_num" id="parts_num" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">volume</span></div>
+            <input type="text" name="item_volume" id="item_volume" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+
+            <span class="input-group-text">Model</span>
+            <input type="text" name="item_model" id="item_model" class="form-control">
+
+            <span class="input-group-text">Version</span>
+            <input type="text" name="item_version" id="item_version" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Brand</span></div>
+            <input type="text" name="item_brand" id="item_brand" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Item manuf</span></div>
+            <input type="text" name="item_manuf" id="item_manuf" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Category Main</span></div>
+            <select name="category_main" class="custom-select" id="category_main">
+                <option selected></option>
+            </select>
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Category Sub</span></div>
+            <select name="category_sub" class="custom-select" id="category_sub" >
+                <option selected></option>
+            </select>
+        </div>
+       
+    </form>
+        <div class="input-group mb-1">
+        <input type="file" accept="image/*" id="item_img" name="img" multiple
+                    style="margin-top:2%;border:black solid 1px;width:100%"></div>
+        <!-- /.card -->
+        <div class="card card-outline-secondary my-4">
+            <div class="input-group-text">Item Desc</div>
+            <textarea class="form-control" name="item_desc" id="item_desc"
+                style="resize: none;height:200px;width:100%"></textarea>
+        </div>
+        <input type="button" class="btn btn-success btn-block setting-btn" value="update">
+   
+    </div>
+
+
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            var info;
+            var category = JSON.parse('<%- category %>');
+            var mainc;
+            var subc;
+            var temp;
+            $("#search-item").off("click").on("click", () => {
+                $.ajax(
+                    {
+                        url: "/admin/item/search",
+                        type: "post",
+                        data: {
+                            pin: $("#pin").val()
+                        }
+                    }
+                ).then((data) => {
+                    $(".setting-container").css("display", "none");
+                    
+                    info = data;
+                    for (var i = 0; i < data.length; i++) {
+                        if (i == 0) {
+                            $("tbody").html(
+                                '<tr>' +
+                                '<td scope="col">' + data[i].ITEM_NAME + '</td>' +
+                                '<td scope="col">' + data[i].PARTS_NUM + '</td>' +
+                                '<td scope="col">' + data[i].VOLUME + '</td>' +
+                                '<td scope="col">' + data[i].PRICE + '</td>' +
+                                '<td scope="col">' + data[i].MAIN_C + '</td>' +
+                                '<td scope="col">' + data[i].SUB_C + '</td>' +
+                                '<td><input type="button" class="btn btn-info" value="setting"></td>' +
+                                '<td><input type="button" class="btn btn-warning" value="delete"></td>' +
+                                '</tr>'
+                            );
+                        } else {
+                            $("tbody").append(
+                                '<tr>' +
+                                '<td scope="col">' + data[i].ITEM_NAME + '</td>' +
+                                '<td scope="col">' + data[i].PARTS_NUM + '</td>' +
+                                '<td scope="col">' + data[i].VOLUME + '</td>' +
+                                '<td scope="col">' + data[i].PRICE + '</td>' +
+                                '<td scope="col">' + data[i].MAIN_C + '</td>' +
+                                '<td scope="col">' + data[i].SUB_C + '</td>' +
+                                '<td><input type="button" class="btn btn-info" value="setting" ></td>' +
+                                '<td><input type="button" class="btn btn-warning" value="delete" ></td>' +
+                                '</tr>'
+                            );
+                        }
+                    }
+                    return data;
+                }).then((data) => {
+                    $(".btn-warning").off("click").on("click", () => {
+                        var pin = $("#pin").val();
+                        alert(pin);
+                        $.ajax({
+                            url: "/admin/item/delete",
+                            type: "post",
+                            data: { pin: pin },
+                            success: () => {
+                                $(".setting-container").css("display", "none");
+                                location.reload();
+                            },
+                            error: () => {
+                                location.reload();
+                            }
+                        })
+                    })
+
+                    $(".btn-info").off("click").on("click", async () => {
+                        //console.log(data[0].ITEM_NAME);
+                        for (var i = 0; i < category.length; i++) {
+                            temp = category[i].ID;
+                            temp = String(temp).split("_");
+                            mainc = temp[0];
+                            subc = temp[1];
+                            if (i === 0) {
+                                if (data[0].MAIN_C === mainc) {
+                                    $("#category_main").append(
+                                        '<option value = "' + mainc + '" selected>' + mainc + '</option>'
+                                    );
+                                } else {
+                                    $("#category_main").append(
+                                        '<option value = "' + mainc + '">' + mainc + '</option>'
+                                    );
+                                }
+
+                            }
+                            else {
+                                if (mainc != String(category[i - 1].ID).split("_")[0]) {
+                                    if (data[0].MAIN_C === mainc) {
+                                        $("#category_main").append(
+                                            '<option value = "' + mainc + '" selected>' + mainc + '</option>'
+                                        );
+                                        
+                                    } else {
+                                        $("#category_main").append(
+                                            '<option value = "' + mainc + '">' + mainc + '</option>'
+                                        );
+                                    }
+                                }
+                            }
+
+                        }
+                        $("#category_main").change(() => {
+                            var main = $("#category_main option:selected").val();
+                            if (main != 'etc' && main != "") {
+                                $("#category_sub").html('<option selected></option>');
+                                $.ajax({
+                                    url: "/item/add/category",
+                                    type: "post",
+                                    data: { main: main },
+                                    success: (data) => {
+                                        var sub = JSON.parse(data);
+                                        for (var j = 0; j < sub.length; j++) {
+                                            if(j ===0){
+                                                $("#category_sub").html(
+                                                    '<option selected></option>'+
+                                                '<option value = "' + sub[j].SUB + '">' + sub[j].SUB + '</option>'
+                                            );
+                                            }else{
+                                                $("#category_sub").append(
+                                                '<option value = "' + sub[j].SUB + '">' + sub[j].SUB + '</option>'
+                                            );
+                                            }
+                                           
+                                        }
+                                        $("#category_sub").attr("disabled", false);
+                                    }
+                                })
+                            } else {
+                                $("#category_sub").html('<option selected></option>');
+                                $("#category_sub").attr("disabled", true);
+                            }
+
+
+                        })
+                        
+                        $("#item_name").val(data[0].ITEM_NAME);
+                        $("#item_price").val(data[0].PRICE);
+                        $("#parts_num").val(data[0].PARTS_NUM);
+                        $("#item_volume").val(data[0].VOLUME);
+                        $("#item_model").val(data[0].BASE_M);
+                        $("#item_brand").val(data[0].CAR_M);
+                        $("#item_version").val(data[0].DETAIL_M);
+                        $("#item_manuf").val(data[0].ITEM_M);
+                        $("#item_desc").val(data[0].ITEM_DESC);
+                        $("#category_sub").html('<option selected value="'+data[0].SUB_C+'">'+data[0].SUB_C+'</option>');
+                        $(".setting-container").css("display", "block");
+
+                    })
+                })
+
+            })
+
+            //change
+            $(".setting-btn").off("click").on("click",()=>{
+                
+                const formdata = new FormData($("form")[0]);
+                if($('#item_img')[0].files){
+                    for(var k=0;k<$('#item_img')[0].files.length;k++){
+                    formdata.append("img", $('#item_img')[0].files[k]);
+                }
+                }               
+                var desc = $("#item_desc").val();
+                formdata.append("item_desc", desc);
+                formdata.append("pin",$("#pin").val());
+                $.ajax({
+                    url:"/admin/item/setting",
+                    type:"post",
+                    data:formdata,
+                    contentType: false,
+                    processData: false,
+                    success:()=>{
+                        alert("update success");
+                        $(".setting-container").css("display", "none");
+
+                    },
+                    error:()=>{
+                        alert("update fail");
+                    }
+                })
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>

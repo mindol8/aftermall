@@ -67,77 +67,11 @@
             <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
             <form action="/search" method="POST" id="search_form">
                 <div class="masthead-subheading" style="width:70%;margin-left:15%;margin-right:15%;">
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend" id="select_theme">
-                          <span class="input-group-text">Parts Num</span>
-                        </div>
-                        <input type="hidden" name="theme" value="parts_num">
-                        <input type="text" class="form-control" placeholder="search" name="search_thing" id="thing">
-                      </div>
                       <div class="input-group mb-1">
                         <div class="input-group-prepend">
                         <span class="input-group-text" >CATEGORY</span></div>
                         <select name="category" class="custom-select" id="category">
-                        <option selected>Choose...</option>
-                        <optgroup label ="Accessories">
-                        <option value="accessories&seat">Seat</option>
-                        <option value="accessories&mirror">Mirror</option>
-                        <option value="accessories&pedal">Pedal</option>
-                        <option value="accessories&gear">Gear</option>
-                        <option value="accessories&steering wheel">Steering Wheel</option>
-                        <option value="accessories&cover">Cover</option>
-                        <option value="accessories&padr">Pad</option>
-                        <option value="accessories&holder">Cover</option>
-                        <option value="accessories&pocket">Pocket</option>
-                        <option value="accessories&handle">handle</option>
-                        <option value="accessories&etc">etc(Accessories)</option></optgroup>
-                        <optgroup label ="Body">
-                        <option value="body&panel">Panel</option>
-                        <option value="body&airbag">Airbag</option>
-                        <option value="body&dash board">Dash Board</option>
-                        <option value="body&door">Door</option>
-                        <option value="body&trunk">Trunk</option>
-                        <option value="body&bonnet">Bonnet</option>
-                        <option value="body&etc">etc(Body)</option></optgroup>
-                        <optgroup label ="Brake">
-                        <option value="brake&brake">Brake</option>
-                        <option value="brake&master cylinder">Master Cylinder</option>
-                        <option value="brake&etc">etc(Brake)</option></optgroup>
-                        <optgroup label ="Electric Parts">
-                        <option value="eletric parts&control system">Control System</option>
-                        <option value="eletric parts&cooling system">Cooling System</option>
-                        <option value="eletric parts&lamp">Lamp</option>
-                        <option value="eletric parts&wiper">Wiper</option>
-                        <option value="eletric&etc">etc(Electric Parts)</option></optgroup>
-                        <optgroup label ="Power Generater Parts">
-                        <option value="power generater parts&engine">Engine</option>
-                        <option value="power generater parts&fuel system">Fuel System</option>
-                        <option value="power generater parts&start">Start</option>
-                        <option value="power generater parts&ignition system">Ignition System</option>
-                        <option value="power generater parts&exhaust">Exhaust</option>
-                        <option value="power generater parts&etc">etc(Power Generater Parts)</option></optgroup>
-                        <optgroup label ="Power Transfer Parts">
-                        <option value="power transfer parts&clutch">Clutch</option>
-                        <option value="power transfer parts&transmission">Transmission</option>
-                        <option value="power transfer parts&differental system">Differental System</option>
-                        <option value="power transfer parts&drive shaft">Drive Shaft</option>
-                        <option value="power transfer parts&wheel">Wheel</option>
-                        <option value="power transfer parts&etc">etc(Power Transfer Parts)</option></optgroup>
-                        <optgroup label ="Steering Parts">
-                        <option value="steering parts&steering wheel">Steering Wheel</option>
-                        <option value="steering parts&steering column">Steering column</option>
-                        <option value="steering parts&steering gear">Steering Gear</option>
-                        <option value="steering parts&etc">etc(Steering Parts)</option></optgroup>
-                        <optgroup label ="Suspention Parts">
-                        <option value="suspention parts&shock absorber">Shock Absorber</option>
-                        <option value="suspention parts&etc">etc(Suspention Parts)</option></optgroup>
-                        <optgroup label ="Tuning Parts">
-                        <option value="tuning parts&build up">Build Up</option>
-                        <option value="tuning parts&tune up">Tune Up</option>
-                        <option value="tuning parts&dress up">Dress Up</option>
-                        <option value="tuning parts&etc">etc(Tuning Parts)</option></optgroup>
-                        <optgroup label ="Etc">
-                        <option value="etc&">etc</option></optgroup>
+                        
                         </select>
                     </div>
                    
@@ -372,7 +306,33 @@
 
     <script>
         var username = '<%- username %>';
-        console.log(username);
+        var category = JSON.parse('<%- category %>');
+        for(var i=0;i<category.length;i++){
+            var s_c = String(category[i].ID).split('_');           
+            var main = s_c[0];
+            var sub = s_c[1];
+            if(i==0){
+                $("#category").html(
+                    '<option selected>Choose...</option>'+
+                    '<optgroup label ="'+main+'">'+
+                        '<option value="'+main+'&'+sub+'">'+sub+'</option></optgroup>'
+                );
+            }else{
+                if(main === String(category[i-1].ID).split('_')[0]){
+                    $("optgroup[label = '"+main+"']").append(    
+                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+                    );
+                }
+                else if(i != (category.length)-1 && main != String(category[i-1].ID).split('_')[0]){
+                    $("#category").append(                           
+                        '<optgroup label ="'+main+'">'+
+                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+                    );
+                }
+            }
+           
+        }
+       
         if (username) {
             $("#account_ctrl").html('Signout');
             $("#account_ctrl").attr("href", "/signout");

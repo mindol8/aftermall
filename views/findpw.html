@@ -1,87 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>AUTOINMall</title>
-    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
-    <link href="../stylesheet/css/index.css" rel="stylesheet" />
-    <!--sweetalert2-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
-        rel="stylesheet">
-    <!--swiper-->
-    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
-    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
-    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
-    <style>
-        
-@-webkit-keyframes spinner-grow {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes spinner-grow {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: none;
-  }
-}
-.spinner-grow {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  vertical-align: text-bottom;
-  background-color: currentColor;
-  border-radius: 50%;
-  opacity: 0;
-  -webkit-animation: spinner-grow 0.75s linear infinite;
-          animation: spinner-grow 0.75s linear infinite;
-}
-    </style>
-</head>
-
-<body id="page-top">
-    <div class="d-flex justify-content-center">
-    <div class="spinner-grow" role="status" style="color:white">
-        <img src="../stylesheet/img/autoinlogo/autoin_icon.png"></img>
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-    <script src="../stylesheet/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="../stylesheet/js/scripts.js"></script>
-
-  
-</body>
-
+  </head>
+  <body>
+    <h2>페이팔 결제 테스트</h2>
+    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="POST">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="service@autoinmall.com">
+      상품명: <input type="text" name="item_name" value="test item"><br>
+      상품코드: <input type="text" name="item_number" value="item1234"><br>
+      통화단위: <input type="text" name="currency_code" value="USD"><br>
+      상품가격: <input type="text" name="amount" value="1"><br>
+      상품수량: <input type="hidden" name="quantity" value="1"><br>
+      인코딩: <input type="text" name="charset" value="UTF-8"><br>
+      <input type="image" name="submit"  src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Paypal - The safer,  easier way to pay online">
+    </form>
+  </body>
 </html>

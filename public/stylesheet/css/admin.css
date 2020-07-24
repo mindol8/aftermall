@@ -20,34 +20,10 @@
   .body-container{
     margin-top: 10%;margin-bottom:5%;
 }
-.table{
-    text-align: center;
+.body-container a{
+  text-decoration: none;
 }
-  .card-header{
-      text-align: center;
-      float:left;
-      background-color:black;
-  }
- 
-  .btn-menu{
-    color:white!important;
-    border:1px solid white;
-    float:left;
-  }
-.half{
-    width:50%!important;
-    margin-left:50%;
+.body-container a:hover{
+  background-color:#fed136!important;
 }
-.quater{
-    width:25%!important;
-    margin-left:75%;
-    margin-bottom:1%;
-}
-.attr{
-    width:100%;
-    text-align: right;
-    margin-right:3%;
-    border-bottom:1px solid silver;
-    padding-bottom:1%;
-    margin-bottom:1%;
-}
+

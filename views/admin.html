@@ -57,15 +57,29 @@
             </div>
         </div>
     </nav>
+   <script>
+           //change display
+           function link(to){
+                    $("iframe").attr("src",to);
+                }
+   </script>
     <div class="container body-container">
-        <div class="card">
-            <div class="card-header">
-                <input type=button class="btn btn-menu" id="pageset" value="Item">
+        <div class="row" style="height:500px">
+            <div class="col-lg-3">
+                <div class="list-group">
+                    <a id="user" style="color:black!important" class="list-group-item"
+                    aria-haspopup="true" aria-expanded="false" onclick="link('/admin/user');">User</a>
+                    <a id="item" style="color:black!important" class="list-group-item"
+                    aria-haspopup="true" aria-expanded="false" onclick="link('/admin/item');">Item</a>
+                    <a id="item_add" style="color:black!important" class="list-group-item"
+                    aria-haspopup="true" aria-expanded="false" onclick="link('/admin/add');">Item Add</a>
+                    <a id="category" style="color:black!important" class="list-group-item"
+                    aria-haspopup="true" aria-expanded="false" onclick="link('/admin/category');">Category</a>
+                </div>
             </div>
-            <div class="card-body">
-                
+            <div class="col-lg-9">
+                <iframe src="/admin/user" frameborder="0" style="width:100%;height:100%"></iframe>
             </div>
-
         </div>
     </div>
 
@@ -95,8 +109,7 @@
     <!-- Contact form JS-->
     <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
     <script src="../stylesheet/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="../stylesheet/js/admin.js"></script>
+    
 
     <script>
         $(document).ready(function () {
@@ -161,7 +174,8 @@
             );
                 }
             }
-        });
+        });     
+       
         
         })
     </script>
