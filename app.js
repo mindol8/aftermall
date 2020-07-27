@@ -54,7 +54,7 @@ app.use(function (req, res, next) {
             var category = JSON.stringify(row);
             sess = req.session;
             sess.category = category;
-            console.log("username: " + sess.username);
+           // console.log("username: " + sess.username);
             res.render('index.html', { username: sess.username,category:sess.category });
         }
     })
@@ -64,7 +64,7 @@ app.use(function (req, res, next) {
 //logout router
 router.get("/signout", function (req, res) {
     req.session.destroy(function () {
-        console.log("kill session");
+      //  console.log("kill session");
         req.session;
         console.log(req.session);
     });
@@ -97,7 +97,7 @@ router.post("/signin/confirm", function (req, res) {
                     var name = row[0].NAME;
                     var hashPassword = crypto.createHash("sha512").update(userpw + salt).digest("hex");
                     if (hashPassword === pw) {
-                    console.log("signin success");
+                 //   console.log("signin success");
                     sess = req.session;
                     sess.username = name;
                     sess.userid = userid;
@@ -107,7 +107,7 @@ router.post("/signin/confirm", function (req, res) {
                     res.send(name);
 
                 } else {
-                    console.log("fail");
+                   // console.log("fail");
                     res.send("signin fail:wrong password$");
                 }
                 }else{
@@ -288,15 +288,15 @@ router.post("/item/add/category",(req,res)=>{
 
 //admin item add
 router.post("/admin/item/add",upload.array('item_img',5), function (req, res) {
-    console.log("add");
-    console.log(req.body);
+   // console.log("add");
+    //console.log(req.body);
     
-    console.log(req.files);
+   // console.log(req.files);
     var item = req.body.item_name;
     var parts_num = req.body.parts_num;
     var price = req.body.item_price;
     var volume = Number(req.body.item_volume);
-    console.log("Number tesst: "+ volume);
+    //console.log("Number tesst: "+ volume);
     var mainc = req.body.category_main;
     var subc = req.body.category_sub;
     var desc = req.body.item_desc;
@@ -466,9 +466,9 @@ router.post("/admin/item/setting", function (req, res) {
 
 //update account info
 router.post("/accout/setting", function (req, res) {
-    console.log("setting");
+   // console.log("setting");
     var attr = req.body;
-    console.log(attr);
+   // console.log(attr);
 
     if (!isNaN(attr.userphone) && !isNaN(attr.userzipcode)) {
         mysqlDB.query("UPDATE USER SET NAME = ?, EMAIL =?, PHONE=?, ADDRESS=?, ZIPCODE=? WHERE USER_ID = ?", [attr.username, attr.useremail, attr.userphone, attr.useraddress, attr.userzipcode, attr.userid], function (err, row) {
@@ -533,7 +533,7 @@ async function checkEmail(param){
             console.log(err);
         }
         else {
-            console.log("sign up success");
+           // console.log("sign up success");
             //insert signup email
             await res.redirect("/");
         }
@@ -544,7 +544,7 @@ async function checkEmail(param){
 
 //signup data
 router.post("/signup/confirm", function (req, res) {
-    console.log(req.body);
+    //console.log(req.body);
     var data = req.body;
     //sign up data
     var userId = data.userId;
@@ -568,7 +568,7 @@ router.post("/signup/confirm", function (req, res) {
             
         }
         else {
-            console.log("sign up success");
+           // console.log("sign up success");
             var data = {
                 EMAIL : userEmail,
                 NAME: userName,
@@ -643,139 +643,146 @@ router.post("/signup/effectiveness", function (req, res) {
     }
 
 })
-
-
-//search item
-router.post("/search", function (req, res) {
-    var item = req.body.search_thing;//parts_num
-    var category = req.body.category;
-    var brand = req.body.brands;
-    var model = req.body.model;
-    var version = req.body.version;
-    console.log(req.body);
-  
-    var sess = req.session;
-    var category_main = "";
-    var category_sub = "";
-    if(item){
-     //search for parts_number
-     mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [item], function (err, row) {
+//select model 
+router.post("/select/model",(req,res)=>{
+    var brand = req.body.brand;
+    mysqlDB.query("SELECT BASE_M FROM ITEMINFO WHERE CAR_M = ?", [brand], function (err, row) {
         if (err) {
             console.log(err);
         } else {
-            var data = JSON.stringify(row);
-            
-            res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                  
+            res.send(row);
         }
     })
-    }else{
-        //no parts_number
-        if(category !="Choose..."){
-            category = category.split('&');
-            category_main = category[0];
-            category_sub = category[1];
-            //accessory search
-            if(category_main === "accessories"){
-                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [category_main,category_sub], function (err, row) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        var data = JSON.stringify(row);                        
-                        res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                    }
-                })
-            }else{
-                //search brands model version
-                sess.carmanufacturer = brand;
-                //only car
-                if(model === "ecption02"){
-                   
-                    mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [category_main,category_sub,brand], function (err, row) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            var data = JSON.stringify(row);
-                            console.log(row);
-                            
-                            res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                        }
-                    })
-                }else if(version ==="ecption03"){
-                    //brand and model
-                    mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ?", [category_main,category_sub,brand,model], function (err, row) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            var data = JSON.stringify(row);
-                            console.log(row);
-                            
-                            res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                        }
-                    })
-                }else{
-                    mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [category_main,category_sub,brand,model,version], function (err, row) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            var data = JSON.stringify(row);
-                            console.log(row);
-                           
-                            res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                        }
-                    })
-                }
-               
-            }    
-        }else{
-             //search brands model version
-             sess.carmanufacturer = brand;
-             //only car
-             if(model === "ecption02"){
-                console.log("ecption02");
-                 mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
-                     if (err) {
-                         console.log(err);
-                     } else {
-                         var data = JSON.stringify(row);
-                         console.log(row);
-                         
-                         res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                     }
-                 })
-             }else if(version ==="ecption03"){
-                 //brand and model
-                 mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ?", [brand,model], function (err, row) {
-                     if (err) {
-                         console.log(err);
-                     } else {
-                         var data = JSON.stringify(row);
-                         console.log(row);
-                         
-                         res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                     }
-                 })
-             }else{
-                 mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand,model,version], function (err, row) {
-                     if (err) {
-                         console.log(err);
-                     } else {
-                         var data = JSON.stringify(row);
-                         console.log(row);
-                        
-                         res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                     }
-                 })
-             }
-         
-        } 
-    }
+})
+//select version
+router.post("/select/version",(req,res)=>{
+    var brand = req.body.brand;
+    var model = req.body.model;
+    mysqlDB.query("SELECT DETAIL_M FROM ITEMINFO WHERE CAR_M = ? AND BASE_M = ?", [brand,model], function (err, row) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(row);
+        }
+    })
+})
 
+//show brand
+router.get("/brand",(req,res)=>{
+    var sess = req.session;
+    res.render("brand.html",{username:sess.username});
+})
+//search item
+router.get("/search", function (req, res) {
+    var sess = req.session;
+    var category =String(req.query.category).split("_"); 
+    var main = category[0];
+    var sub = category[1];
+    var brand= req.query.brands;
+    sess.carmanufacturer = brand;
+    var model= req.query.model;
+    var version= req.query.version; 
+    var parts_num = req.query.parts_num;
+    if(parts_num){
+        //parts_num
+        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [parts_num], function (err, row) {
+            if (err) {
+                console.log(err);
+            } else {
+                var data = JSON.stringify(row);            
+                res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+            }
+        })
+    }  
+    else if(!req.query.category){
+        if(!model){
+            //brand
+            
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+
+        }else if(!version){
+            //brand & model
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? ", [brand,model], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+
+        }else{
+            //brand & model & version
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand,model,version], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+        }
+    }else{
+        if(!brand){
+            //category
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? ", [main,sub], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+        }
+        else if(!model){
+             //brand & category
+             mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? ", [main,sub,brand], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+
+        }else if(!version){
+            //brand & model & category
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? ", [main,sub,brand,model], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+
+        }else{
+            //brand & model & version & category
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [main,sub,brand,model,version], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);            
+                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                }
+            })
+        }
+    }
+    
 })
 
 
 //search item method get
 router.get("/shop/item", function (req, res) {
-    console.log("get");
+    //console.log("get");
     sess = req.session;
     var main = req.query.main;
     var sub = req.query.sub;
@@ -803,10 +810,10 @@ router.get("/shop/item", function (req, res) {
 })
 
 router.get("/item/info", function (req, res) {
-    console.log("get");
+   // console.log("get");
     sess = req.session;
     var pin = req.query.pin;
-    console.log(pin);
+   // console.log(pin);
     mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PIN = ?",[pin],function(err,row){
         if(err){
             console.log(err);
@@ -821,16 +828,12 @@ router.get("/item/info", function (req, res) {
 //contact to admin
 router.get("/item/contact",(req,res)=>{
     var sess = req.session;
-    res.render("sendmail.html",{from:sess.email});
-})
-//send contact mail
-router.post("/item/contact/send",(req,res)=>{
     console.log(req.body);
     var data = {
         fromEmail:req.body.to,
         toEmail:req.body.to,
-        subject:req.body.title,
-        text:"From: "+req.body.from+"\n"+req.body.text          
+        subject:"commodity price enquiry",
+        text:"From: "+req.body.from+"\n"+"Item name: "+req.body.name+"\nParts number: "+req.body.parts_num+"\nPin: " +req.body.pin       
     };
     nodemailer.sendmail(data,()=>{
         res.send("success");
@@ -928,7 +931,7 @@ router.post("/cart/delete",(req,res)=>{
 
 //shopping mall router
 router.get("/shop", function (req, res) {
-    console.log("get shop");
+  //  console.log("get shop");
     sess = req.session;
     sess.carmanufacturer=null;
     mysqlDB.query("SELECT ID FROM CATEGORY_LIST",(err,row)=>{

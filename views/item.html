@@ -309,8 +309,8 @@
             $("#item_head h4").html("$" + info[0].PRICE);
           }
           $("#item_head p").html(
-            "Number: " + info[0].PARTS_NUM + "<br>" +
-            "Volume: " + info[0].VOLUME + " EA<br>" +
+            "Parts Number: " + info[0].PARTS_NUM + "<br>" +
+            "Quantity: " + info[0].VOLUME + " EA<br>" +
             "Model: " + info[0].BASE_M + "(version: " + info[0].DETAIL_M + ")<br>" +
             "Brand: " + info[0].CAR_M + "<br>" +
             "Item manufacturer: " + info[0].ITEM_M + "<br>"
@@ -324,7 +324,25 @@
           $("#item_price").val(info[0].PRICE);
           
         }
-  
+         //contact to admin
+        $("#contact").off("click").on("click",()=>{        
+          $.ajax({
+                url:"/item/contact",
+                type:"post",
+                data:{
+                  name:info[0].ITEM_NAME,
+                  pin:info[0].PIN,
+                  parts_num:info[0].PARTS_NUM
+                },
+                success:()=>{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'send email',
+                        text: 'Send email success'
+                    })
+                }
+            })
+        })
         if (username) {
           $("#account_ctrl").html('Signout');
           $("#account_ctrl").attr("href", "/signout");

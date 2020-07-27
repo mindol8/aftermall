@@ -13,7 +13,11 @@
   margin-left:3%;
   margin-right:3%;
 }
-
+#brands{
+  width:80%;
+  margin-left:10%;
+  margin-right:10%;
+}
 .brand_slide {
   text-align: center;
   font-size: 18px;
@@ -61,3 +65,4 @@
   text-decoration: none;
   
 }
+

@@ -23,11 +23,17 @@
         $("#select_brands").change(()=>{
             var brand = $("#select_brands option:selected").val();  
             $.ajax({
-                url:"/",
+                url:"/select/model",
                 type:"post",
-                data:{CAR_M:brand},
+                data:{brand:brand},
                 success:(data)=>{
                     //model select option 출력
+                    for(var i=0;i<data.length;i++){
+                        $("#model").append(
+                            '<option value="'+data[i].BASE_M+'">'+data[i].BASE_M+'</option>'
+                        );
+                    }                 
+                    
                     $("#model").attr("disabled",false);
                 }
             })         
@@ -36,12 +42,19 @@
         //model select
         $("#model").change(()=>{
             var model = $("#model option:selected").val();  
+            var brand = $("#select_brands option:selected").val();
             $.ajax({
-                url:"/",
+                url:"/select/version",
                 type:"post",
-                data:{BASE_M:model},
+                data:{model:model,brand:brand},
                 success:(data)=>{
                     //version select option 출력
+                    for(var i=0;i<data.length;i++){
+                        $("#version").append(
+                            '<option value="'+data[i].DETAIL_M+'">'+data[i].DETAIL_M+'</option>'
+                        );
+                    }                 
+                    
                     $("#version").attr("disabled",false);
                 }
             })         
@@ -50,8 +63,8 @@
       
         //swiper side running brand
         var swiper = new Swiper('#brand_swiper', {
-            slidesPerView: 3,
-            spaceBetween: 30,
+            slidesPerView: 5,
+            spaceBetween: 3,
             loop: true,
             //centeredSlides: true,
             autoplay: {
@@ -60,8 +73,36 @@
             },
          
         });
-
     
+        //mode change
+        $("#mode_change_parts").off("click").on("click",()=>{
+            
+                $("#reference").css("display","none");
+                $("#parts").css("display","block");
+              
+                $("#mode_change_reference").css("background-color","silver");
+                $("#mode_change_parts").css("background-color","#212529");
+                $("#mode_change_parts").css("border","red solid 2px");
+                $("#mode_change_reference").css("border","none");
+           
+        })
+        $("#mode_change_reference").off("click").on("click",()=>{
+          
+            $("#reference").css("display","block");
+            $("#parts").css("display","none");
+            $("#mode_change_reference").css("background-color","#212529");
+            $("#mode_change_parts").css("background-color","silver");
+            $("#mode_change_parts").css("border","none");
+            $("#mode_change_reference").css("border","red solid 2px");
+           
+
+       
+    })
+
+    //show brands
+    $(".brand-link").off("click").on("click",()=>{
+        location.href="/brand";
+    })
          // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
         if (

@@ -65,48 +65,65 @@
     <header class="masthead" id="home">
         <div class="container">
             <div class="masthead-heading text-uppercase" style="color:deeppink">AUTOIN SHOPPING MALL</div>
-            <form action="/search" method="POST" id="search_form">
-                <div class="masthead-subheading" style="width:70%;margin-left:15%;margin-right:15%;">
-                      <div class="input-group mb-1">
+            <input type="button" class="btn  mb-1" value="Parts" id="mode_change_parts"
+                style="float:left !important;margin-left:15%!important;width:35%;border:red solid 2px;background-color: #212529!important;color:white; opacity: 0.9;">
+            <input type="button" class="btn  mb-1" value="Reference" id="mode_change_reference"
+                style="float:right !important;margin-right:15%;width:35%;background-color:silver!important;color:white; opacity: 0.9;">
+
+            <form action="/search" method="GET" id="search_form">
+                <input type="hidden" name="page" value="1">
+                <div class="masthead-subheading" id="reference"
+                    style="width:70%;margin-left:15%;margin-right:15%;display:none">
+                    <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                        <span class="input-group-text" >CATEGORY</span></div>
+                            <span class="input-group-text" style="width:120px;">PARTS NUM</span></div>
+                        <input type="text" class="form-control" name="parts_num">
+                    </div>
+                </div>
+                <div class="masthead-subheading" id="parts" style="width:70%;margin-left:15%;margin-right:15%;">
+
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:120px;">CATEGORY</span></div>
                         <select name="category" class="custom-select" id="category">
-                        
+
                         </select>
                     </div>
-                   
-                      <div class="input-group mb-1">
+
+                    <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" >BRANDS</span></div>
-                            <select name="brands" class="custom-select" id="select_brands" >
-                                <option value="exption01">Choose...</option>
-                                <option value="기아">기아</option>
-                                <option value="comp2">comp2</option>
-                            </select>
-                      </div>
-                      <div class="input-group mb-1">
+                            <span class="input-group-text" style="width:120px;">BRANDS</span></div>
+                        <select name="brands" class="custom-select" id="select_brands">
+                            <option value="">Choose...</option>
+                            <option value="기아">기아</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" >MODEL</span></div>
-                            <select name="model" class="custom-select" id="model" disabled>
-                                <option value="exption02">Choose...</option>
-                                <option value="k9">k9</option>
-                                <option value="model2">model2</option>
-                            </select>
-                      </div>
-                      <div class="input-group mb-3">
+                            <span class="input-group-text" style="width:120px;">MODEL</span></div>
+                        <select name="model" class="custom-select" id="model" disabled>
+                            <option value="">Choose...</option>
+                          
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" >VERSION</span></div>
-                            <select name="version" class="custom-select" id="version" disabled>
-                                <option value="exption03">Choose...</option>
-                                <option value="20년식">20년식</option>
-                                <option value="ver1">ver2</option>
-                            </select>
-                      </div>
-                    
+                            <span class="input-group-text" style="width:120px;">VERSION</span></div>
+                        <select name="version" class="custom-select" id="version" disabled>
+                            <option value="">Choose...</option>
+                            
+                        </select>
+                    </div>
+
                 </div>
+
                 <input type="submit" value="SHOPPING NOW"
                     class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" id="shop_now">
             </form>
+
+        </div>
+        <div class="container">
+
         </div>
     </header>
 
@@ -120,7 +137,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 text-center">
-                    <div>                    
+                    <div>
                         <a href="/shop">
                             <h4 class="my-3">TOP 1</h4>
                             <span class="text-center">
@@ -135,40 +152,43 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <div>                    
+                            <div>
                                 <a href="/shop">
                                     <h4 class="my-3">TOP 2</h4>
                                     <span>
-                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded" alt="No image">
+                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded"
+                                            alt="No image">
                                     </span>
-                                    
+
                                     <p class="text-muted">category 2
-                                      </p>
+                                    </p>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6  text-center">
-                            <div>                    
+                            <div>
                                 <a href="/shop">
                                     <h4 class="my-3">TOP 3</h4>
                                     <span>
-                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded" alt="No image">
+                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded"
+                                            alt="No image">
                                     </span>
-                                    
+
                                     <p class="text-muted">category 3
-                                      </p>
+                                    </p>
                                 </a>
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
-            </div>  
+            </div>
             <div class="text-center">
-                <h3 class="section-subheading text-muted" style="margin-top:7%;"><strong>Most popular top 3</strong></h3>
-            </div>  
+                <h3 class="section-subheading text-muted" style="margin-top:7%;"><strong>Most popular top 3</strong>
+                </h3>
+            </div>
             <div class="row">
                 <div class="col-md-6 text-center">
-                    <div>                    
+                    <div>
                         <a href="/shop">
                             <h4 class="my-3">TOP 1</h4>
                             <span class="text-center">
@@ -183,34 +203,36 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <div>                    
+                            <div>
                                 <a href="/shop">
                                     <h4 class="my-3">TOP 2</h4>
                                     <span>
-                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded" alt="No image">
+                                        <img src="../stylesheet/img/about/2.jpg" class="img-fluid rounded"
+                                            alt="No image">
                                     </span>
-                                    
+
                                     <p class="text-muted">ITEM NAME 2
-                                      </p>
+                                    </p>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6  text-center">
-                            <div>                    
+                            <div>
                                 <a href="/shop">
                                     <h4 class="my-3">TOP 3</h4>
                                     <span>
-                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded" alt="No image">
+                                        <img src="../stylesheet/img/about/3.jpg" class="img-fluid rounded"
+                                            alt="No image">
                                     </span>
-                                    
+
                                     <p class="text-muted">ITEM NAME 3
-                                      </p>
+                                    </p>
                                 </a>
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
-            </div>          
+            </div>
         </div>
     </section>
     <!-- brands-->
@@ -219,19 +241,38 @@
         <br>
         <div class="swiper-container" id="brand_swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/logos/envato.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/logos/designmodo.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/logos/themeforest.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"><a href="#!"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/logos/creative-market.jpg" alt="" /></a></div>
+                <div class="swiper-slide brand_slide"><a href="/search?brand=hyundai"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/hyundai.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" ><a href="/search?brand=kia"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/kia.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide"  ><a href="/search?brand=daewoo"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/daewoo.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" ><a href="/search?brand=nissan"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/nissan.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide"><a href="/search?brand=toyota"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/toyota.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" ><a href="/search?brand=lexus"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/lexus.png" alt="" /></a></div>
+                <div class="swiper-slide brand_slide"><a href="/search?brand=chevrolet"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/chevrolet.png" alt="" /></a></div>
+               <!-- <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=hyesung"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/hyesung.jpg" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=kukshin"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/kukshin.jpg" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=kwansung"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/kwansung.jpg" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=namyang"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/namyang.jpg" alt="" /></a></div>
+                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=sewoon"><img class="img-fluid d-block mx-auto"
+                            src="../stylesheet/img/brands/sewoon.jpg" alt="" /></a></div>-->
+
             </div>
             <br>
-          
-        </div>
 
+        </div>
+        <center>
+            <input type="button" class="btn brand-link" value="show more..." style="background-color: #212529!important;color:white;" >
+        </center>
     </div>
 
     <!-- About-->
@@ -307,32 +348,32 @@
     <script>
         var username = '<%- username %>';
         var category = JSON.parse('<%- category %>');
-        for(var i=0;i<category.length;i++){
-            var s_c = String(category[i].ID).split('_');           
+        for (var i = 0; i < category.length; i++) {
+            var s_c = String(category[i].ID).split('_');
             var main = s_c[0];
             var sub = s_c[1];
-            if(i==0){
+            if (i == 0) {
                 $("#category").html(
-                    '<option selected>Choose...</option>'+
-                    '<optgroup label ="'+main+'">'+
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option></optgroup>'
+                    '<option value="">Choose...</option>' +
+                    '<optgroup label ="' + main + '">' +
+                    '<option value="' + category[i].ID + '">' + sub + '</option></optgroup>'
                 );
-            }else{
-                if(main === String(category[i-1].ID).split('_')[0]){
-                    $("optgroup[label = '"+main+"']").append(    
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+            } else {
+                if (main === String(category[i - 1].ID).split('_')[0]) {
+                    $("optgroup[label = '" + main + "']").append(
+                        '<option value="' + category[i].ID + '">' + sub + '</option>'
                     );
                 }
-                else if(i != (category.length)-1 && main != String(category[i-1].ID).split('_')[0]){
-                    $("#category").append(                           
-                        '<optgroup label ="'+main+'">'+
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+                else if (i != (category.length) - 1 && main != String(category[i - 1].ID).split('_')[0]) {
+                    $("#category").append(
+                        '<optgroup label ="' + main + '">' +
+                        '<option value="' + category[i].ID + '">' + sub + '</option>'
                     );
                 }
             }
-           
+
         }
-       
+
         if (username) {
             $("#account_ctrl").html('Signout');
             $("#account_ctrl").attr("href", "/signout");

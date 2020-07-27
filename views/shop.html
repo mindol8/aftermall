@@ -71,53 +71,52 @@
         <!--search item-->
         <br>
         <h2 style="text-align: center;"><small>SEARCH</small></h2>
-        <form action="/search" method="POST">
-          <div class="input-group mb-1">
-            <div class="input-group-prepend" id="select_theme">
-              <span class="input-group-text">Parts Num</span>
-            </div>
-            <input type="hidden" name="theme" value="parts_num">
-            <input type="text" class="form-control" placeholder="search" name="search_thing" id="thing">
-          </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-              <span class="input-group-text">CATEGORY</span></div>
-            <select name="category" class="custom-select" id="inputGroupSelect01">
-              
-            </select>
-          </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-                <span class="input-group-text" >BRANDS</span></div>
-                <select name="brands" class="custom-select" id="brands" >
-                    <option value="exption01">Choose...</option>
-                    <option value="기아">기아</option>
-                    <option value="comp2">comp2</option>
-                </select>
-          </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-                <span class="input-group-text" >MODEL</span></div>
-                <select name="model" class="custom-select" id="model" disabled>
-                    <option value="exption02">Choose...</option>
-                    <option value="k9">k9</option>
-                    <option value="model2">model2</option>
-                </select>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" >VERSION</span></div>
-                <select name="version" class="custom-select" id="version" disabled>
-                    <option value="exption03">Choose...</option>
-                    <option value="20년식">20년식</option>
-                    <option value="ver1">ver2</option>
-                </select>
-          </div>
+     
+        <form action="/search" method="GET" id="search_form">
+          <input type="hidden" name="page" value="1">          
+              <div class="input-group mb-1">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" style="width:120px;">PARTS NUM</span></div>
+                  <input type="text" class="form-control" name="parts_num">
+              </div>                
+
+              <div class="input-group mb-1">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" style="width:120px;">CATEGORY</span></div>
+                  <select name="category" class="custom-select" id="category">
+
+                  </select>
+              </div>
+
+              <div class="input-group mb-1">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" style="width:120px;">BRANDS</span></div>
+                  <select name="brands" class="custom-select" id="select_brands">
+                      <option value="">Choose...</option>
+                      <option value="기아">기아</option>
+                  </select>
+              </div>
+              <div class="input-group mb-1">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" style="width:120px;">MODEL</span></div>
+                  <select name="model" class="custom-select" id="model" disabled>
+                      <option value="">Choose...</option>
+                    
+                  </select>
+              </div>
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" style="width:120px;">VERSION</span></div>
+                  <select name="version" class="custom-select" id="version" disabled>
+                      <option value="">Choose...</option>
+                      
+                  </select>
+              </div>
+
+         
 
           <input type="submit" value="search" class="btn btn-secondary btn-block" id="search">
-
-
-        </form>
+      </form>
         <br><br><br>
       </div>
       <!-- /.col-lg-3 -->
@@ -150,8 +149,9 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+        <div class="result">
 
-
+        </div>
         <div class="row" id="item_slot">
           <div class="container">
             <h3 style="text-align: center;margin-top: 10%;margin-bottom: 15%;">No item<br>Please Search Item</h3>
@@ -195,7 +195,7 @@
     var username = '<%- username %>';
     var info = JSON.parse('<%- info %>');
     var length = info.length;
-    console.log(info);
+   
     var rate;
     var category = JSON.parse('<%- category %>');
     //category
@@ -204,10 +204,10 @@
             var main = s_c[0];
             var sub = s_c[1];
             if(i==0){
-                $("#inputGroupSelect01").html(
-                    '<option selected>Choose...</option>'+
+                $("#category").html(
+                    '<option value="">Choose...</option>'+
                     '<optgroup label ="'+main+'">'+
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option></optgroup>'
+                        '<option value="'+category[i].ID+'">'+sub+'</option></optgroup>'
                 );
                 $("#left-group").html(
                   '<div class="dropright" name = "'+main+'">'+
@@ -221,7 +221,7 @@
             }else{
                 if(main === String(category[i-1].ID).split('_')[0]){
                     $("optgroup[label = '"+main+"']").append(    
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+                        '<option value="'+category[i].ID+'">'+sub+'</option>'
                     );
 
                    $(".dropright[name='"+main+"'] .dropdown-menu").append(
@@ -229,9 +229,9 @@
                    );
                 }
                 else if(i != (category.length)-1 && main != String(category[i-1].ID).split('_')[0]){
-                    $("#inputGroupSelect01").append(                           
+                    $("#category").append(                           
                         '<optgroup label ="'+main+'">'+
-                        '<option value="'+main+'&'+sub+'">'+sub+'</option>'
+                        '<option value="'+category[i].ID+'">'+sub+'</option>'
                     );
                     $("#left-group").append(
                   '<div class="dropright" name = "'+main+'">'+
@@ -247,6 +247,7 @@
            
         }
 
+     
     //navbar
     if (username) {
       $("#account_ctrl").html('Signout');
@@ -257,13 +258,9 @@
       $("#account_ctrl").attr("href", "/signin");
       $("#accountMenu").remove("#management");
     }
-    if (info != "undefined") {
-      if (info[0].MAIN_C) {
-        var main = info[0].MAIN_C.replace(" ", "");
-        console.log(info[0].MAIN_C);
-        $(".list-group").css("background-color", "white");
-        $("#" + main).css("background-color", "silver");
-      }
+    if (info != "undefined") {   
+       //search result
+       $(".result").html('<p><small>'+info.length+' results > </small></p>');
       //item
       for (var i = 0; i < length; i++) {
         switch (info[i].RATE) {
