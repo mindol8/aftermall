@@ -278,32 +278,55 @@
         offset: 74,
     });
     
-    $(window).resize(function() { 
-        if($(window).width() <976) {
+    $(window).resize(function () {
+        if ($(window).width() < 976) {
             $("#resizemenu").html(
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
-                
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="management">Management</a></li>'
             );
-         }else{
-            $("#resizemenu").html(
-                '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"'+
-                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>'+
-                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>'+
-                '<a class="dropdown-item" href="/cart">Cart</a>'
-                
-            );
-         }  
-     });
+            $("#signup_box").css("margin-left","5%");
+            $("#signup_box").css("margin-right","5%");
+            $("#signup_box").css("width","90%");
 
-     if($(window).width() <976) {
+            $(".brand_logo").css("margin-left","20%");
+            $(".brand_logo").css("margin-right","20%");
+            $(".brand_logo").css("width","60%");
+        }
+        else {
+            $("#resizemenu").html(
+                '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
+                '<a class="dropdown-item" href="/cart">Cart</a>' +
+                '<a class="dropdown-item" href="/management">Management</a></div></div>'
+
+            );
+            $("#signup_box").css("margin-left","30%");
+            $("#signup_box").css("margin-right","30%");
+            $("#signup_box").css("width","40%");
+
+            $(".brand_logo").css("margin-left","40%");
+            $(".brand_logo").css("margin-right","40%");
+            $(".brand_logo").css("width","20%");
+        }
+    });
+
+    if ($(window).width() < 976) {
         $("#resizemenu").html(
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>'+
-            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'           
-        );    
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+        );
+        $("#signup_box").css("margin-left","5%");
+        $("#signup_box").css("margin-right","5%");
+        $("#signup_box").css("width","90%");
+
+        $(".brand_logo").css("margin-left","20%");
+        $(".brand_logo").css("margin-right","20%");
+        $(".brand_logo").css("width","60%");
     }
- 
     // Collapse Navbar
     var navbarCollapse = function () {
         var windowwidth = $(window).width();

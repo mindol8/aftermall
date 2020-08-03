@@ -44,7 +44,7 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>-->
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
@@ -103,7 +103,7 @@
                             <span class="input-group-text" style="width:120px;">MODEL</span></div>
                         <select name="model" class="custom-select" id="model" disabled>
                             <option value="">Choose...</option>
-                          
+
                         </select>
                     </div>
                     <div class="input-group mb-3">
@@ -111,7 +111,7 @@
                             <span class="input-group-text" style="width:120px;">VERSION</span></div>
                         <select name="version" class="custom-select" id="version" disabled>
                             <option value="">Choose...</option>
-                            
+
                         </select>
                     </div>
 
@@ -128,8 +128,8 @@
     </header>
 
 
-    <!-- Services-->
-    <section class="page-section" id="rank">
+    <!-- Services
+    <section class="page-section" id="rank" >
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Rank</h2>
@@ -234,45 +234,50 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- brands-->
     <div class="page-section" id="brands">
         <h2 class="section-heading text-uppercase" id="brand">Brands</h2>
         <br>
+        <div style="text-align: center;">
+            <h3 class="section-subheading text-muted"><strong>Car Brands</strong>
+        </div>
+
+        </h3>
         <div class="swiper-container" id="brand_swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide brand_slide"><a href="/search?brand=hyundai"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/hyundai.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" ><a href="/search?brand=kia"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/kia.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"  ><a href="/search?brand=daewoo"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/daewoo.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" ><a href="/search?brand=nissan"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/nissan.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"><a href="/search?brand=toyota"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/toyota.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" ><a href="/search?brand=lexus"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/lexus.png" alt="" /></a></div>
-                <div class="swiper-slide brand_slide"><a href="/search?brand=chevrolet"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/chevrolet.png" alt="" /></a></div>
-               <!-- <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=hyesung"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/hyesung.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=kukshin"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/kukshin.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=kwansung"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/kwansung.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=namyang"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/namyang.jpg" alt="" /></a></div>
-                <div class="swiper-slide brand_slide" style="width:200px"><a href="/show?item_manuf=sewoon"><img class="img-fluid d-block mx-auto"
-                            src="../stylesheet/img/brands/sewoon.jpg" alt="" /></a></div>-->
+                             
 
             </div>
             <br>
 
         </div>
-        <center>
-            <input type="button" class="btn brand-link" value="show more..." style="background-color: #212529!important;color:white;" >
-        </center>
+        <div style="text-align: center;margin-bottom:3%">
+            <input type="button" class="btn brand-link" value="show more..."
+                style="background-color: #212529!important;color:white;">
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <h3 class="section-subheading text-muted"><strong>Item Brands</strong>
+        </div>
+        </h3>
+        <div class="container itembrand-container">
+            <div class="row">
+                <div class="col-md-2" id="ib_section0">
+                </div>
+                <div class="col-md-2" id="ib_section1">
+                </div>
+                <div class="col-md-2" id="ib_section2">
+                </div>
+                <div class="col-md-2" id="ib_section3">
+                </div>
+                <div class="col-md-2" id="ib_section4">
+                </div>
+                <div class="col-md-2" id="ib_section5">
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- About-->
@@ -321,14 +326,15 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+
                 <div class="col-lg-4 my-3 my-lg-0">
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-right">
-                    <a class="mr-3" href="#!">Privacy Policy</a>
-                    <a href="#!">Terms of Use</a>
+                    <div>E-mail:&nbsp;service@autoinmall.com</div>
+
                 </div>
             </div>
         </div>
@@ -348,6 +354,48 @@
     <script>
         var username = '<%- username %>';
         var category = JSON.parse('<%- category %>');
+        var itembrand = JSON.parse('<%- itembrand %>');
+        var carbrand = JSON.parse('<%- carbrand %>');
+        //print carbrand
+        for(var l=0;l<carbrand.length;l++){
+            $(".swiper-wrapper").append(
+                '<div class="swiper-slide brand_slide"><a href="/search?brand='+carbrand[l].NAME+'"><img class="img-fluid d-block mx-auto"'+
+                            'src="../stylesheet/img/car_brands/'+carbrand[l].IMG+'" alt="" /></a></div>'
+            )
+        }
+        //print itembrand
+        for (var k = 0; k < itembrand.length; k++) {
+            var flag = k % 6;
+           
+            switch(flag){
+                case 0:
+                    $("#ib_section0").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+                case 1:
+                $("#ib_section1").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+                case 2:
+                $("#ib_section2").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+                case 3:
+                $("#ib_section3").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+                case 4:
+                $("#ib_section4").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+                case 5:
+                $("#ib_section5").append( '<a href="/search?itembrand=' + itembrand[k].NAME + '"><img class="img-fluid d-block mx-auto"' +
+                'src="../stylesheet/img/item_brands/' + itembrand[k].IMG + '" alt="" /></a><br>');
+                break;
+            }
+           
+        }
+
         for (var i = 0; i < category.length; i++) {
             var s_c = String(category[i].ID).split('_');
             var main = s_c[0];

@@ -6,7 +6,6 @@
    (function ($) {
     "use strict"; // Start of use strict
     $(document).ready(function () {
-
      
          // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
@@ -32,40 +31,7 @@
         }
     });
    
-    //add cart
-    $("#buy").off("click").on("click",()=>{
-        var item_name = $("#item_name").val()
-        
-        $.ajax({
-            url:"/item/cart",
-            type:"post",
-            data:$("#add_cart").serialize(),
-            success:(data)=>{
-                if(data === "GO SIGNIN"){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Sign in',
-                        text: 'Sign in first!!'
-                    })
-                }else{
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Add',
-                        text: data+' is in the cart!!'
-                    })
-                }
-               
-            },
-            error:()=>{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Add',
-                    text: 'Insert cart fail'
-                })
-            }
-        })
-    })
-
+  
     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {
         $(".navbar-collapse").collapse("hide");

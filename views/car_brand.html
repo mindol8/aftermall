@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/index.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+    
+</head>
+<body>
+    <form>
+    <div class="input-group mb-1">    
+        <span class="input-group-text" >Name</span>
+        <input type="text" id = "name" name = "name" class = "form-control">        
+        <span class="input-group-text" >Img</span>
+        <span style="border:1px solid silver">
+        <input type="file" id = "img" name = "brandimg" accept="image/*" class="mt-1 ml-1">        
+        </span>
+        <input type="button" id="add-btn" class ="btn btn-secondary" value="add">
+    </div>
+    </form>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">NAME</th>     
+            <th scope="col">IMG</th>     
+            <th></th>  
+            <th> </th>
+          </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+</table>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <script>       
+        var data = JSON.parse('<%- data %>');
+        for(var i=0;i<data.length;i++){
+            $("tbody").append(
+                '<tr>'+
+                '<td>'+data[i].NAME+'</td>'+
+               
+                '<td>'+data[i].IMG+'</td>'+ 
+                '<td><input type="button" class="btn btn-info" value="setting" onclick="set_item('+i+');"></td>' +       
+                '<td><input type = "button" class = "btn btn-warning" value = "delete" onclick="del_item('+i+');"></td>'+   
+                '</tr>'
+            )           
+        }
+    //delete carbrand
+      function del_item(i){       
+        var name = data[i].NAME;
+        var country = data[i].COUNTRY;
+        $.ajax({
+            url:'/admin/carbrand/delete',
+            type:'post',
+            data:{
+               name:name,
+               img:data[i].IMG
+            },
+            success:()=>{
+                location.reload();
+            },
+            error:()=>{
+                location.reload();
+            }
+        })
+      }
+
+      //add carbrand
+      $("#add-btn").off("click").on("click",()=>{
+        const formdata = new FormData($("form")[0]);
+          $.ajax({
+              url:"/admin/carbrand/add",
+              type:"post",
+              contentType: false,
+              processData: false,
+              data:formdata,
+              success:(data)=>{
+                  if(data==="fail"){
+                      alert("overlap car brand")
+                  }
+                location.reload();
+              },
+                error:()=>{
+                    location.reload();
+                }
+          })
+      })
+
+
+       //setting car brand
+    function set_item(i){
+        
+        if($("#setting"+i).val() === "setting"){         
+           
+            $("#img"+i).attr("disabled",false);
+            $("#img"+i).attr("type","file");
+            $("#img"+i).css("border","1px solid black");
+            $("#setting"+i).val("finish");
+            $("#setting"+i).css("background-color","red");
+        }else if($("#setting"+i).val() === "finish"){
+           
+            $("#img"+i).attr("disabled",true);
+            $("#img"+i).css("border","none");
+            $("#setting"+i).val("setting");
+            $("#setting"+i).css("background-color","#17a2b8");
+            const formdata = new FormData();
+            formdata.append("name",$("#name"+i).val());           
+            formdata.append("img",$("#img"+i)[0].files[0]);
+           
+            $.ajax({
+                url:"/admin/carbrand/change",
+                type:"post",
+                data:formdata,
+                contentType: false,
+                processData: false,
+                success:(data)=>{
+                    if(data != "update error" && data != "img find error"){
+                        $("#img"+i).attr("type","text");
+                        if($("#img"+i)[0].files[0] != null){
+                            $("#img"+i).val(data);
+                        }else{
+                            $("#img"+i).val(data[i].IMG);
+                        }
+                        
+                    }                   
+                },
+                error:()=>{
+                    alert("fail");
+                }
+            })
+
+
+        }else{
+            alert("인식못함");
+        }
+    }  
+    </script>
+    
+</body>
+
+</html>

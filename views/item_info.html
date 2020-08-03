@@ -89,7 +89,12 @@
         </div>
         <div class="input-group mb-1">
             <div class="input-group-prepend">
-                <span class="input-group-text">Brand</span></div>
+                <span class="input-group-text">Car Brand</span></div>
+            <input type="text" name="car_brand" id="car_brand" class="form-control">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Item Brand</span></div>
             <input type="text" name="item_brand" id="item_brand" class="form-control">
         </div>
         <div class="input-group mb-1">
@@ -240,7 +245,7 @@
                         }
                         $("#category_main").change(() => {
                             var main = $("#category_main option:selected").val();
-                            if (main != 'etc' && main != "") {
+                        
                                 $("#category_sub").html('<option selected></option>');
                                 $.ajax({
                                     url: "/item/add/category",
@@ -264,10 +269,7 @@
                                         $("#category_sub").attr("disabled", false);
                                     }
                                 })
-                            } else {
-                                $("#category_sub").html('<option selected></option>');
-                                $("#category_sub").attr("disabled", true);
-                            }
+                          
 
 
                         })
@@ -277,7 +279,8 @@
                         $("#parts_num").val(data[0].PARTS_NUM);
                         $("#item_volume").val(data[0].VOLUME);
                         $("#item_model").val(data[0].BASE_M);
-                        $("#item_brand").val(data[0].CAR_M);
+                        $("#item_brand").val(data[0].BRAND_I);
+                        $("#car_brand").val(data[0].CAR_M);
                         $("#item_version").val(data[0].DETAIL_M);
                         $("#item_manuf").val(data[0].ITEM_M);
                         $("#item_desc").val(data[0].ITEM_DESC);
@@ -310,7 +313,7 @@
                     success:()=>{
                         alert("update success");
                         $(".setting-container").css("display", "none");
-
+                        location.reload();
                     },
                     error:()=>{
                         alert("update fail");

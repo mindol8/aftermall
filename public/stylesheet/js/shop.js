@@ -47,45 +47,54 @@
       //brand select
       $("#select_brands").change(()=>{
         var brand = $("#select_brands option:selected").val();  
-        $.ajax({
-            url:"/select/model",
-            type:"post",
-            data:{brand:brand},
-            success:(data)=>{
-                //model select option 출력
-                for(var i=0;i<data.length;i++){
-                    $("#model").append(
-                        '<option value="'+data[i].BASE_M+'">'+data[i].BASE_M+'</option>'
-                    );
-                }                 
-                
-                $("#model").attr("disabled",false);
-            }
-        })         
-       
+        if(brand === ""){
+            $("#model").attr("disabled",true);
+        }else{
+            $.ajax({
+                url:"/select/model",
+                type:"post",
+                data:{brand:brand},
+                success:(data)=>{
+                    //model select option 출력
+                    for(var i=0;i<data.length;i++){
+                        $("#model").append(
+                            '<option value="'+data[i].BASE_M+'">'+data[i].BASE_M+'</option>'
+                        );
+                    }                 
+                    
+                    $("#model").attr("disabled",false);
+                }
+            })         
+           
+        }
+  
     })
     //model select
     $("#model").change(()=>{
         var model = $("#model option:selected").val();  
         var brand = $("#select_brands option:selected").val();
-        $.ajax({
-            url:"/select/version",
-            type:"post",
-            data:{model:model,brand:brand},
-            success:(data)=>{
-                //version select option 출력
-                for(var i=0;i<data.length;i++){
-                    $("#version").append(
-                        '<option value="'+data[i].DETAIL_M+'">'+data[i].DETAIL_M+'</option>'
-                    );
-                }                 
-                
-                $("#version").attr("disabled",false);
-            }
-        })         
+        if(model === ''){
+            $("#version").attr("disabled",true);
+        }else{
+            $.ajax({
+                url:"/select/version",
+                type:"post",
+                data:{model:model,brand:brand},
+                success:(data)=>{
+                    //version select option 출력
+                    for(var i=0;i<data.length;i++){
+                        $("#version").append(
+                            '<option value="'+data[i].DETAIL_M+'">'+data[i].DETAIL_M+'</option>'
+                        );
+                    }                 
+                    
+                    $("#version").attr("disabled",false);
+                }
+            }) 
+        }
+           
        
     })
-  
 
     
     // Closes responsive menu when a scroll trigger link is clicked

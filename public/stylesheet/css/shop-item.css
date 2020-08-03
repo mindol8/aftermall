@@ -5,12 +5,9 @@
  */
 
 body {            
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   padding-top: 56px;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
+  
 }      
 .swiper-container {
   background:silver;
@@ -25,7 +22,9 @@ body {
   background-size: cover;
   background-position: center;
 }
-
+.swiper-slide a{
+  cursor: hand;
+}
 .gallery-top {
   border-top:black solid 1px;
   border-left:black solid 1px;
@@ -110,8 +109,15 @@ body {
 }
 .navbaritem{
   color:white;
+  
 }
 
 .navbarmenu{
   background-color:#212529;
+}
+
+.wide-img{
+  position: relative;
+  left: -11%;
+  width:122%;
 }

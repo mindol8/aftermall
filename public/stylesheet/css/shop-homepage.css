@@ -44,3 +44,8 @@ body {
 .navbarmenu{
   background-color:#212529;
 }
+
+#item_slot a{
+  size: 15px;
+  color:black;
+}

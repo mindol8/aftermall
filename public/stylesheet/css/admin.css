@@ -19,7 +19,18 @@
   } 
   .body-container{
     margin-top: 10%;margin-bottom:5%;
+    margin-left:3%;
+    margin-right:3%;
+    width:94%;
+    padding:0;
+    height:500px;
+    
 }
+
+a{
+    cursor: pointer;
+}
+
 .body-container a{
   text-decoration: none;
 }
@@ -27,3 +38,13 @@
   background-color:#fed136!important;
 }
 
+.management-list{
+  width:17%;
+  display: inline-block;
+}
+
+.capsulate-window{
+ float:right;
+ width:80%;
+ height:500px;
+}

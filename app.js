@@ -5,13 +5,15 @@ var path = require('path');
 var static = require('serve-static');
 var bodyParser = require('body-parser');
 var cors = require('cors'); // 다른 서버로 접근하기위해서 사용
+var fs = require('fs');
 var hostname = '0.0.0.0';
-const { constant } = require('async');
+const { constant, reject } = require('async');
 var session = require('express-session');
 var mysqlDB = require("./DB/db");
 var nodemailer = require("./mail/mail");
 var crypto = require('crypto');
 var multer = require('multer');
+const { resolve } = require('path');
 
 var app = express();
 
@@ -32,39 +34,80 @@ app.set('views engin', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var router = express.Router();
+//item img route
 const upload = multer({
     storage: multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, 'public/stylesheet/img/item');
-      },
-      filename: function (req, file, cb) {
-        cb(null, file.originalname);
-      }
+        destination: function (req, file, cb) {
+            cb(null, 'public/stylesheet/img/item');
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
     }),
-  });
+});
+//item brands img route
+const upload_item_brand = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/stylesheet/img/item_brands');
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    }),
+});
+
+//car brands img route
+const upload_car_brand = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/stylesheet/img/car_brands');
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    }),
+});
+
 
 //main page router
 app.use('/', router);
 
 app.use(function (req, res, next) {
-    mysqlDB.query("SELECT ID FROM CATEGORY_LIST",(err,row)=>{
-        if(err){
+    mysqlDB.query("SELECT ID FROM CATEGORY_LIST", (err, row) => {
+        if (err) {
             console.log(err);
-        }else{
+        } else {
             var category = JSON.stringify(row);
             sess = req.session;
             sess.category = category;
-           // console.log("username: " + sess.username);
-            res.render('index.html', { username: sess.username,category:sess.category });
+            // console.log("username: " + sess.username);
+            mysqlDB.query("SELECT NAME,IMG FROM ITEM_BRAND", (err2, row2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    var data = JSON.stringify(row2);
+                    mysqlDB.query("SELECT NAME,IMG FROM CAR_BRAND", (err3, row3) => {
+                        if(err3){
+                            console.log(err3);
+                        }else{
+                            var car = JSON.stringify(row3);
+                            res.render('index.html', { username: sess.username, category: sess.category, itembrand: data,carbrand:car });
+                        }
+                    })
+                    
+                }
+            })
+
         }
     })
-    
+
 })
 
 //logout router
 router.get("/signout", function (req, res) {
     req.session.destroy(function () {
-      //  console.log("kill session");
+        //  console.log("kill session");
         req.session;
         console.log(req.session);
     });
@@ -91,29 +134,29 @@ router.post("/signin/confirm", function (req, res) {
                 //console.log("err: emtpy set");
                 res.send("signin fail:wrong Id#");
             } else {
-                if(row[0].LOCK_ACC == 1){
+                if (row[0].LOCK_ACC == 1) {
                     var salt = row[0].SALT;
                     var pw = row[0].USER_PW;
                     var name = row[0].NAME;
                     var hashPassword = crypto.createHash("sha512").update(userpw + salt).digest("hex");
                     if (hashPassword === pw) {
-                 //   console.log("signin success");
-                    sess = req.session;
-                    sess.username = name;
-                    sess.userid = userid;
-                    sess.email = row[0].EMAIL;
-                    sess.token = row[0].TOKEN;
-                    console.log(name);
-                    res.send(name);
+                        //   console.log("signin success");
+                        sess = req.session;
+                        sess.username = name;
+                        sess.userid = userid;
+                        sess.email = row[0].EMAIL;
+                        sess.token = row[0].TOKEN;
+                        console.log(name);
+                        res.send(name);
 
+                    } else {
+                        // console.log("fail");
+                        res.send("signin fail:wrong password$");
+                    }
                 } else {
-                   // console.log("fail");
-                    res.send("signin fail:wrong password$");
-                }
-                }else{
                     res.send("signin fail:check Email first@");
                 }
-                
+
 
             }
 
@@ -124,7 +167,7 @@ router.post("/signin/confirm", function (req, res) {
 //find password router
 router.get("/findpw", function (req, res) {
     sess = req.session
-    res.render("findpw.html",{username:sess.username,info:"undefined"});
+    res.render("findpw.html", { username: sess.username, info: "undefined" });
 })
 
 //Account management
@@ -153,6 +196,148 @@ router.get("/management", function (req, res) {
 
 })
 
+//admin car brand
+router.get("/admin/carbrand", (req, res) => {
+    mysqlDB.query("SELECT * FROM CAR_BRAND", (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var data = JSON.stringify(row);
+            res.render("car_brand.html", { data: data });
+        }
+    })
+})
+
+//admin car brand delete
+router.post("/admin/carbrand/delete", (req, res) => {
+    mysqlDB.query("DELETE FROM CAR_BRAND WHERE NAME = ?", [req.body.name], (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            //delete car brand img
+            fs.unlink("./public/stylesheet/img/car_brands/" + req.body.img, (err2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    res.send("success");
+                }
+            })
+
+        }
+    })
+})
+//admin car brand add
+router.post("/admin/carbrand/add", upload_car_brand.single("brandimg"), (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
+    var data = {
+        NAME: req.body.name,
+        IMG: req.file.filename,
+    }
+    mysqlDB.query("INSERT INTO CAR_BRAND SET ?", [data], (err, row) => {
+        if (err) {
+            console.log(err);
+            res.send('fail');
+        } else {
+            res.send("success");
+        }
+    })
+
+})
+
+////admin car brand setting
+router.post("/admin/carbrand/change", upload_car_brand.single("img"), (req, res) => {
+    if(req.file != null){
+        mysqlDB.query("UPDATE ITEM_BRAND SET  IMG = ? WHERE NAME = ?",[req.file.filename], (err, row) => {
+            if (err) {
+                console.log(err);
+                res.send("update error");
+            } else {
+               res.send(req.file.filename);
+            }
+        })
+    }else{
+        res.send("no chage");
+    }
+   
+
+})
+//admin item brand setting
+router.post("/admin/itembrand/change",upload_item_brand.single("img"),(req,res)=>{
+    //console.log(req.body);
+    //console.log(req.file);
+    if(req.file != null){
+        mysqlDB.query("UPDATE ITEM_BRAND SET CITY = ?, COUNTRY = ?, IMG = ? WHERE NAME = ?",[req.body.city,req.body.country,req.file.filename,req.body.name], (err, row) => {
+            if (err) {
+                console.log(err);
+                res.send("update error");
+            } else {
+               res.send(req.file.filename);
+            }
+        })
+    }else{
+        mysqlDB.query("UPDATE ITEM_BRAND SET CITY = ?, COUNTRY = ? WHERE NAME = ?",[req.body.city,req.body.country,req.body.name], (err, row) => {
+            if (err) {
+                console.log(err);
+                res.send("update error");
+            } else {
+                res.send(req.file.filename);
+            }
+        })
+    }
+ 
+})
+//admin item brand 
+router.get("/admin/itembrand", (req, res) => {
+    mysqlDB.query("SELECT * FROM ITEM_BRAND", (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var data = JSON.stringify(row);
+            res.render("item_brand.html", { data: data });
+        }
+    })
+
+})
+//admin item brand add
+router.post("/admin/itembrand/add", upload_item_brand.single("brandimg"), (req, res) => {
+    //console.log(req.body);
+    //console.log(req.file);
+    var data = {
+        NAME: req.body.name,
+        IMG: req.file.filename,
+        COUNTRY: req.body.country,
+        CITY: req.body.city,
+        ID: req.body.name + "_" + req.body.country
+    }
+    mysqlDB.query("INSERT INTO ITEM_BRAND SET ?", [data], (err, row) => {
+        if (err) {
+            console.log(err);
+            res.send("fail");
+        } else {
+            res.send("success");
+        }
+    })
+
+})
+//admin item brand delete
+router.post("/admin/itembrand/delete", (req, res) => {
+    mysqlDB.query("DELETE FROM ITEM_BRAND WHERE ID = ?", [req.body.id], (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            //delete item brand img
+            fs.unlink("./public/stylesheet/img/item_brands/" + req.body.img, (err2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    res.send("success");
+                }
+            })
+
+        }
+    })
+})
 //admin page user info
 router.get("/admin/user", function (req, res) {
     mysqlDB.query("SELECT USER_ID,NAME,EMAIL,TOKEN,PHONE FROM USER", function (err, row) {
@@ -160,67 +345,97 @@ router.get("/admin/user", function (req, res) {
             console.log(err);
         } else {
             var data = JSON.stringify(row);
-            res.render("user.html",{data:data});
+            res.render("user.html", { data: data });
         }
 
     })
 })
 
 //admin item page
-router.get("/admin/item", (req, res) =>{
+router.get("/admin/item", (req, res) => {
     var sess = req.session;
-    res.render("item_info.html",{category:sess.category});     
-   
+    res.render("item_info.html", { category: sess.category });
+
 })
 //admin item search
-router.post("/admin/item/search", (req, res)=> {
-   
-    mysqlDB.query("SELECT * FROM ITEMINFO,ITEM WHERE PIN = ITEM_NUM AND PIN = ?",[req.body.pin] ,function (err, row) {
+router.post("/admin/item/search", (req, res) => {
+
+    mysqlDB.query("SELECT * FROM ITEMINFO,ITEM WHERE PIN = ITEM_NUM AND PIN = ?", [req.body.pin], function (err, row) {
         if (err) {
             console.log(err);
-        } else {           
-            res.send(row);           
+        } else {
+            res.send(row);
         }
     })
 })
 
 //admin item delete
-router.post("/admin/item/delete", (req, res)=> {   
+router.post("/admin/item/delete", (req, res) => {
     console.log(req.body);
-    mysqlDB.query("DELETE FROM ITEMINFO WHERE ITEM_NUM = ?",[req.body.pin] ,function (err, row) {
+    var img_list = ["", "", "", "", ""];
+    //delete item img    
+    mysqlDB.query("SELECT IMG1,IMG2,IMG3,IMG4,IMG5 FROM ITEMINFO WHERE ITEM_NUM = ?", [req.body.pin], (err, row) => {
         if (err) {
             console.log(err);
         } else {
-            mysqlDB.query("DELETE FROM ITEMINFO WHERE ITEM_NUM = ?",[req.body.pin] ,function (err2, row2) {
-                if(err2){
+            console.log(row);
+            img_list[0] = row[0].IMG1;
+            img_list[1] = row[0].IMG2;
+            img_list[2] = row[0].IMG3;
+            img_list[3] = row[0].IMG4;
+            img_list[4] = row[0].IMG5;
+            console.log(img_list);
+            mysqlDB.query("DELETE FROM ITEMINFO WHERE ITEM_NUM = ?", [req.body.pin], function (err2, row2) {
+                if (err2) {
                     console.log(err2);
-                }else{
-                    res.send("success");
+                } else {
+                    mysqlDB.query("DELETE FROM ITEM WHERE PIN = ?", [req.body.pin], function (err3, row3) {
+                        if (err3) {
+                            console.log(err3);
+                        } else {
+                            for (var i = 0; i < 5; i++) {
+                                if (img_list[i] != "no_img.png") {
+                                    fs.unlink("./public/stylesheet/img/item/" + img_list[i], (del_err) => {
+                                        if (del_err) {
+                                            console.log(err);
+                                        } else {
+                                            console.log("success");
+                                        }
+                                    })
+                                }
+                            }
+                            res.send("success");
+                        }
+                    })
                 }
-            })            
+            })
+
         }
     })
+
 })
 
+
+
 //admin category
-router.get("/admin/category",(req,res)=>{
+router.get("/admin/category", (req, res) => {
     mysqlDB.query("SELECT * FROM CATEGORY_LIST ORDER BY MAIN", function (err, row) {
         if (err) {
             console.log(err);
         } else {
 
             var data = JSON.stringify(row);
-            data = data.replace(/\\r/gi, '').replace(/\\n/gi, ' ').replace(/\\t/gi, ' ').replace(/\\f/gi, ' ');
-        
-            res.render("category.html",{data:data});
+            data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+
+            res.render("category.html", { data: data });
         }
 
     })
 })
 
 //category delete sub
-router.post("/admin/category/delete/sub",(req,res)=>{
-    mysqlDB.query("DELETE FROM CATEGORY_LIST WHERE ID = ?",[req.body.MAIN+"_"+req.body.SUB] ,function (err, row) {
+router.post("/admin/category/delete/sub", (req, res) => {
+    mysqlDB.query("DELETE FROM CATEGORY_LIST WHERE ID = ?", [req.body.MAIN + "_" + req.body.SUB], function (err, row) {
         if (err) {
             console.log(err);
         } else {
@@ -230,9 +445,9 @@ router.post("/admin/category/delete/sub",(req,res)=>{
     })
 })
 //category delete main
-router.post("/admin/category/delete/main",(req,res)=>{
+router.post("/admin/category/delete/main", (req, res) => {
     console.log(req.body);
-    mysqlDB.query("DELETE FROM CATEGORY_LIST WHERE MAIN = ?",[req.body.MAIN] ,function (err, row) {
+    mysqlDB.query("DELETE FROM CATEGORY_LIST WHERE MAIN = ?", [req.body.MAIN], function (err, row) {
         if (err) {
             console.log(err);
         } else {
@@ -243,9 +458,9 @@ router.post("/admin/category/delete/main",(req,res)=>{
 })
 
 //category add
-router.post("/admin/category/add",(req,res)=>{
-   
-    mysqlDB.query("INSERT INTO CATEGORY_LIST SET MAIN = ?, SUB = ?, ID = ?",[req.body.MAIN,req.body.SUB,req.body.MAIN+"_"+req.body.SUB] ,function (err, row) {
+router.post("/admin/category/add", (req, res) => {
+
+    mysqlDB.query("INSERT INTO CATEGORY_LIST SET MAIN = ?, SUB = ?, ID = ?", [req.body.MAIN, req.body.SUB, req.body.MAIN + "_" + req.body.SUB], function (err, row) {
         if (err) {
             console.log(err);
         } else {
@@ -257,41 +472,41 @@ router.post("/admin/category/add",(req,res)=>{
 
 
 //admin item 
-router.get("/admin/add", (req, res)=> { 
-    mysqlDB.query("SELECT DISTINCT MAIN FROM CATEGORY_LIST",(err,row)=>{
-        if(err){
+router.get("/admin/add", (req, res) => {
+    mysqlDB.query("SELECT DISTINCT MAIN FROM CATEGORY_LIST", (err, row) => {
+        if (err) {
             console.log(err);
-        }else{
-            
+        } else {
+
             var data = JSON.stringify(row);
-            data = data.replace(/\\r/gi, '').replace(/\\n/gi, ' ').replace(/\\t/gi, ' ').replace(/\\f/gi, ' ');
-            res.render("item_add.html",{category:data}); 
+            data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+            res.render("item_add.html", { category: data });
         }
-    })  
-        
+    })
+
 })
 
 //item add show sub category
-router.post("/item/add/category",(req,res)=>{
+router.post("/item/add/category", (req, res) => {
     var main = req.body.main;
-    mysqlDB.query("SELECT DISTINCT SUB FROM CATEGORY_LIST WHERE MAIN = ?",[main],(err,row)=>{
-        if(err){
+    mysqlDB.query("SELECT DISTINCT SUB FROM CATEGORY_LIST WHERE MAIN = ?", [main], (err, row) => {
+        if (err) {
             console.log(err);
-        }else{
+        } else {
             console.log(JSON.stringify(row));
             var data = JSON.stringify(row);
-            data = data.replace(/\\r/gi, '').replace(/\\n/gi, ' ').replace(/\\t/gi, ' ').replace(/\\f/gi, ' ');
-            res.send(data); 
+            data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+            res.send(data);
         }
-    })  
+    })
 })
 
 //admin item add
-router.post("/admin/item/add",upload.array('item_img',5), function (req, res) {
-   // console.log("add");
+router.post("/admin/item/add", upload.array('item_img', 5), function (req, res) {
+    // console.log("add");
     //console.log(req.body);
-    
-   // console.log(req.files);
+
+    // console.log(req.files);
     var item = req.body.item_name;
     var parts_num = req.body.parts_num;
     var price = req.body.item_price;
@@ -301,18 +516,19 @@ router.post("/admin/item/add",upload.array('item_img',5), function (req, res) {
     var subc = req.body.category_sub;
     var desc = req.body.item_desc;
     var modelb = req.body.item_model;
-    var manufc = req.body.item_brand;
+    var manufc = req.body.car_brand;
+    var itembrand = req.body.item_brand;
     var modeld = req.body.item_version;
     var manufi = req.body.item_manuf;
-    var img=["no_img.png","no_img.png","no_img.png","no_img.png","no_img.png"];
-    for (var i=0;i<req.files.length;i++){
+    var img = ["no_img.png", "no_img.png", "no_img.png", "no_img.png", "no_img.png"];
+    for (var i = 0; i < req.files.length; i++) {
         img[i] = req.files[i].filename;
     }
 
-    var u_salt = Math.round((new Date().valueOf() * Math.random())) + ""; 
+    var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
     var hashnum = crypto.createHash("sha256").update(item + u_salt).digest("hex");
-    var pin = "AM"+String(hashnum);
-    
+    var pin = "AM" + String(hashnum);
+
     var c_data = {
         IMG1: img[0],
         IMG2: img[1],
@@ -325,12 +541,13 @@ router.post("/admin/item/add",upload.array('item_img',5), function (req, res) {
         DETAIL_M: modeld,
         CAR_M: manufc,
         ITEM_M: manufi,
-        ITEM_NUM: pin
+        ITEM_NUM: pin,
+        BRAND_I: itembrand
     }
     var data = {
         ITEM_NAME: item,
         PARTS_NUM: parts_num,
-        PIN:pin,
+        PIN: pin,
         PRICE: price,
         VOLUME: volume,
         ITEM_DESC: desc,
@@ -341,71 +558,73 @@ router.post("/admin/item/add",upload.array('item_img',5), function (req, res) {
             console.log(err2);
         } else {
             mysqlDB.query("INSERT INTO ITEMINFO SET ?", c_data, function (err3, row3) {
-                if(err3){
-                    console.log("err3: "+err3);
-                }else{
+                if (err3) {
+                    console.log("err3: " + err3);
+                } else {
                     res.send(pin);
                 }
-               
+
             })
 
         }
 
-    })   
-   
+    })
+
 })
 
 //admin item setting
-router.post("/admin/item/setting",upload.array("img",5), function (req, res) {
-   console.log(req.body);
-   console.log(req.files);
-    if(req.files !=""){        
-        var img=["no_img.png","no_img.png","no_img.png","no_img.png","no_img.png"];
-        for (var i=0;i<req.files.length;i++){
+router.post("/admin/item/setting", upload.array("img", 5), function (req, res) {
+    console.log(req.body);
+    // console.log(req.files);
+    if (req.files != "") {
+        var img = ["no_img.png", "no_img.png", "no_img.png", "no_img.png", "no_img.png"];
+        for (var i = 0; i < req.files.length; i++) {
             img[i] = req.files[i].filename;
         }
         var data = {
             ITEM_NAME: req.body.item_name,
             PARTS_NUM: req.body.parts_num,
-            PIN:req.body.pin,
+
             PRICE: req.body.item_price,
             VOLUME: req.body.item_volume,
             ITEM_DESC: req.body.item_desc
         }
         var c_data = {
-            IMG1:img[0],
-            IMG2:img[1],
-            IMG3:img[2],
-            IMG4:img[3],
-            IMG5:img[4],
+            IMG1: img[0],
+            IMG2: img[1],
+            IMG3: img[2],
+            IMG4: img[3],
+            IMG5: img[4],
+            BRAND_I: req.body.item_brand,
             MAIN_C: req.body.category_main,
             SUB_C: req.body.category_sub,
-            BASE_M: req.body.item_model,
+            BASE_M: req.body.car_model,
             DETAIL_M: req.body.item_version,
-            CAR_M: req.body.item_brand,
+            CAR_M: req.body.car_brand,
             ITEM_M: req.body.item_manuf,
             ITEM_NUM: req.body.pin
         }
-    }else{
+    } else {
         var data = {
             ITEM_NAME: req.body.item_name,
             PARTS_NUM: req.body.parts_num,
-            PIN:req.body.pin,
+
             PRICE: req.body.item_price,
             VOLUME: req.body.item_volume,
             ITEM_DESC: req.body.item_desc
         }
         var c_data = {
-           
+            BRAND_I: req.body.item_brand,
             MAIN_C: req.body.category_main,
             SUB_C: req.body.category_sub,
-            BASE_M: req.body.item_model,
+            BASE_M: req.body.car_model,
             DETAIL_M: req.body.item_version,
-            CAR_M: req.body.item_brand,
+            CAR_M: req.body.car_brand,
             ITEM_M: req.body.item_manuf,
             ITEM_NUM: req.body.pin
+
+        }
     }
-}
 
     mysqlDB.query("UPDATE ITEM SET ? WHERE PIN = ?", [data, req.body.pin], function (err, row) {
         if (err) {
@@ -424,51 +643,12 @@ router.post("/admin/item/setting",upload.array("img",5), function (req, res) {
 
 })
 
-/*
-
-router.post("/admin/item/setting", function (req, res) {
-    console.log(req.body);
-    var pin = req.body.pin;
-    var data = {
-        ITEM_NAME: req.body.item,
-        PARTS_NUM: req.body.partsnum,
-        PIN:pin,
-        PRICE: req.body.price,
-        VOLUME: req.body.volume,
-        ITEM_DESC: req.body.desc
-    }
-    var c_data = {
-        MAIN_C: req.body.mainc,
-        SUB_C: req.body.subc,
-        BASE_M: req.body.modelb,
-        DETAIL_M: req.body.modeld,
-        CAR_M: req.body.manufc,
-        ITEM_M: req.body.manufi,
-        ITEM_NUM: pin
-    }
-
-    mysqlDB.query("UPDATE ITEM SET ? WHERE PIN = ?", [data, pin], function (err, row) {
-        if (err) {
-            console.log(err);
-        } else {
-            mysqlDB.query("UPDATE ITEMINFO SET ? WHERE ITEM_NUM = ?", [c_data, pin], function (err2, row2) {
-                if (err2) {
-                    console.log(err2)
-                } else {
-                    res.send("success setting");
-                }
-            })
-
-        }
-    })
-
-})*/
 
 //update account info
 router.post("/accout/setting", function (req, res) {
-   // console.log("setting");
+    // console.log("setting");
     var attr = req.body;
-   // console.log(attr);
+    // console.log(attr);
 
     if (!isNaN(attr.userphone) && !isNaN(attr.userzipcode)) {
         mysqlDB.query("UPDATE USER SET NAME = ?, EMAIL =?, PHONE=?, ADDRESS=?, ZIPCODE=? WHERE USER_ID = ?", [attr.username, attr.useremail, attr.userphone, attr.useraddress, attr.userzipcode, attr.userid], function (err, row) {
@@ -507,40 +687,40 @@ router.get("/signup", function (req, res) {
 })
 
 //send check email before signup
-async function checkEmail(param){
+async function checkEmail(param) {
     var data = {
-        fromEmail:"service@autoinmall.com",
-        toEmail:param.EMAIL,
-        subject:"Email Verification-AutoinMall",
-        html:"<p>Hello "+param.NAME+"</p>"+
-            "<p>Thank you for sign up to AutoinMall!</p>"+
-            "<p>Please use the verification URL below to confirm your email address</p>"+
-            "<a href='https://autoinmall.com/signup/checkaccount?email="+param.EMAIL+"&id="+param.ID+"' target = '_blank'>Welcome and enjoy AutoinMall</a>"+
-            "<p>Thank you</p>"+
+        fromEmail: "service@autoinmall.com",
+        toEmail: param.EMAIL,
+        subject: "Email Verification-AutoinMall",
+        html: "<p>Hello " + param.NAME + "</p>" +
+            "<p>Thank you for sign up to AutoinMall!</p>" +
+            "<p>Please use the verification URL below to confirm your email address</p>" +
+            "<a href='https://autoinmall.com/signup/checkaccount?email=" + param.EMAIL + "&id=" + param.ID + "' target = '_blank'>Welcome and enjoy AutoinMall</a>" +
+            "<p>Thank you</p>" +
             "<p>Autoinmall</p>"
-            
+
     };
     await nodemailer.sendmail(data);
- }
+}
 
- //after email check
- router.get("/signup/checkaccount",(req,res)=>{
+//after email check
+router.get("/signup/checkaccount", (req, res) => {
     var email = req.query.email;
     var id = req.query.id;
-    console.log(email+"   "+id);
-    mysqlDB.query("UPDATE USER SET LOCK_ACC = 1 WHERE USER_ID = ? AND EMAIL = ?", [id,email],async function (err, row) {
+    console.log(email + "   " + id);
+    mysqlDB.query("UPDATE USER SET LOCK_ACC = 1 WHERE USER_ID = ? AND EMAIL = ?", [id, email], async function (err, row) {
         if (err) {
             console.log(err);
         }
         else {
-           // console.log("sign up success");
+            // console.log("sign up success");
             //insert signup email
             await res.redirect("/");
         }
 
-    }) 
-     
- })
+    })
+
+})
 
 //signup data
 router.post("/signup/confirm", function (req, res) {
@@ -559,18 +739,18 @@ router.post("/signup/confirm", function (req, res) {
     var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
     //password hashing
     var hashPassword = crypto.createHash("sha512").update(userPw + u_salt).digest("hex");
-     
-    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone, ZIPCODE: userZipcode, ADDRESS: userAddress, TOKEN: usertoken,LOCK_ACC:0 };
+
+    var userInfo = { USER_ID: userId, USER_PW: hashPassword, EMAIL: userEmail, SALT: u_salt, NAME: userName, PHONE: userPhone, ZIPCODE: userZipcode, ADDRESS: userAddress, TOKEN: usertoken, LOCK_ACC: 0 };
 
     mysqlDB.query("INSERT INTO USER SET ?", userInfo, function (err, row, fields) {
         if (err) {
             console.log(err);
-            
+
         }
         else {
-           // console.log("sign up success");
+            // console.log("sign up success");
             var data = {
-                EMAIL : userEmail,
+                EMAIL: userEmail,
                 NAME: userName,
                 ID: userId
             }
@@ -579,11 +759,11 @@ router.post("/signup/confirm", function (req, res) {
         }
 
     })
-    
+
 
 })
 
- 
+
 //signup check overlap id
 router.post("/signup/overlap", function (req, res) {
     console.log(req.body.userId);
@@ -644,22 +824,22 @@ router.post("/signup/effectiveness", function (req, res) {
 
 })
 //select model 
-router.post("/select/model",(req,res)=>{
+router.post("/select/model", (req, res) => {
     var brand = req.body.brand;
-    mysqlDB.query("SELECT BASE_M FROM ITEMINFO WHERE CAR_M = ?", [brand], function (err, row) {
+    mysqlDB.query("SELECT DISTINCT BASE_M FROM ITEMINFO WHERE CAR_M = ?", [brand], function (err, row) {
         if (err) {
             console.log(err);
         } else {
-                  
+
             res.send(row);
         }
     })
 })
 //select version
-router.post("/select/version",(req,res)=>{
+router.post("/select/version", (req, res) => {
     var brand = req.body.brand;
     var model = req.body.model;
-    mysqlDB.query("SELECT DETAIL_M FROM ITEMINFO WHERE CAR_M = ? AND BASE_M = ?", [brand,model], function (err, row) {
+    mysqlDB.query("SELECT DISTINCT DETAIL_M FROM ITEMINFO WHERE CAR_M = ? AND BASE_M = ?", [brand, model], function (err, row) {
         if (err) {
             console.log(err);
         } else {
@@ -669,114 +849,147 @@ router.post("/select/version",(req,res)=>{
 })
 
 //show brand
-router.get("/brand",(req,res)=>{
+router.get("/brand", (req, res) => {
     var sess = req.session;
-    res.render("brand.html",{username:sess.username});
+    mysqlDB.query("SELECT NAME,IMG FROM CAR_BRAND", (err, row) => {
+        if(err){
+            console.log(err);
+        }else{
+            var data = JSON.stringify(row);
+            res.render("brand.html", { username: sess.username,carbrand:data});
+        }
+    })
+    
 })
 //search item
 router.get("/search", function (req, res) {
     var sess = req.session;
-    var category =String(req.query.category).split("_"); 
+    var category = String(req.query.category).split("_");
     var main = category[0];
     var sub = category[1];
-    var brand= req.query.brands;
+    var brand = req.query.brands;
     sess.carmanufacturer = brand;
-    var model= req.query.model;
-    var version= req.query.version; 
+    var model = req.query.model;
+    var version = req.query.version;
     var parts_num = req.query.parts_num;
-    if(parts_num){
-        //parts_num
-        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [parts_num], function (err, row) {
+    var itembrand = req.query.itembrand;
+    if (itembrand) {
+        //itembrand
+        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND BRAND_I = ?", [itembrand], function (err, row) {
             if (err) {
                 console.log(err);
             } else {
-                var data = JSON.stringify(row);            
-                res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
+                //  console.log(itembrand+"\n"+row[0]);
+                var data = JSON.stringify(row);
+                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                res.render("shop.html", { username: sess.username, info: data, category: sess.category });
             }
         })
-    }  
-    else if(!req.query.category){
-        if(!model){
-            //brand
-            
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-
-        }else if(!version){
-            //brand & model
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? ", [brand,model], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-
-        }else{
-            //brand & model & version
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand,model,version], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-        }
-    }else{
-        if(!brand){
-            //category
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? ", [main,sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-        }
-        else if(!model){
-             //brand & category
-             mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? ", [main,sub,brand], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-
-        }else if(!version){
-            //brand & model & category
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? ", [main,sub,brand,model], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-
-        }else{
-            //brand & model & version & category
-            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [main,sub,brand,model,version], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row);            
-                    res.render("shop.html", { username: sess.username, info: data ,category:sess.category});
-                }
-            })
-        }
     }
-    
+    else {
+
+        if (parts_num) {
+            //parts_num
+            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [parts_num], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var data = JSON.stringify(row);
+                    data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                    res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                }
+            })
+        }
+        else if (!req.query.category) {
+            if (!model) {
+                //brand
+
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+
+            } else if (!version) {
+                //brand & model
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? ", [brand, model], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+
+            } else {
+                //brand & model & version
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand, model, version], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+            }
+        } else {
+            if (!brand) {
+                //category
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? ", [main, sub], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+            }
+            else if (!model) {
+                //brand & category
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? ", [main, sub, brand], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+
+            } else if (!version) {
+                //brand & model & category
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? ", [main, sub, brand, model], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+
+            } else {
+                //brand & model & version & category
+                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [main, sub, brand, model, version], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var data = JSON.stringify(row);
+                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                        res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+                    }
+                })
+            }
+        }
+
+    }
 })
 
 
@@ -786,173 +999,310 @@ router.get("/shop/item", function (req, res) {
     sess = req.session;
     var main = req.query.main;
     var sub = req.query.sub;
-    
-        if (sess.carmanufacturer) {
-            mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [main, sub, sess.carmanufacturer], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row)
-                    res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                }
-            })
-        } else {
-            mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [main, sub], function (err, row) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var data = JSON.stringify(row)
-                    res.render("shop.html", { username: sess.username, info: data,category:sess.category });
-                }
-            })
-        }
-   
+
+    if (sess.carmanufacturer) {
+        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [main, sub, sess.carmanufacturer], function (err, row) {
+            if (err) {
+                console.log(err);
+            } else {
+                var data = JSON.stringify(row)
+                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+            }
+        })
+    } else {
+        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [main, sub], function (err, row) {
+            if (err) {
+                console.log(err);
+            } else {
+                var data = JSON.stringify(row)
+                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                res.render("shop.html", { username: sess.username, info: data, category: sess.category });
+            }
+        })
+    }
+
 })
 
 router.get("/item/info", function (req, res) {
-   // console.log("get");
+    // console.log("get");
     sess = req.session;
     var pin = req.query.pin;
-   // console.log(pin);
-    mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PIN = ?",[pin],function(err,row){
-        if(err){
+    // console.log(pin);
+    mysqlDB.query("select * from ITEM,ITEMINFO where PIN = ITEM_NUM AND PIN = ?", [pin], function (err, row) {
+        if (err) {
             console.log(err);
-        }else{
-            var data = JSON.stringify(row);
-            data = data.replace(/\\r/gi, '').replace(/\\n/gi, ' ').replace(/\\t/gi, ' ').replace(/\\f/gi, ' ');
-            res.render("item.html", { username: sess.username, info:data,category:sess.category});
+        } else {
+            console.log(row);
+            mysqlDB.query("select * from REVIEW where ITEM_PIN = ?", [pin], function (err2, row2) {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    var data = JSON.stringify(row);
+                    data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+
+                    var data2 = JSON.stringify(row2);
+                    data2 = data2.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                    res.render("item.html", { username: sess.username, info: data, category: sess.category, review: data2, userid: sess.userid });
+                }
+            })
+
         }
     })
 })
 
 //contact to admin
-router.get("/item/contact",(req,res)=>{
+router.post("/item/contact", (req, res) => {
     var sess = req.session;
     console.log(req.body);
     var data = {
-        fromEmail:req.body.to,
-        toEmail:req.body.to,
-        subject:"commodity price enquiry",
-        text:"From: "+req.body.from+"\n"+"Item name: "+req.body.name+"\nParts number: "+req.body.parts_num+"\nPin: " +req.body.pin       
+        fromEmail: req.body.to,
+        toEmail: req.body.to,
+        subject: "Item price enquiry",
+        text: "From: " + sess.email + "\n" + "Item name: " + req.body.name + "\nParts number: " + req.body.parts_num + "\nPin: " + req.body.pin
     };
-    nodemailer.sendmail(data,()=>{
+    nodemailer.sendmail(data, () => {
         res.send("success");
     });
-    
+
 })
 
+//review
+router.get("/review", (req, res) => {
+    var pin = req.query.pin;
+    var sess = req.session;
+    res.render("review.html", { username: sess.username, pin: pin, user_id: sess.userid });
+})
+//delete review
+router.get("/review/delete", (req, res) => {
+    var id = req.query.id;
+    mysqlDB.query("DELETE FROM REVIEW WHERE REVIEW_ID = ?", [id], (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("success");
+        }
+    })
+})
+//add review
+router.post("/review/confirm", (req, res) => {
+    //console.log(req.body);
+    var pin = req.body.pin;
+    var user_id = req.session.userid;
+    var user_name = req.session.username;
+    var id = user_id + "_" + pin;
+    var review = req.body.review;
+    var rate = req.body.rate;
+    let today = new Date();
+
+
+    var data = {
+        USER_NAME: user_name,
+        ITEM_PIN: pin,
+        USER_ID: user_id,
+        RATE: rate,
+        REVIEW: review,
+        REVIEW_ID: id,
+        REVIEW_DATE: today
+    }
+    mysqlDB.query("INSERT INTO REVIEW SET ?", [data], (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            //update rate
+            mysqlDB.query("SELECT RATE,REVIEW_NUM FROM ITEM WHERE PIN = ?", [pin], (err2, row2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    //console.log(row2);
+                    var num = Number(row2[0].REVIEW_NUM);
+                    var avg = Number(row2[0].RATE);
+                    var sum = avg * num;
+                    num = num + 1;
+
+                    avg = parseFloat((sum + Number(rate)) / num);
+                    avg = avg.toFixed(0);
+                    //console.log(avg);                    
+                    mysqlDB.query("UPDATE ITEM SET RATE = ?, REVIEW_NUM = ? WHERE PIN = ?", [avg, num, pin], (err3, row3) => {
+                        if (err3) {
+                            console.log(err3)
+                        } else {
+                            res.send("success");
+                        }
+
+                    })
+                }
+            })
+
+        }
+    })
+})
+//order
+router.post("/order", (req, res) => {
+    var sess = req.session;
+    mysqlDB.query("SELECT DISTINCT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ?", [sess.userid], (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var data = JSON.stringify(row);
+            mysqlDB.query("SELECT ZIPCODE,ADDRESS FROM USER WHERE USER_ID = ?", [sess.userid], (err2, row2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    var dest = JSON.stringify(row2);
+                    res.render("order.html", { username: sess.username, cart: data, email: sess.email, dest: dest });
+                }
+            })
+
+        }
+    })
+})
 //insert item into cart
-router.post("/item/cart",(req,res)=>{
+router.post("/item/cart", (req, res) => {
     var name = req.body.item_name;
     var price = req.body.item_price;
     var pin = req.body.item_pin;
     var parts_num = req.body.item_parts_num;
     var volume = req.body.item_volume;
     var user = req.session.userid;
-    var cart_id = user+"_"+name;
+    var cart_id = user + "_" + name;
+    var original = req.body.volume_original;
+    console.log(original);
     var data;
     //console.log(req.body);
     //no price
-    if(price===""){
+    if (price === "") {
         data = {
-            CART_ID:cart_id,
+            CART_ID: cart_id,
             ID: user,
             ITEM: name,
             PRICE: "no data",
             PIN: pin,
-            PARTS_NUM:parts_num,
-            VOLUME:volume
+            PARTS_NUM: parts_num,
+            VOLUME: volume
         }
-    }else{
-        price =  parseFloat(price) * parseFloat(volume);//new input
+    } else {
+        price = parseFloat(price) * parseFloat(volume);//new input
         //console.log("have a price");
         data = {
-            CART_ID:cart_id,
+            CART_ID: cart_id,
             ID: user,
             ITEM: name,
             PRICE: price,
             PIN: pin,
-            PARTS_NUM:parts_num,
-            VOLUME:volume
+            PARTS_NUM: parts_num,
+            VOLUME: volume
         }
     }
-    
-    if(!user){
+
+    if (!user) {
         res.send("GO SIGNIN");
-    }else{
-        mysqlDB.query("SELECT * FROM CART WHERE CART_ID = ?",[cart_id],(err,row)=>{
-            if(err){ 
+    } else {
+        mysqlDB.query("SELECT * FROM CART WHERE CART_ID = ?", [cart_id], (err, row) => {
+            if (err) {
+
                 console.log(err);
-            }else{
+            } else {
                 //first item input
                 console.log(row[0]);
-                if(row[0] == null){
+                if (row[0] == null) {
                     //console.log("no item in the cart");
-                    mysqlDB.query("INSERT INTO CART SET ?",data,(err2,row2)=>{
-                        if(err2){
+                    mysqlDB.query("INSERT INTO CART SET ?", data, (err2, row2) => {
+                        if (err2) {
                             console.log(err2);
-                            
-                        }else{
+
+                        } else {
                             //console.log("success to insert item firt time");
-                            res.send(name);
+                            //update ITEM
+                            var new_volume = parseInt(original) - parseInt(volume);
+                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ?", [new_volume, pin], (err4, row4) => {
+                                if (err4) {
+                                    console.log(err4);
+
+                                } else {
+                                    console.log("finish success");
+                                    res.send(name);
+                                }
+                            })
                         }
                     })
-                }else{
-                    volume = parseInt(row[0].VOLUME)+parseInt(volume);//add volume
+                } else {
+                    var new_volume = parseInt(original) - parseInt(volume);
+                    volume = parseInt(row[0].VOLUME) + parseInt(volume);//add volume
                     price = parseFloat(price) + parseFloat(row[0].PRICE);//new + before                    
-                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE CART_ID = ?",[volume,price,cart_id],(err3,row3)=>{
-                        if(err3){
+                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE CART_ID = ?", [volume, price, cart_id], (err3, row3) => {
+                        if (err3) {
                             console.log(err3);
-                            
-                        }else{
-                            res.send(name);
+
+                        } else {
+                            //update ITEM                                        
+                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ?", [new_volume, pin], (err4, row4) => {
+                                if (err3) {
+                                    console.log(err4);
+
+                                } else {
+                                    console.log("finish success");
+                                    res.send(name);
+                                }
+                            })
+
                         }
                     })
                 }
             }
+
         })
-        
+
+
+
     }
-   
 })
 
 //delete item in the cart
-router.post("/cart/delete",(req,res)=>{
-    console.log(req.body);
-    mysqlDB.query("DELETE FROM CART WHERE PIN = ?",[req.body.PIN],(err,row)=>{
-        if(err){
+router.post("/cart/delete", (req, res) => {
+    //console.log(req.body);
+    mysqlDB.query("DELETE FROM CART WHERE PIN = ?", [req.body.PIN], (err, row) => {
+        if (err) {
             console.log(err);
-        }else{
-            res.send("success");
+        } else {
+
+            mysqlDB.query("UPDATE ITEM SET VOLUME = VOLUME + ? WHERE PIN = ?", [req.body.VOLUME, req.body.PIN], (err2, row2) => {
+                if (err2) {
+                    console.log(err2);
+                } else {
+                    res.send("success");
+                }
+            })
+
         }
     })
-    
+
 })
 
 //shopping mall router
 router.get("/shop", function (req, res) {
-  //  console.log("get shop");
+    //  console.log("get shop");
     sess = req.session;
-    sess.carmanufacturer=null;
-    mysqlDB.query("SELECT ID FROM CATEGORY_LIST",(err,row)=>{
-        if(err){
+    sess.carmanufacturer = null;
+    mysqlDB.query("SELECT ID FROM CATEGORY_LIST", (err, row) => {
+        if (err) {
             console.log(err);
-        }else{
+        } else {
             var category = JSON.stringify(row);
             sess = req.session;
             sess.category = category;
-             
-    res.render("shop.html", { username: sess.username, info: JSON.stringify('undefined'),category:sess.category});
+
+            res.render("shop.html", { username: sess.username, info: JSON.stringify('undefined'), category: sess.category });
         }
     })
-   
+
 })
 
-//item router
+/*/item router
 router.get("/item", function (req, res) {
     sess = req.session;
     res.render("item.html", { username: sess.username ,info: JSON.stringify('undefined'),category:sess.category});
-})
+})*/
 
 //cart router
 router.get("/cart", function (req, res) {
@@ -960,20 +1310,98 @@ router.get("/cart", function (req, res) {
     if (!sess.username) {
         res.render("signin.html", { flag: 'no', username: sess.username });
     } else {
-        mysqlDB.query("SELECT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ?",[sess.userid],(err,row)=>{
-            if(err){
+        mysqlDB.query("SELECT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ?", [sess.userid], (err, row) => {
+            if (err) {
                 console.log(err);
-            }else{
+            } else {
                 var data = JSON.stringify(row);
-                res.render("cart.html", { username: sess.username,data:data });
+                res.render("cart.html", { username: sess.username, data: data });
             }
         })
-        
+
     }
 
 })
+//paypal
 
+router.post("/payments/complete", async (req, res) => {
+    try {
+        const { imp_uid, merchant_uid } = req.body; // req의 body에서 imp_uid, merchant_uid 추출
+        // 액세스 토큰(access token) 발급 받기
+        const getToken = await axios({
+            url: "https://api.iamport.kr/users/getToken",
+            method: "post", // POST method
+            headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
+            data: {
+                imp_key: "imp_apikey", // REST API키
+                imp_secret: "ekKoeW8RyKuT0zgaZsUtXXTLQ4AhPFW3ZGseDA6bkA5lamv9OqDMnxyeB9wqOsuO9W3Mx9YSJ4dTqJ3f" // REST API Secret
+            }
+        });
+        const { access_token } = getToken.data.response; // 인증 토큰
 
+        const getPaymentData = await axios({
+            url: "https://api.iamport.kr/payments/" + imp_uid, // imp_uid 전달
+            method: "get", // GET method
+            headers: { "Authorization": access_token } // 인증 토큰 Authorization header에 추가
+        });
+        const paymentData = getPaymentData.data.response; // 조회한 결제 정보
+
+        // DB에서 결제되어야 하는 금액 조회
+        const order = await Orders.findById(paymentData.merchant_uid);
+        const amountToBePaid = order.amount; // 결제 되어야 하는 금액
+
+        // 결제 검증하기
+        const { amount, status } = paymentData;
+        if (amount === amountToBePaid) { // 결제 금액 일치. 결제 된 금액 === 결제 되어야 하는 금액
+            await Orders.findByIdAndUpdate(merchant_uid, { $set: paymentData }); // DB에 결제 정보 저장
+
+            switch (status) {
+                case "ready": // 가상계좌 발급
+                    // DB에 가상계좌 발급 정보 저장
+                    const { vbank_num, vbank_date, vbank_name } = paymentData;
+                    await Users.findByIdAndUpdate("/* 고객 id */", { $set: { vbank_num, vbank_date, vbank_name } });
+                    // 가상계좌 발급 안내 문자메시지 발송
+                    //SMS.send({ text: \`가상계좌 발급이 성공되었습니다. 계좌 정보 \${vbank_num} \${vbank_date} \${vbank_name}\`});
+                    res.send({ status: "vbankIssued", message: "가상계좌 발급 성공" });
+                    break;
+                case "paid": // 결제 완료
+                    res.send({ status: "success", message: "일반 결제 성공" });
+                    break;
+            }
+        } else { // 결제 금액 불일치. 위/변조 된 결제
+            throw { status: "forgery", message: "위조된 결제시도" };
+        }
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
+//after payment
+router.get("/recepit",(req,res)=>{
+    var id = req.query.id;
+    var uid = req.query.uid;
+    var total = req.query.total;
+    var card = req.query.card;
+    var condition = req.query.condition;
+    var err = req.query.err;
+    var data;
+    var sess = req.session;
+    if(condition==="success"){
+        data = {
+            condition:condition,
+            id:id,
+            uid:uid,
+            total:total,
+            card:card
+        }
+    }else{
+        data={
+            condition:condition,
+            err:err
+        }
+    }
+    res.render("recepit.html",{username:sess.username,data:data});
+})
 //express run
 http.createServer(app).listen(app.get('port'), function () {
     console.log("익스프레스로 웹 서버를 실행함 : " + app.get('port'));

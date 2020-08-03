@@ -64,6 +64,11 @@
             
         }
     </style>
+    <script>
+        function go_main(){
+            location.href="/";
+        }
+    </script>
 </head>
 
 <body id="page-top">
@@ -99,21 +104,11 @@
         </div>
     </nav>
     <div class = "container" style="margin-top:10%;margin-bottom:5%;border:silver solid 1px;padding:1% 1% 1% 1%">
-        <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Brands</h3>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="cb_section0">
-               
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="cb_section1">
-             
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="cb_section2">
-              
-          
-            </div>
+        <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Receipt</h3>
+        <div class="result-container" style="text-align: center;margin-top:35%">
+
         </div>
     </div>
-
   <!-- Footer-->
 <footer class="footer py-4">
     <div class="container">
@@ -146,39 +141,23 @@
 
     <script>
          var username = '<%- username %>';
-         var carbrand = JSON.parse('<%- carbrand %>');
-         //print car brand
-         for (var i=0;i<carbrand.length;i++){
-             var flag = i %3;
-             switch(flag){
-                 case 0:
-                     $("#cb_section0").append(
-                         '<div class="brand-card">'+
-                        ' <a href="/search?brand='+carbrand[i].NAME+'"><img class="img-fluid d-block mx-auto"'+
-                            ' src="../stylesheet/img/car_brands/'+carbrand[i].IMG+'" alt="" />'+carbrand[i].NAME+'</a>'+
-                        '</div>'
-                     )
-                     break;
+         var data = '<%- data %>';
 
-                     case 1:
-                     $("#cb_section1").append(
-                        '<div class="brand-card">'+
-                        ' <a href="/search?brand='+carbrand[i].NAME+'"><img class="img-fluid d-block mx-auto"'+
-                            ' src="../stylesheet/img/car_brands/'+carbrand[i].IMG+'" alt="" />'+carbrand[i].NAME+'</a>'+
-                        '</div>'
-                     )
-                     break;
-
-                     case 2:
-                     $("#cb_section2").append(
-                        '<div class="brand-card">'+
-                        ' <a href="/search?brand='+carbrand[i].NAME+'"><img class="img-fluid d-block mx-auto"'+
-                            ' src="../stylesheet/img/car_brands/'+carbrand[i].IMG+'" alt="" />'+carbrand[i].NAME+'</a>'+
-                        '</div>'
-                     )
-                     break;
-             }
+         if(data.condition === "success"){
+            $(".result-container").html(
+                '<p>Id: '+data.id+'</p>'+
+                '<p>Uid: '+data.uid+'</p>'+
+                '<p>Amount: '+data.total+'</p>'+
+                '<p>Apply Number: '+data.card+'</p>'+
+                '<input type="button" class="btn btn-primary" value="Go Main page" onClick="go_main();">'
+            )
+         }else{
+            $(".result-container").html(
+                '<p>Err: '+data.err+'</p>'+
+                '<input type="button" class="btn btn-primary" value="Go Main page" onClick="go_main();">'
+            )
          }
+     
         if (username) {
             $("#account_ctrl").html('Signout');
             $("#account_ctrl").attr("href", "/signout");

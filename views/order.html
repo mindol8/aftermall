@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AUTOINMall</title>
+    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/index.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+    <style>
+        #mainNav {
+            background-color: #212529;
+        }
+
+        td .btn {
+            margin-left: 20%;
+            margin-right: 20%;
+            width: 60%;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .dropdown-menu {
+            background-color: #212529;
+        }
+
+        .dropdown-item {
+            color: white !important;
+        }
+
+        .dropdown-item:hover {
+            background-color: silver !important;
+        }
+
+        .brand-card {
+            text-align: center;
+            margin-bottom: 1%;
+        }
+
+        .brand-card a {
+            color: black !important;
+
+        }
+
+        .brand-card img {
+            width: 30%;
+
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a id="home_title" class="navbar-brand js-scroll-trigger" href="/" style="margin-left:7%">
+                <img src="../stylesheet/img/autoinlogo/autoin_logo.png" alt="" /></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ml-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>-->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+                    <li class="nav-item" id="resizemenu">
+                        <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="accountMenu">
+                                <a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>
+                                <a class="dropdown-item" href="/cart">Cart</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-top:10%;margin-bottom:5%;border:silver solid 1px;padding:1% 1% 1% 1%">
+        <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Order</h3>
+        <div class="card card-outline-secondary my-4">
+            <div class="card-body item-card">
+                <div id="table_view" class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Item</th>
+                                <th scope="col">Parts Number</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+        </div>
+        <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Destination</h3>
+        <div class="card card-outline-secondary my-4">
+            <div class="card-body item-card">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width:120px;">ZIPCODE</span></div>
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" disabled>
+                </div>
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width:120px;">ADDRESS</span></div>
+                        <input type="text" class="form-control" id="address" name="address" disabled>
+                </div>
+                <div style="float:right">
+                    <input type="button" value="change" id="change_dest" class="btn btn-secondary">
+                </div>
+            </div>
+        </div>
+        <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Contact</h3>
+        <div class="card card-outline-secondary my-4">
+            <div class="card-body item-card">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width:120px;">Email</span></div>
+                        <input type="text" class="form-control" id="email" name="email" disabled>
+                </div>                
+                <div style="float:right">
+                    <input type="button" value="change" id="change_contact" class="btn btn-secondary">
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <input type="button" class="btn btn-primary mt-2 mb-2" value="Payment" id="payment" style="font-size:25px">  
+        </div>
+        </div>
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-right">
+                        <div>E-mail:&nbsp;service@autoinmall.com</div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+         <!-- jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+        <!-- iamport.payment.js -->
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="../stylesheet/js/paypal.js"></script>
+        <!-- Core theme JS-->
+
+
+        <script>
+            var username = '<%- username %>';
+            var cart = JSON.parse('<%- cart %>');
+            var email = '<%- email %>';
+            var dest = JSON.parse('<%- dest %>');
+            var name_list="";//list of items 
+            var cost;
+            $("#zipcode").val(dest[0].ZIPCODE);
+            $("#address").val(dest[0].ADDRESS);
+            $("#email").val(email);
+
+            //change destination
+            $("#change_dest").off("click").on("click",()=>{
+                if($("#change_dest").val() === "change"){
+                    $("#change_dest").val("finish");
+                    $("#change_dest").css("background-color","red");
+                    $("#zipcode").attr("disabled",false);
+                    $("#address").attr("disabled",false);
+
+                }else{
+                    $("#change_dest").val("change");
+                    $("#change_dest").css("background-color","gray");
+                    $("#zipcode").attr("disabled",true);
+                    $("#address").attr("disabled",true);
+                }
+            })
+            //change contact
+            $("#change_contact").off("click").on("click",()=>{
+                if($("#change_contact").val() === "change"){
+                    $("#change_contact").val("finish");
+                    $("#change_contact").css("background-color","red");
+                    $("#email").attr("disabled",false);
+                }else{
+                    $("#change_contact").val("change");
+                    $("#change_contact").css("background-color","gray");
+                    $("#email").attr("disabled",true);
+                }
+            })  
+
+            if (username) {
+                $("#account_ctrl").html('Signout');
+                $("#account_ctrl").attr("href", "/signout");
+                $("#accountMenu").append('<a class="dropdown-item" id="management" href="/management">Management</a>');
+            }
+            else {
+                $("#account_ctrl").html('Signin');
+                $("#account_ctrl").attr("href", "/signin");
+                $("#accountMenu").remove("#management");
+            }
+
+            if ($(window).width() < 976) {
+                if (username) {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                    );
+                } else {
+                    $("#resizemenu").html(
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+                    );
+                }
+            }
+            $(window).resize(function () {
+                if ($(window).width() < 976) {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+                    }
+
+                } else {
+                    if (username) {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item" href="/signout" id="account_ctrl">Signout</a>' +
+                            '<a class="dropdown-item" href="/cart">Cart</a>' +
+                            '<a class="dropdown-item" href="/management">Management</a></div></div>'
+
+                        );
+                    } else {
+                        $("#resizemenu").html(
+                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item" href="/signin" id="account_ctrl">Signin</a>' +
+                            '<a class="dropdown-item" href="/cart">Cart</a>'
+
+                        );
+                    }
+                }
+            });
+
+
+            if (cart) {
+                var length = cart.length;
+                var total = 0.0;
+                for (var i = 0; i < length; i++) {
+                   {
+                        $("tbody").append(
+                            '<tr id="temp">' +
+                            '<th scope="row">' + (i + 1) + '</th>' +
+                            '<td><a href="/item/info?pin=' + cart[i].PIN + '" style="color:black;,text-decoration: none;">' + cart[i].ITEM + '</a></td>' +
+                            '<td>' + cart[i].PARTS_NUM + '</td>' +
+                            '<td>' + cart[i].VOLUME + '</td>' +
+                            '<td>'+ cart[i].PRICE +'</td> ' +
+
+                            '</tr>'
+                        )
+                    }
+
+                    if (!isNaN(cart[i].PRICE)) {
+                        total = parseFloat(total) + parseFloat(Number(cart[i].PRICE));
+                    }
+
+                    $("#temp").attr("id", i);
+                    $("#temp_btn").attr("id", "no." + String(i));
+                    if(i===0){
+                        name_list = cart[i].ITEM+"\n"+cart[i].PIN+"\n";
+                    }else{
+                        name_list = name_list+ name_list+cart[i].ITEM+"\n"+cart[i].PIN+"\n";
+                    }
+                    
+                    //
+                }
+                $("tbody").append(
+                    '<tr>' +
+                    '<th scope="row" colspan="4">TOTAL</th>' +
+                    '<td colspan="2">$ ' + total.toFixed(2) + '</td> ' +
+                    '<tr>'
+                )
+                cost=total.toFixed(2);
+
+            }
+
+
+            $("#payment").off("click").on("click",()=>{
+                var name = name_list.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');     
+                var data = {
+                    name:username,
+                    email:$("#email").val(),
+                    zipcode:$("#zipcode").val(),
+                    address:$("#address").val(),
+                    name:name,
+                    total: cost,
+
+                }
+                paypal(JSON.stringify(data));
+            })
+        </script>
+</body>
+
+</html>

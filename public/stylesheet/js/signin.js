@@ -105,6 +105,13 @@
                     '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
                     '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="management">Management</a></li>'
                 );
+                $("#signup_box").css("margin-left","5%");
+                $("#signup_box").css("margin-right","5%");
+                $("#signup_box").css("width","90%");
+
+                $(".brand_logo").css("margin-left","20%");
+                $(".brand_logo").css("margin-right","20%");
+                $(".brand_logo").css("width","60%");
             } else {
                 $("#resizemenu").html(
                     '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
@@ -115,6 +122,13 @@
                     '<a class="dropdown-item" href="/management">Management</a></div></div>'
 
                 );
+                $("#signup_box").css("margin-left","30%");
+                $("#signup_box").css("margin-right","30%");
+                $("#signup_box").css("width","40%");
+
+                $(".brand_logo").css("margin-left","40%");
+                $(".brand_logo").css("margin-right","40%");
+                $(".brand_logo").css("width","20%");
             }
         });
 
@@ -124,6 +138,13 @@
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
                 '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
             );
+            $("#signup_box").css("margin-left","5%");
+            $("#signup_box").css("margin-right","5%");
+            $("#signup_box").css("width","90%");
+
+            $(".brand_logo").css("margin-left","20%");
+            $(".brand_logo").css("margin-right","20%");
+            $(".brand_logo").css("width","60%");
         }
 
         // Collapse Navbar

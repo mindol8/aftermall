@@ -2,36 +2,69 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>AUTOINMall</title>
-    <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
-    <link href="../stylesheet/css/shop-item.css" rel="stylesheet" />
-    <!--sweetalert2-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
-        rel="stylesheet">
-          <!--swiper-->
-    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
-    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
-    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
-   
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>AUTOINMall</title>
+  <link rel="icon" type="image/x-icon" href="../stylesheet/img/autoinlogo/autoin_icon.png" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+  <link href="../stylesheet/css/shop-item.css" rel="stylesheet" />
+  <!--sweetalert2-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+    rel="stylesheet">
+  <!--swiper-->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+  <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+  <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+  <script>
+      //wide img
+      function wide_img(num){
+       
+        var img = $("#img"+num).attr("src");
+        Swal.fire({
+        html:
+        '<img class="wide-img" src="'+img+'" >',      
+        imageAlt: 'item img',
+      })}
+     //del_review
+     function del_review(num){
+      $.ajax({
+        url:"/review/delete?id="+review_list[num].REVIEW_ID,
+        type:"get",
+        success:()=>{
+          Swal.fire({
+            icon:"success",
+            title:"Delete",
+            text:"Delete review success"
+          }).then(()=>{
+            location.reload();
+          })
+        },
+        error:()=>{
+          Swal.fire({
+            icon:"error",
+            title:"Delete",
+            text:"Delete review fail"
+          })
+        }
+      })
+    }
+  </script>
 </head>
 
 <body id="page-top">
-    
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
@@ -47,8 +80,8 @@
       <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
-     
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
+
+      <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>-->
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
@@ -71,11 +104,10 @@
   <div class="container">
 
     <div class="row">
-
       <div class="col-lg-3">
         <h1 class="my-4" style="text-align: center;">Autoin</h1>
         <div class="list-group" id="left-group">
-          
+
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -84,49 +116,49 @@
         <div class="container" id="item_info">
           <div class="row" id="item_info_row">
             <div class="col-lg-6" id="item_img">
-               <!-- Swiper -->
-               <div class="swiper-container gallery-top">
+              <!-- Swiper -->
+              <div class="swiper-container gallery-top">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" id="top-img-0" >   
-                      <img  style="width:80%;height:70%">                     
-                    </div>
-                    <div class="swiper-slide" id="top-img-1" > 
-                      <img  style="width:80%;height:70%">                        
-                    </div>
-                    <div class="swiper-slide" id="top-img-2" > 
-                      <img  style="width:80%;height:70%">                      
-                    </div>
-                    <div class="swiper-slide" id="top-img-3" >    
-                      <img  style="width:80%;height:70%">                   
-                    </div>
-                    <div class="swiper-slide" id="top-img-4" >    
-                      <img  style="width:80%;height:70%">                   
-                    </div>
+                  <div class="swiper-slide" id="top-img-0">
+                    <a onclick="wide_img(0);"><img width="380" height="150" id="img0"></a>
+                  </div>
+                  <div class="swiper-slide" id="top-img-1">
+                    <a onclick="wide_img(1);"><img width="380" height="150" id="img1"></a>
+                  </div>
+                  <div class="swiper-slide" id="top-img-2">
+                    <a onclick="wide_img(2);"><img width="380" height="150" id="img2"></a>
+                  </div>
+                  <div class="swiper-slide" id="top-img-3">
+                    <a onclick="wide_img(3);"><img width="380" height="150" id="img3"></a>
+                  </div>
+                  <div class="swiper-slide" id="top-img-4">
+                    <a onclick="wide_img(4);"><img width="380" height="150" id="img4"></a>
+                  </div>
                 </div>
                 <!-- Add Arrows -->
                 <div class="swiper-button-next swiper-button-black"></div>
                 <div class="swiper-button-prev swiper-button-black"></div>
-            </div>
-            <div class="swiper-container gallery-thumbs">
+              </div>
+              <div class="swiper-container gallery-thumbs">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" id="thumb-img-0">
-                      <img  style="width:80%;height:70%"> 
-                      
+                  <div class="swiper-slide" id="thumb-img-0">
+                    <img style="width:80%;height:70%">
+
                   </div>
-                    <div class="swiper-slide" id="thumb-img-1" >
-                      <img  style="width:80%;height:70%"> 
-                    </div>
-                    <div class="swiper-slide" id="thumb-img-2" >
-                      <img  style="width:80%;height:70%"> 
-                    </div>
-                    <div class="swiper-slide" id="thumb-img-3" >
-                      <img  style="width:80%;height:70%"> 
-                    </div>
-                    <div class="swiper-slide" id="thumb-img-4" >
-                      <img  style="width:80%;height:70%"> 
-                    </div>
+                  <div class="swiper-slide" id="thumb-img-1">
+                    <img style="width:80%;height:70%">
+                  </div>
+                  <div class="swiper-slide" id="thumb-img-2">
+                    <img style="width:80%;height:70%">
+                  </div>
+                  <div class="swiper-slide" id="thumb-img-3">
+                    <img style="width:80%;height:70%">
+                  </div>
+                  <div class="swiper-slide" id="thumb-img-4">
+                    <img style="width:80%;height:70%">
+                  </div>
                 </div>
-            </div>
+              </div>
             </div>
             <div class="col-lg-6" id="item_head">
               <br>
@@ -138,15 +170,17 @@
           </div>
           <form id="add_cart">
             <div class="input-group mb-3" style="float:right;width:50%;">
-              <div class="input-group-prepend"  style="float:right!important">
-                <input type="number" name = "item_volume" class="form-control"style="float:right!important" value = 1 min = 1 >
-                <span class="input-group-text" style="float:right!important">EA</span>                
+              <div class="input-group-prepend" style="float:right!important">
+                <input type="number" name="item_volume" class="form-control" style="float:right!important" value=1
+                  min=1>
+                <span class="input-group-text" style="float:right!important">EA</span>
               </div>
             </div>
             <input type="hidden" id="item_pin" name="item_pin">
-            <input type="hidden" id="item_parts_num" name = "item_parts_num" >
-            <input type="hidden" id="item_name" name = "item_name">
-            <input type="hidden" id="item_price" name = "item_price">
+            <input type="hidden" id="item_parts_num" name="item_parts_num">
+            <input type="hidden" id="item_name" name="item_name">
+            <input type="hidden" id="item_price" name="item_price">
+            <input type="hidden" id="volume_original" name="volume_original">
             <input type="button" class="btn btn-info btn-block" id="buy" value="BUY">
           </form>
           <!-- /.card -->
@@ -156,29 +190,7 @@
               </p>
             </div>
           </div>
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Product Reviews
-            </div>
-            <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
-            </div>
-          </div>
+
 
           <!-- /.card -->
 
@@ -188,223 +200,362 @@
       </div>
 
     </div>
-    <!-- /.container -->
-
-    <!-- Footer-->
-    <footer class="footer py-4">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-          <div class="col-lg-4 my-3 my-lg-0">
-            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header" style="color:white; background-color: #212529;">
+            Product Reviews
           </div>
-          <div class="col-lg-4 text-lg-right">
-            <a class="mr-3" href="#!">Privacy Policy</a>
-            <a href="#!">Terms of Use</a>
+          <div class="card-body review-body">
+            
+            
           </div>
+          <input type="button" id="review_btn" class="btn btn-success mt-2" value="Leave a Review">
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
+  <!-- /.container -->
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
-    <script src="../stylesheet/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="../stylesheet/js/item.js"></script>
-    <script>
-        var username = '<%- username %>';
-        var info = JSON.parse('<%- info %>');
-        var rate;
-        var category = JSON.parse('<%- category %>');
-    //category
-        for(var i=0;i<category.length;i++){
-            var s_c = String(category[i].ID).split('_');           
-            var main = s_c[0];
-            var sub = s_c[1];
-            if(i==0){            
-                $("#left-group").html(
-                  '<div class="dropright" name = "'+main+'">'+
-                    '<a href="#" style="color:black!important" class="list-group-item dropdown-toggle"'+
-                      'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+main+'</a>'+
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                      '<a class="dropdown-item" href="/shop/item?main='+main+'&sub='+sub+'">'+sub+'</a>'+                      
-                    '</div>'+
-               '</div>'
-                );
-            }else{
-                if(main === String(category[i-1].ID).split('_')[0]){
-                 
-                   $(".dropright[name='"+main+"'] .dropdown-menu").append(
-                    '<a class="dropdown-item" href="/shop/item?main='+main+'&sub='+sub+'">'+sub+'</a>'
-                   );
-                }
-                else if(i != (category.length)-1 && main != String(category[i-1].ID).split('_')[0]){
-                    
-                    $("#left-group").append(
-                  '<div class="dropright" name = "'+main+'">'+
-                    '<a href="#" style="color:black!important" class="list-group-item dropdown-toggle"'+
-                      'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+main+'</a>'+
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                      '<a class="dropdown-item" href="/shop/item?main='+main+'&sub='+sub+'">'+sub+'</a>'+                      
-                    '</div>'+
-               '</div>'
-                );
-                }
-            }
-           
-        }
-
-        if (info != "undefined") {
-         //img
-
-          $("#top-img-0 img").attr('src','../stylesheet/img/item/'+info[0].IMG1+'');         
-          $("#thumb-img-0 img").attr('src','../stylesheet/img/item/'+info[0].IMG1+'');    
-        
-          $("#top-img-1 img").attr('src','../stylesheet/img/item/'+info[0].IMG2+'');           
-          $("#thumb-img-1 img").attr('src','../stylesheet/img/item/'+info[0].IMG2+''); 
-
-          $("#top-img-2 img").attr('src','../stylesheet/img/item/'+info[0].IMG3+''); 
-          $("#thumb-img-2 img").attr('src','../stylesheet/img/item/'+info[0].IMG3+''); 
-
-          $("#top-img-3 img").attr('src','../stylesheet/img/item/'+info[0].IMG4+'');            
-          $("#thumb-img-3 img").attr('src','../stylesheet/img/item/'+info[0].IMG4+''); 
-
-          $("#top-img-4 img").attr('src','../stylesheet/img/item/'+info[0].IMG5+'');   
-          $("#thumb-img-4 img").attr('src','../stylesheet/img/item/'+info[0].IMG5+''); 
-          //rate
-          switch (info[0].RATE) {
-            case 0:
-              rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
-              break;
-            case 1:
-              rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
-              break;
-            case 2:
-              rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
-              break;
-            case 3:
-              rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
-              break;
-            case 4:
-              rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
-              break;
-            case 5:
-              rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
-              break;
-  
-          }
-          $("#item_head h3").html(info[0].ITEM_NAME);
-          if(info[0].PRICE === ""){
-            $("#item_head h4").html("N/A<br><small>Please contact us</small>");
-            $("#buy").attr("value","contact to Autoinmall");
-            $("#buy").attr("id","contact");
-          }else{
-            $("#item_head h4").html("$" + info[0].PRICE);
-          }
-          $("#item_head p").html(
-            "Parts Number: " + info[0].PARTS_NUM + "<br>" +
-            "Quantity: " + info[0].VOLUME + " EA<br>" +
-            "Model: " + info[0].BASE_M + "(version: " + info[0].DETAIL_M + ")<br>" +
-            "Brand: " + info[0].CAR_M + "<br>" +
-            "Item manufacturer: " + info[0].ITEM_M + "<br>"
-          );
-          $("#item_head span").html(rate + " " + info[0].RATE + " stars");
-          $("#item_desc").html(info[0].ITEM_DESC);
-  
-          $("#item_name").val(info[0].ITEM_NAME);
-          $("#item_pin").val(info[0].PIN);
-          $("#item_parts_num").val(info[0].PARTS_NUM);
-          $("#item_price").val(info[0].PRICE);
+<!-- Footer-->
+<footer class="footer py-4">
+  <div class="container">
+      <div class="row align-items-center">
+          <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
           
+          <div class="col-lg-4 my-3 my-lg-0">
+              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="col-lg-4 text-lg-right">
+             <div>E-mail:&nbsp;service@autoinmall.com</div> 
+         
+          </div>
+      </div>
+  </div>
+</footer>
+
+  <!-- Bootstrap core JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Third party plugin JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <!-- Contact form JS-->
+  <script src="../stylesheet/mail/jqBootstrapValidation.js"></script>
+  <script src="../stylesheet/mail/contact_me.js"></script>
+  <!-- Core theme JS-->
+  <script src="../stylesheet/js/item.js"></script>
+  <script>
+
+    var username = '<%- username %>';
+    var info = JSON.parse('<%- info %>');
+    var review_list = JSON.parse('<%- review %>');
+    var userid='<%- userid %>';
+    var rate;
+    var category = JSON.parse('<%- category %>');
+    //category
+    for (var i = 0; i < category.length; i++) {
+      var s_c = String(category[i].ID).split('_');
+      var main = s_c[0];
+      var sub = s_c[1];
+      if (i == 0) {
+        $("#left-group").html(
+          '<div class="dropright" name = "' + main + '">' +
+          '<a href="#" style="color:black!important" class="list-group-item dropdown-toggle"' +
+          'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + main + '</a>' +
+          '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+          '<a class="dropdown-item" href="/shop/item?main=' + main + '&sub=' + sub + '">' + sub + '</a>' +
+          '</div>' +
+          '</div>'
+        );
+      } else {
+        if (main === String(category[i - 1].ID).split('_')[0]) {
+
+          $(".dropright[name='" + main + "'] .dropdown-menu").append(
+            '<a class="dropdown-item" href="/shop/item?main=' + main + '&sub=' + sub + '">' + sub + '</a>'
+          );
         }
-         //contact to admin
-        $("#contact").off("click").on("click",()=>{        
-          $.ajax({
-                url:"/item/contact",
-                type:"post",
-                data:{
-                  name:info[0].ITEM_NAME,
-                  pin:info[0].PIN,
-                  parts_num:info[0].PARTS_NUM
-                },
-                success:()=>{
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'send email',
-                        text: 'Send email success'
-                    })
-                }
-            })
+        else if (i != (category.length) - 1 && main != String(category[i - 1].ID).split('_')[0]) {
+
+          $("#left-group").append(
+            '<div class="dropright" name = "' + main + '">' +
+            '<a href="#" style="color:black!important" class="list-group-item dropdown-toggle"' +
+            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + main + '</a>' +
+            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+            '<a class="dropdown-item" href="/shop/item?main=' + main + '&sub=' + sub + '">' + sub + '</a>' +
+            '</div>' +
+            '</div>'
+          );
+        }
+      }
+
+    }
+
+    for (var j = 0; j < review_list.length; j++) {
+      var user_rate;
+      switch (info[0].RATE) {
+        case 0:
+        user_rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
+          break;
+        case 1:
+        user_rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
+          break;
+        case 2:
+        user_rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
+          break;
+        case 3:
+        user_rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
+          break;
+        case 4:
+        user_rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
+          break;
+        case 5:
+        user_rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
+          break;
+
+      }
+      if(userid === review_list[j].USER_ID){
+        $(".review-body").append(        
+        '<div class="mb-1" style="border-bottom:1px solid black;"><span><h5 style="display:inline">'+review_list[j].USER_NAME + "'s review" +'</h5></span><span><a href="#" class="btn" onClick="del_review('+j+');" style="float:right;">Delete</a></span>'+       
+       
+        '<p>'+review_list[j].REVIEW +'</p>'+
+        
+        '<small class="text-muted">Rating: '+user_rate +'<br>Posted by ' + review_list[j].USER_NAME + ' on ' + String(review_list[j].REVIEW_DATE).substring(0, 10) + '</small></div>' 
+  
+        )
+      }else{
+        $(".review-body").append(        
+        '<div class="mb-1" style="border-bottom:1px solid black;"><h5>'+review_list[j].USER_NAME + "'s review" +'</h5>'+       
+       
+        '<p>'+review_list[j].REVIEW +'</p>'+
+        
+        '<small class="text-muted">Rating: '+user_rate +'<br>Posted by ' + review_list[j].USER_NAME + ' on ' + String(review_list[j].REVIEW_DATE).substring(0, 10) + '</small></div>' 
+  
+        )
+      }
+     
+    }
+
+   
+    if (info != "undefined") {
+      //img
+
+      $("#top-img-0 img").attr('src', '../stylesheet/img/item/' + info[0].IMG1 + '');
+      $("#thumb-img-0 img").attr('src', '../stylesheet/img/item/' + info[0].IMG1 + '');
+
+      $("#top-img-1 img").attr('src', '../stylesheet/img/item/' + info[0].IMG2 + '');
+      $("#thumb-img-1 img").attr('src', '../stylesheet/img/item/' + info[0].IMG2 + '');
+
+      $("#top-img-2 img").attr('src', '../stylesheet/img/item/' + info[0].IMG3 + '');
+      $("#thumb-img-2 img").attr('src', '../stylesheet/img/item/' + info[0].IMG3 + '');
+
+      $("#top-img-3 img").attr('src', '../stylesheet/img/item/' + info[0].IMG4 + '');
+      $("#thumb-img-3 img").attr('src', '../stylesheet/img/item/' + info[0].IMG4 + '');
+
+      $("#top-img-4 img").attr('src', '../stylesheet/img/item/' + info[0].IMG5 + '');
+      $("#thumb-img-4 img").attr('src', '../stylesheet/img/item/' + info[0].IMG5 + '');
+      //rate
+      switch (info[0].RATE) {
+        case 0:
+          rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
+          break;
+        case 1:
+          rate = "&#9733; &#9734; &#9734; &#9734; &#9734;";
+          break;
+        case 2:
+          rate = "&#9733; &#9733; &#9734; &#9734; &#9734;";
+          break;
+        case 3:
+          rate = "&#9733; &#9733; &#9733; &#9734; &#9734;";
+          break;
+        case 4:
+          rate = "&#9733; &#9733; &#9733; &#9733; &#9734;";
+          break;
+        case 5:
+          rate = "&#9733; &#9733; &#9733; &#9733; &#9733;";
+          break;
+
+      }
+      $("#item_head h3").html(info[0].ITEM_NAME);
+      if (info[0].PRICE === "") {
+        $("#item_head h4").html("N/A<br><small>Please contact us</small>");
+        $("#buy").attr("value", "contact to Autoinmall");
+        $("#buy").attr("id", "contact");
+      } else {
+        $("#item_head h4").html("$" + info[0].PRICE);
+      }
+      $("#item_head p").html(
+        "Parts Number: " + info[0].PARTS_NUM + "<br>" +
+        "Quantity: " + info[0].VOLUME + " EA<br>" +
+        "Model: " + info[0].BASE_M + "(version: " + info[0].DETAIL_M + ")<br>" +
+        "Car Brand: " + info[0].CAR_M + "<br>" +
+        "Item Brand: " + info[0].BRAND_I + "<br>" +
+        "Item manufacturer: " + info[0].ITEM_M + "<br>"
+      );
+      $("#item_head span").html(rate + " " + info[0].RATE + " stars");
+      $("#item_desc").html(info[0].ITEM_DESC);
+      $("#volume_original").val(Number(info[0].VOLUME));
+      $("#item_name").val(info[0].ITEM_NAME);
+      $("#item_pin").val(info[0].PIN);
+      $("#item_parts_num").val(info[0].PARTS_NUM);
+      $("#item_price").val(info[0].PRICE);
+
+    }
+
+
+    //review btn
+    $("#review_btn").off("click").on("click", () => {
+      if (!username) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sign in',
+          text: 'Sign in first!!'
         })
-        if (username) {
-          $("#account_ctrl").html('Signout');
-          $("#account_ctrl").attr("href", "/signout");
-          $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="/management">Management</a>');
-        } else {
-          $("#account_ctrl").html('Signin');
-          $("#account_ctrl").attr("href", "/signin");
-          $("#accountMenu").remove("#management");
-        }
-        if ($(window).width() < 976) {
-                if (username) {
-                    $("#resizemenu").html(
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-                    );
-                } else {
-                    $("#resizemenu").html(
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
-                        '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
-                    );
-                }
+
+      } else {
+        location.href = "/review?pin=" + info[0].PIN + "";
+      }
+    })
+
+
+    //add cart
+    $("#buy").off("click").on("click", () => {
+      var item_name = $("#item_name").val()
+      if ($("input[name='item_volume']").val() <= Number(info[0].VOLUME)) {
+        $.ajax({
+          url: "/item/cart",
+          type: "post",
+          data: $("#add_cart").serialize(),
+          success: (data) => {
+            if (data === "GO SIGNIN") {
+              Swal.fire({
+                icon: 'error',
+                title: 'Sign in',
+                text: 'Sign in first!!'
+              })
+            } else {
+              Swal.fire({
+                icon: 'success',
+                title: 'Add',
+                text: data + ' is in the cart!!'
+              }).then(() => {
+                location.reload();
+              })
+
             }
-            $(window).resize(function () {
-                if ($(window).width() < 976) {
-                    if (username) {
-                        $("#resizemenu").html(
-                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
-                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
-                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
-                        );
-                    } else {
-                        $("#resizemenu").html(
-                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
-                            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
-                    }
-    
-                } else {
-                    if (username) {
-                        $("#resizemenu").html(
-                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
-                            '<a class="dropdown-item navbaritem" href="/signout" id="account_ctrl">Signout</a>' +
-                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>' +
-                            '<a class="dropdown-item navbaritem" href="/management">Management</a></div></div>'
-    
-                        );
-                    } else {
-                        $("#resizemenu").html(
-                            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
-                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
-                            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
-                            '<a class="dropdown-item navbaritem" href="/signin" id="account_ctrl">Signin</a>' +
-                            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>'
-    
-                        );
-                    }
-                }
-            });
-      </script>
- 
+
+          },
+          error: () => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Add',
+              text: 'Insert cart fail'
+            })
+          }
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Quantity',
+          text: 'You can not buy item more than quantity'
+        })
+      }
+
+    })
+    //contact to admin
+    $("#contact").off("click").on("click", () => {
+      if (!username) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sign in',
+          text: 'Sign in first!!'
+        })
+
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'send email',
+          text: 'Send email success'
+        })
+        $.ajax({
+          url: "/item/contact",
+          type: "post",
+          data: {
+            to: "service@autoinmall.com",
+            name: info[0].ITEM_NAME,
+            pin: info[0].PIN,
+            parts_num: info[0].PARTS_NUM
+          },
+          success: () => {
+
+          }
+        })
+      }
+
+    })
+    if (username) {
+      $("#account_ctrl").html('Signout');
+      $("#account_ctrl").attr("href", "/signout");
+      $("#accountMenu").append('<a class="dropdown-item" style="color:white;" id="management" href="/management">Management</a>');
+    } else {
+      $("#account_ctrl").html('Signin');
+      $("#account_ctrl").attr("href", "/signin");
+      $("#accountMenu").remove("#management");
+    }
+    if ($(window).width() < 976) {
+      if (username) {
+        $("#resizemenu").html(
+          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout" id="account_ctrl">Signout</a></li>' +
+          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+        );
+      } else {
+        $("#resizemenu").html(
+          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+          '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>'
+        );
+      }
+    }
+    $(window).resize(function () {
+      if ($(window).width() < 976) {
+        if (username) {
+          $("#resizemenu").html(
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signout id="account_ctrl">Signout</a></li>' +
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>' +
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/management">Management</a></li>'
+          );
+        } else {
+          $("#resizemenu").html(
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/signin" id="account_ctrl">Signin</a></li>' +
+            '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">Cart</a></li>');
+        }
+
+      } else {
+        if (username) {
+          $("#resizemenu").html(
+            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+            '<a class="dropdown-item navbaritem" href="/signout" id="account_ctrl">Signout</a>' +
+            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>' +
+            '<a class="dropdown-item navbaritem" href="/management">Management</a></div></div>'
+
+          );
+        } else {
+          $("#resizemenu").html(
+            '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
+            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
+            '<div class="dropdown-menu navbarmenu" aria-labelledby="dropdownMenuButton">' +
+            '<a class="dropdown-item navbaritem" href="/signin" id="account_ctrl">Signin</a>' +
+            '<a class="dropdown-item navbaritem" href="/cart">Cart</a>'
+
+          );
+        }
+      }
+    });
+  </script>
+
 </body>
 
 </html>

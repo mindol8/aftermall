@@ -164,7 +164,12 @@
                     </div>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Brand</span></div>
+                            <span class="input-group-text">Car Brand</span></div>
+                        <input type="text" name="car_brand" id="car_brand" class="form-control">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Item Brand</span></div>
                         <input type="text" name="item_brand" id="item_brand" class="form-control">
                     </div>
                     <div class="input-group mb-1">
@@ -228,7 +233,7 @@
 
             $("#category_main").change(() => {
                 var main = $("#category_main option:selected").val();
-                if (main != 'etc' && main != "") {
+                if (main != "") {
                     $("#category_sub").html('<option selected></option>');
 
                     $.ajax({
@@ -245,9 +250,6 @@
                             $("#category_sub").attr("disabled", false);
                         }
                     })
-                } else {
-                    $("#category_sub").html('<option selected></option>');
-                    $("#category_sub").attr("disabled", true);
                 }
 
 
@@ -298,9 +300,9 @@
                             title: 'Add item',
                             text: 'PIN: ' + data,
 
-                        }), () => {
+                        }).then(() => {
                             location.reload();
-                        }
+                        }) 
                     },
                     error: () => {
                         alert("error");
