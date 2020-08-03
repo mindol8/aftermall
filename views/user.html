@@ -34,6 +34,9 @@
             <th scope="col">NAME</th>
             <th scope="col">MAIL</th>
             <th scope="col">PHONE</th>
+              
+            <th></th>
+            <th></th>
           </tr>
     </thead>
     <tbody>
@@ -53,14 +56,89 @@
         for(var i=0;i<data.length;i++){
             $("tbody").append(
             '<tr>'+
-            '<td>'+data[i].USER_ID+'</td>'+
-            '<td>'+data[i].NAME+'</td>'+
-            '<td>'+data[i].MAIL+'</td>'+
-            '<td>'+data[i].PHONE+'</td>'+
+            '<td><input type="text" id="id'+i+'" disabled value="'+data[i].USER_ID+'" style="border:none;background-color:white"</td>'+
+            '<td><input type="text" id="name'+i+'" disabled value="'+data[i].NAME+'" style="border:none;background-color:white"</td>'+
+            '<td><input type="email" id="email'+i+'" disabled value="'+data[i].EMAIL+'" style="border:none;background-color:white"</td>'+
+            '<td><input type="text" id="phone'+i+'" disabled value="'+data[i].PHONE+'" style="border:none;background-color:white"</td>'+
+
+            '<td><input type="button" id="setting'+i+'" class="btn btn-info" value="setting" onclick="set_user('+i+');"></td>' +      
+                '<td><input type = "button" class = "btn btn-warning" value = "delete" onclick="del_user('+i+');"></td>'+   
             '</tr>'
         )
         }
       
+         //delete user
+      function del_user(i){       
+        var id = data[i].USER_ID;
+        $.ajax({
+            url:'/admin/user/delete',
+            type:'post',
+            data:{
+                id:id
+            },
+            success:()=>{
+                location.reload();
+            },
+            error:()=>{
+                location.reload();
+            }
+        })
+      }
+       //setting user
+    function set_user(i){        
+        if($("#setting"+i).val() === "setting"){       
+           
+            $("#name"+i).attr("disabled",false);
+      
+            $("#name"+i).css("border","1px solid black");
+
+            $("#email"+i).attr("disabled",false);
+       
+            $("#email"+i).css("border","1px solid black");
+
+            $("#phone"+i).attr("disabled",false);
+     
+            $("#phone"+i).css("border","1px solid black");
+            $("#setting"+i).val("finish");
+            $("#setting"+i).css("background-color","red");
+        }else if($("#setting"+i).val() === "finish"){
+           
+            $("#name"+i).attr("disabled",true);
+            $("#name"+i).css("border","none");
+              
+            $("#email"+i).attr("disabled",true);
+            $("#email"+i).css("border","none");
+              
+            $("#phone"+i).attr("disabled",true);
+            $("#phone"+i).css("border","none");
+
+            $("#setting"+i).val("setting");
+            $("#setting"+i).css("background-color","#17a2b8");
+         
+            $.ajax({
+                url:"/admin/user/change",
+                type:"post",
+                data:{
+                    id:data[i].USER_ID,
+                    name:$("#name"+i).val(),
+                    email:$("#email"+i).val(),
+                    phone:$("#phone"+i).val(),
+                },
+               
+                success:(data)=>{
+                    
+                    location.reload();                    
+                },
+                error:()=>{
+                    alert("fail");
+                }
+            })
+
+
+        }else{
+            alert("인식못함");
+        }
+    }  
     </script>
     
 </body>

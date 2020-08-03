@@ -119,15 +119,8 @@
                 contentType: false,
                 processData: false,
                 success:(data)=>{
-                    if(data != "update error" && data != "img find error"){
-                        $("#img"+i).attr("type","text");
-                        if($("#img"+i)[0].files[0] != null){
-                            $("#img"+i).val(data);
-                        }else{
-                            $("#img"+i).val(data[i].IMG);
-                        }
-                        
-                    }                   
+              
+                    location.reload();                 
                 },
                 error:()=>{
                     alert("fail");

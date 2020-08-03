@@ -89,19 +89,19 @@
                 <div class="swiper-container gallery-top">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" id="top-img-0" >
-                            <img src="../stylesheet/img/item/no_img.png" style="width:80%;height:70%">
+                            <img src="../stylesheet/img/item/no_img.png" width="380" height="150">
                         </div>
                         <div class="swiper-slide" id="top-img-1" >
-                            <img src="../stylesheet/img/item/no_img.png" style="width:80%;height:70%">
+                            <img src="../stylesheet/img/item/no_img.png" width="380" height="150">
                         </div>
                         <div class="swiper-slide" id="top-img-2" >
-                            <img src="../stylesheet/img/item/no_img.png" style="width:80%;height:70%">
+                            <img src="../stylesheet/img/item/no_img.png" width="380" height="150">
                         </div>
                         <div class="swiper-slide" id="top-img-3" >
-                            <img src="../stylesheet/img/item/no_img.png" style="width:80%;height:70%">
+                            <img src="../stylesheet/img/item/no_img.png" width="380" height="150">
                         </div>
                         <div class="swiper-slide" id="top-img-4" >
-                            <img src="../stylesheet/img/item/no_img.png" style="width:80%;height:70%">
+                            <img src="../stylesheet/img/item/no_img.png" width="380" height="150">
                         </div>
                     </div>
                     <!-- Add Arrows -->
@@ -198,11 +198,12 @@
 
 
         <!-- /.card -->
-        <div class="card card-outline-secondary my-4">
+        <div class="card card-outline-secondary my-1">
             <div class="input-group-text">Item Desc</div>
             <textarea class="form-control" name="item_desc" id="item_desc"
                 style="resize: none;height:200px;width:100%"></textarea>
         </div>
+       
         <input type="button" class="btn btn-success btn-block" value="add" id="add_item">
 
 
@@ -259,7 +260,7 @@
             $("#item_img").on("change", () => {                
                 var file = $('#item_img')[0].files;
                 var img_file;                                 
-                console.log(file.length);
+              //  console.log(file.length);
                 if(file.length>5){
                     alert("size over");
                     $('#item_img').val("");
@@ -286,6 +287,7 @@
                 formdata.append("item_img", $('#item_img')[0].files[2]);
                 formdata.append("item_img", $('#item_img')[0].files[3]);
                 formdata.append("item_img", $('#item_img')[0].files[4]);
+            
                 var desc = $("#item_desc").val();
                 formdata.append("item_desc", desc);
                 $.ajax({

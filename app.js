@@ -247,8 +247,9 @@ router.post("/admin/carbrand/add", upload_car_brand.single("brandimg"), (req, re
 
 ////admin car brand setting
 router.post("/admin/carbrand/change", upload_car_brand.single("img"), (req, res) => {
+  //  console.log(req.file);
     if(req.file != null){
-        mysqlDB.query("UPDATE ITEM_BRAND SET  IMG = ? WHERE NAME = ?",[req.file.filename], (err, row) => {
+        mysqlDB.query("UPDATE CAR_BRAND SET IMG = ? WHERE NAME = ?",[req.file.filename,req.body.name], (err, row) => {
             if (err) {
                 console.log(err);
                 res.send("update error");
@@ -281,7 +282,7 @@ router.post("/admin/itembrand/change",upload_item_brand.single("img"),(req,res)=
                 console.log(err);
                 res.send("update error");
             } else {
-                res.send(req.file.filename);
+                res.send("update success without img");
             }
         })
     }
@@ -350,6 +351,37 @@ router.get("/admin/user", function (req, res) {
 
     })
 })
+
+//admin page user info
+router.post("/admin/user/delete", function (req, res) {
+    console.log(req.body.id);
+    mysqlDB.query("DELETE FROM USER WHERE USER_ID = ?",[req.body.id] ,function (err, row) {
+        if (err) {
+            console.log(err);
+            res.send("err");
+        } else {
+           
+            res.send("success");
+        }
+
+    })
+})
+
+
+//admin page user info
+router.post("/admin/user/change", function (req, res) {
+    console.log(req.body);
+    mysqlDB.query("UPDATE USER SET NAME = ?, EMAIL = ?, PHONE = ? WHERE USER_ID=?",[req.body.name,req.body.email,req.body.phone,req.body.id] ,function (err, row) {
+        if (err) {
+            console.log(err);
+            res.send("err");
+        } else {
+         res.send("success");
+        }
+
+    })
+})
+
 
 //admin item page
 router.get("/admin/item", (req, res) => {
@@ -502,11 +534,11 @@ router.post("/item/add/category", (req, res) => {
 })
 
 //admin item add
-router.post("/admin/item/add", upload.array('item_img', 5), function (req, res) {
+router.post("/admin/item/add", upload.array('item_img',5), function (req, res) {
     // console.log("add");
     //console.log(req.body);
 
-    // console.log(req.files);
+    console.log(req.files);
     var item = req.body.item_name;
     var parts_num = req.body.parts_num;
     var price = req.body.item_price;
@@ -521,20 +553,22 @@ router.post("/admin/item/add", upload.array('item_img', 5), function (req, res) 
     var modeld = req.body.item_version;
     var manufi = req.body.item_manuf;
     var img = ["no_img.png", "no_img.png", "no_img.png", "no_img.png", "no_img.png"];
-    for (var i = 0; i < req.files.length; i++) {
-        img[i] = req.files[i].filename;
+    for (var i = 0; i < req.files['item_img'].length; i++) {
+        img[i] = req.files['item_img'][i].filename;
     }
 
     var u_salt = Math.round((new Date().valueOf() * Math.random())) + "";
     var hashnum = crypto.createHash("sha256").update(item + u_salt).digest("hex");
     var pin = "AM" + String(hashnum);
-
+   
+   
     var c_data = {
         IMG1: img[0],
         IMG2: img[1],
         IMG3: img[2],
         IMG4: img[3],
         IMG5: img[4],
+        
         MAIN_C: mainc,
         SUB_C: subc,
         BASE_M: modelb,
@@ -1034,6 +1068,7 @@ router.get("/item/info", function (req, res) {
             console.log(err);
         } else {
             console.log(row);
+        
             mysqlDB.query("select * from REVIEW where ITEM_PIN = ?", [pin], function (err2, row2) {
                 if (err2) {
                     console.log(err2);

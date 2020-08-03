@@ -133,7 +133,6 @@
 
 
 
-
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -273,7 +272,7 @@
 
 
                         })
-                        
+                       
                         $("#item_name").val(data[0].ITEM_NAME);
                         $("#item_price").val(data[0].PRICE);
                         $("#parts_num").val(data[0].PARTS_NUM);
@@ -286,6 +285,9 @@
                         $("#item_desc").val(data[0].ITEM_DESC);
                         $("#category_sub").html('<option selected value="'+data[0].SUB_C+'">'+data[0].SUB_C+'</option>');
                         $(".setting-container").css("display", "block");
+                       // alert($("body").height());
+                        $(top.document).find(".capsulate-window").css("height",$("body").height()+"px");
+                        $(top.document).find(".body-container").css("height",$("body").height()+"px");
 
                     })
                 })

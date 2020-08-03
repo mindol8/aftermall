@@ -18,12 +18,12 @@
       width:80%!important;
   } 
   .body-container{
-    margin-top: 10%;margin-bottom:5%;
+    margin-top: 10%;
+    margin-bottom:5%;
     margin-left:3%;
     margin-right:3%;
     width:94%;
     padding:0;
-    height:500px;
     
 }
 
@@ -47,4 +47,5 @@ a{
  float:right;
  width:80%;
  height:500px;
+ margin-bottom:5%;
 }

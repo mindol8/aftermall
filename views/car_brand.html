@@ -64,10 +64,10 @@
         for(var i=0;i<data.length;i++){
             $("tbody").append(
                 '<tr>'+
-                '<td>'+data[i].NAME+'</td>'+
+                    '<td><input type="text" id="name'+i+'" disabled value="'+data[i].NAME+'" style="border:none;background-color:white"</td>'+
                
-                '<td>'+data[i].IMG+'</td>'+ 
-                '<td><input type="button" class="btn btn-info" value="setting" onclick="set_item('+i+');"></td>' +       
+                    '<td><input type="text" id="img'+i+'" disabled value="'+data[i].IMG+'" style="border:none;background-color:white"</td>'+    
+                    '<td><input type="button" id="setting'+i+'" class="btn btn-info" value="setting" onclick="set_item('+i+');"></td>' +      
                 '<td><input type = "button" class = "btn btn-warning" value = "delete" onclick="del_item('+i+');"></td>'+   
                 '</tr>'
             )           
@@ -141,15 +141,8 @@
                 contentType: false,
                 processData: false,
                 success:(data)=>{
-                    if(data != "update error" && data != "img find error"){
-                        $("#img"+i).attr("type","text");
-                        if($("#img"+i)[0].files[0] != null){
-                            $("#img"+i).val(data);
-                        }else{
-                            $("#img"+i).val(data[i].IMG);
-                        }
-                        
-                    }                   
+                    
+                    location.reload();                    
                 },
                 error:()=>{
                     alert("fail");
