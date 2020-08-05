@@ -93,7 +93,7 @@
                       <span class="input-group-text" style="width:120px;">BRANDS</span></div>
                   <select name="brands" class="custom-select" id="select_brands">
                       <option value="">Choose...</option>
-                      <option value="기아">기아</option>
+                     
                   </select>
               </div>
               <div class="input-group mb-1">
@@ -196,9 +196,15 @@
     var username = '<%- username %>';
     var info = JSON.parse('<%- info %>');
     var length = info.length;
-   
+    var carbrand = JSON.parse('<%- carbrand %>');
     var rate;
     var category = JSON.parse('<%- category %>');
+    
+    for (var i = 0; i < carbrand.length; i++) {
+                $("#select_brands").append(
+                    '<option value = "' + carbrand[i].NAME + '">' + carbrand[i].NAME + '</option>'
+                );
+            }
     //category
         for(var i=0;i<category.length;i++){
             var s_c = String(category[i].ID).split('_');           

@@ -292,8 +292,7 @@
             $(".brand_logo").css("margin-left","20%");
             $(".brand_logo").css("margin-right","20%");
             $(".brand_logo").css("width","60%");
-        }
-        else {
+        } else {
             $("#resizemenu").html(
                 '<div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"' +
                 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>' +
@@ -327,6 +326,7 @@
         $(".brand_logo").css("margin-right","20%");
         $(".brand_logo").css("width","60%");
     }
+ 
     // Collapse Navbar
     var navbarCollapse = function () {
         var windowwidth = $(window).width();

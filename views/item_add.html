@@ -165,12 +165,16 @@
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Car Brand</span></div>
-                        <input type="text" name="car_brand" id="car_brand" class="form-control">
+                            <select name="car_brand" class="custom-select" id="car_brand">
+                                <option selected></option>
+                            </select>
                     </div>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Item Brand</span></div>
-                        <input type="text" name="item_brand" id="item_brand" class="form-control">
+                            <select name="item_brand" class="custom-select" id="item_brand">
+                                <option selected></option>
+                            </select>
                     </div>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
@@ -196,7 +200,13 @@
 
         </div>
 
-
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Download Files</span></div>
+           <div>
+               <input type="file" class="form-control" name="item_file" id="item_file" multiple>
+           </div>
+        </div>
         <!-- /.card -->
         <div class="card card-outline-secondary my-1">
             <div class="input-group-text">Item Desc</div>
@@ -226,9 +236,23 @@
     <script>
         $(document).ready(() => {
             var category = JSON.parse('<%- category %>');
+            var carbrand=JSON.parse('<%- carbrand %>');
+            var itembrand=JSON.parse('<%- itembrand %>');
             for (var i = 0; i < category.length; i++) {
                 $("#category_main").append(
                     '<option value = "' + category[i].MAIN + '">' + category[i].MAIN + '</option>'
+                );
+            }
+
+            for (var i = 0; i < carbrand.length; i++) {
+                $("#car_brand").append(
+                    '<option value = "' + carbrand[i].NAME + '">' + carbrand[i].NAME + '</option>'
+                );
+            }
+
+            for (var i = 0; i < itembrand.length; i++) {
+                $("#item_brand").append(
+                    '<option value = "' + itembrand[i].NAME + '">' + itembrand[i].NAME + '</option>'
                 );
             }
 
@@ -287,29 +311,37 @@
                 formdata.append("item_img", $('#item_img')[0].files[2]);
                 formdata.append("item_img", $('#item_img')[0].files[3]);
                 formdata.append("item_img", $('#item_img')[0].files[4]);
-            
-                var desc = $("#item_desc").val();
-                formdata.append("item_desc", desc);
-                $.ajax({
-                    url: "/admin/item/add",
-                    type: "post",
-                    data: formdata,
-                    contentType: false,
-                    processData: false,
-                    success: (data) => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Add item',
-                            text: 'PIN: ' + data,
-
-                        }).then(() => {
-                            location.reload();
-                        }) 
-                    },
-                    error: () => {
-                        alert("error");
+                var file_length = $('#item_file')[0].files.length;
+                if(file_length <=5){
+                    for (var i=0;i<file_length;i++){
+                        formdata.append("file", $('#item_file')[0].files[i]);
                     }
-                })
+                    var desc = $("#item_desc").val();
+                    formdata.append("item_desc", desc);
+                    $.ajax({
+                        url: "/admin/item/add",
+                        type: "post",
+                        data: formdata,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Add item',
+                                text: 'PIN: ' + data,
+
+                            }).then(() => {
+                                location.reload();
+                            }) 
+                        },
+                        error: () => {
+                            alert("error");
+                        }
+                    })
+                }else{
+                    alert("too many files");
+                }
+              
             })
 
             var galleryThumbs = new Swiper('.gallery-thumbs', {

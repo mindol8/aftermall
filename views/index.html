@@ -95,7 +95,7 @@
                             <span class="input-group-text" style="width:120px;">BRANDS</span></div>
                         <select name="brands" class="custom-select" id="select_brands">
                             <option value="">Choose...</option>
-                            <option value="기아">기아</option>
+                            
                         </select>
                     </div>
                     <div class="input-group mb-1">
@@ -363,6 +363,12 @@
                             'src="../stylesheet/img/car_brands/'+carbrand[l].IMG+'" alt="" /></a></div>'
             )
         }
+        for (var i = 0; i < carbrand.length; i++) {
+                $("#select_brands").append(
+                    '<option value = "' + carbrand[i].NAME + '">' + carbrand[i].NAME + '</option>'
+                );
+            }
+
         //print itembrand
         for (var k = 0; k < itembrand.length; k++) {
             var flag = k % 6;

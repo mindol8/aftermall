@@ -183,6 +183,13 @@
             <input type="hidden" id="volume_original" name="volume_original">
             <input type="button" class="btn btn-info btn-block" id="buy" value="BUY">
           </form>
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Download Files</span></div>
+           <div id="item_file" style="border:1px solid silver;padding-top:1%;padding-right: 1%;padding-left: 1%;width:100%">               
+          
+          </div>
+        </div>
           <!-- /.card -->
           <div class="card card-outline-secondary my-4">
             <div class="card-body">
@@ -290,7 +297,7 @@
       }
 
     }
-
+ 
     for (var j = 0; j < review_list.length; j++) {
       var user_rate;
       switch (info[0].RATE) {
@@ -402,6 +409,16 @@
 
     }
 
+       //file
+       var file_list = info[0].FILE_LIST;
+       if(file_list){
+         var file = file_list.split(';');
+         for (var l=0;l<file.length;l++){
+           $("#item_file").append(
+             '<a href="/download?pin='+info[0].PIN+'&file='+file[l]+'" style="color:black;">'+file[l]+'&nbsp;&nbsp;</a>'
+           )
+         }
+       }
 
     //review btn
     $("#review_btn").off("click").on("click", () => {

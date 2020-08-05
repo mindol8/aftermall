@@ -29,15 +29,14 @@ function paypal(str){
     
             }).done(function(data) {
                 //console.log(data);
-    /*
+    
                 var msg = '결제가 완료되었습니다.';
                 msg += '\n\n고유ID : ' + rsp.imp_uid;
                 msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                 msg += '\n결제 금액 : ' + rsp.paid_amount;
                 msg += '\n카드 승인번호 : ' + rsp.apply_num;
     
-                alert(msg);*/
-                location.href="/recepit?condition=success&id="+rsp.imp_uid+"&uid="+rsp.merchant_uid+"&total="+rsp.paid_amount+"&card="+rsp.apply_num;
+                alert(msg);
     
             }).fail(function(data) {
                 console.log(data);
@@ -45,8 +44,11 @@ function paypal(str){
             //	console.log(data);
             });
         } else {
-           
-            location.href="/recepit?condition=fail&err="+rsp.error_msg;
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+    
+            alert(msg);
+            location.reload();
         }
     
         //location.href = 'payResult.asp';
