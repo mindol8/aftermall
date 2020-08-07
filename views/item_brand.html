@@ -135,12 +135,12 @@
     //delete item brand
       function del_item(i){       
         var name = data[i].NAME;
-        var country = data[i].COUNTRY;
+       
         $.ajax({
             url:'/admin/itembrand/delete',
             type:'post',
             data:{
-               id:name+"_"+country,
+               name:name,
                img:data[i].IMG
             },
             success:()=>{

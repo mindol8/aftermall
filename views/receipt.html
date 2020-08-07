@@ -86,7 +86,7 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                   <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>-->
+                   <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
@@ -105,7 +105,7 @@
     </nav>
     <div class = "container" style="margin-top:10%;margin-bottom:5%;border:silver solid 1px;padding:1% 1% 1% 1%">
         <h3 style="border-bottom:#212529 solid 1px">&nbsp;&nbsp;Receipt</h3>
-        <div class="result-container" style="text-align: center;margin-top:35%">
+        <div class="result-container" style="text-align: center;margin-top:10%;margin-bottom:10%">
 
         </div>
     </div>
@@ -141,18 +141,22 @@
 
     <script>
          var username = '<%- username %>';
-         var data = '<%- data %>';
+         var data = JSON.parse('<%- data %>');
 
          if(data.condition==="success"){
             $(".result-container").html(
+                '<p>Buyer: '+data.name+'</p>'+
                 '<p>Id: '+data.id+'</p>'+
                 '<p>Uid: '+data.uid+'</p>'+
                 '<p>Amount: '+data.total+'</p>'+
                 '<p>Apply Number: '+data.card+'</p>'+
+                '<p>Address: '+data.address+'('+data.zipcode+')</p>'+
+                '<p>email: '+data.email+'</p>'+
                 '<input type="button" class="btn btn-primary" value="Go Main page" onClick="go_main();">'
             )
          }else{
             $(".result-container").html(
+                '<p>Buyer: '+data.name+'</p>'+
                 '<p>Err: '+data.err+'</p>'+
                 '<input type="button" class="btn btn-primary" value="Go Main page" onClick="go_main();">'
             )

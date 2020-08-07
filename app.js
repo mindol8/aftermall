@@ -92,7 +92,15 @@ app.use(function (req, res, next) {
                             console.log(err3);
                         } else {
                             var car = JSON.stringify(row3);
-                            res.render('index.html', { username: sess.username, category: sess.category, itembrand: data, carbrand: car });
+                            mysqlDB.query("SELECT THEME,TOP1,TOP2,TOP3,ITEM_NAME,IMG1,PIN FROM ITEM JOIN RANKING ON PIN = TOP1 OR PIN = TOP2 OR PIN = TOP3 JOIN ITEMINFO ON PIN = ITEM_NUM ORDER BY THEME",(err4,row4)=>{
+                                if(err4){
+                                    console.log(err4);
+                                }else{
+                                    var ranking = JSON.stringify(row4);
+                                    res.render('index.html', { username: sess.username, category: sess.category, itembrand: data, carbrand: car,ranking:ranking});
+                                }
+                            })
+                            
                         }
                     })
 
@@ -230,10 +238,18 @@ router.post("/admin/carbrand/delete", (req, res) => {
 router.post("/admin/carbrand/add", upload_car_brand.single("brandimg"), (req, res) => {
     console.log(req.body);
     console.log(req.file);
-    var data = {
-        NAME: req.body.name,
-        IMG: req.file.filename,
+    if(req.file){
+        var data = {
+            NAME: req.body.name,
+            IMG: req.file.filename,
+        }
+    }else{
+        var data = {
+            NAME: req.body.name,
+            
+        }
     }
+  
     mysqlDB.query("INSERT INTO CAR_BRAND SET ?", [data], (err, row) => {
         if (err) {
             console.log(err);
@@ -302,15 +318,26 @@ router.get("/admin/itembrand", (req, res) => {
 })
 //admin item brand add
 router.post("/admin/itembrand/add", upload_item_brand.single("brandimg"), (req, res) => {
-    //console.log(req.body);
-    //console.log(req.file);
-    var data = {
-        NAME: req.body.name,
-        IMG: req.file.filename,
-        COUNTRY: req.body.country,
-        CITY: req.body.city,
-        ID: req.body.name + "_" + req.body.country
+    console.log(req.body);
+    console.log(req.file);
+    if(req.file){
+        var data = {
+            NAME: req.body.name,
+            IMG: req.file.filename,
+            COUNTRY: req.body.country,
+            CITY: req.body.city,
+           
+        }
+    }else{
+        var data = {
+            NAME: req.body.name,
+           
+            COUNTRY: req.body.country,
+            CITY: req.body.city,
+           
+        }
     }
+ 
     mysqlDB.query("INSERT INTO ITEM_BRAND SET ?", [data], (err, row) => {
         if (err) {
             console.log(err);
@@ -323,7 +350,7 @@ router.post("/admin/itembrand/add", upload_item_brand.single("brandimg"), (req, 
 })
 //admin item brand delete
 router.post("/admin/itembrand/delete", (req, res) => {
-    mysqlDB.query("DELETE FROM ITEM_BRAND WHERE ID = ?", [req.body.id], (err, row) => {
+    mysqlDB.query("DELETE FROM ITEM_BRAND WHERE NAME = ?", [req.body.name], (err, row) => {
         if (err) {
             console.log(err);
         } else {
@@ -604,9 +631,61 @@ router.post("/admin/item/delete", (req, res) => {
     })
 
 })
-
-
-
+//admin ranking
+router.get("/admin/ranking",(req,res)=>{
+    mysqlDB.query("SELECT * FROM RANKING",(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            var data = JSON.stringify(row);
+            res.render("ranking.html",{data:data});
+        }
+    })
+    
+})
+//ranking setting
+router.post("/admin/ranking/setting",(req,res)=>{
+    var data = {
+        TOP1: req.body.top1,
+        TOP2: req.body.top2,
+        TOP3: req.body.top3
+    }
+    mysqlDB.query("UPDATE RANKING SET ? WHERE THEME = ?",[data,req.body.theme],(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success");
+        }
+    })
+})
+//ranking delete
+router.post("/admin/ranking/delete",(req,res)=>{
+    mysqlDB.query("DELETE FROM RANKING WHERE THEME = ?",[req.body.theme],(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success");
+        }
+    })
+})
+//ranking add
+router.post("/admin/ranking/add",(req,res)=>{
+   // console.log(req.body);
+   var data={
+       THEME: req.body.theme,
+       TOP1: req.body.top1,
+       TOP2: req.body.top2,
+       TOP3: req.body.top3,
+   }
+    mysqlDB.query("INSERT INTO RANKING SET ?",[data],(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send("success");
+        }
+    })
+    
+})
 //admin category
 router.get("/admin/category", (req, res) => {
     mysqlDB.query("SELECT * FROM CATEGORY_LIST ORDER BY MAIN", function (err, row) {
@@ -1554,11 +1633,6 @@ router.get("/shop", function (req, res) {
 
 })
 
-/*/item router
-router.get("/item", function (req, res) {
-    sess = req.session;
-    res.render("item.html", { username: sess.username ,info: JSON.stringify('undefined'),category:sess.category});
-})*/
 
 //cart router
 router.get("/cart", function (req, res) {
@@ -1633,13 +1707,17 @@ router.post("/payments/complete", async (req, res) => {
 });
 
 //after payment
-router.get("/recepit", (req, res) => {
+router.get("/receipt", (req, res) => {
     var id = req.query.id;
     var uid = req.query.uid;
     var total = req.query.total;
     var card = req.query.card;
     var condition = req.query.condition;
     var err = req.query.err;
+    var address = req.query.address;
+    var zipcode = req.query.zipcode;
+    var email = req.query.email;
+    var name = req.query.name;
     var data;
     var sess = req.session;
     if (condition === "success") {
@@ -1648,15 +1726,38 @@ router.get("/recepit", (req, res) => {
             id: id,
             uid: uid,
             total: total,
-            card: card
+            card: card,
+            name:name,
+            email:email,
+            address:address,
+            zipcode:zipcode
         }
+        var data_set={
+            RECIPIENT:sess.userid,
+            ORDER_NUM:uid,
+            PIN:id,
+            ADDRESS:address,
+            ZIPCODE:zipcode,
+            EMAIL:email,
+            TOTAL:total,
+            CARD_APPLY_NUM:card
+        }
+        mysqlDB.query("INSERT INTO RECEIPT SET ?",[data_set],(err,row)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log("insert success");
+            }
+        })
     } else {
         data = {
             condition: condition,
-            err: err
+            err: err,
+            name:name
         }
     }
-    res.render("recepit.html", { username: sess.username, data: data });
+    console.log(data);
+    res.render("receipt.html", { username: sess.username, data: JSON.stringify(data) });
 })
 //express run
 http.createServer(app).listen(app.get('port'), function () {

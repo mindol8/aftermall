@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+    <link href="../stylesheet/css/index.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+        rel="stylesheet">
+    <!--swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+    
+</head>
+<body>
+    <div class="contianer">
+        <form id="form_theme1">
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Theme1</span></div>
+                <input type="text" name="theme" id="theme1" class="form-control" >
+            </div>
+            <div class="row" style="text-align: center;margin-left:0.3%;margin-right:0.3%;padding-bottom:1%">
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top1</h3>
+                    
+                    <input type="text" name="top1" id="theme1_top1" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top2</h3>
+                    <input type="text" name="top2" id="theme1_top2" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top3</h3>
+                    <input type="text" name="top3" id="theme1_top3" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>                   
+               
+            </div>
+            <div style="text-align:right!important">  
+                <input type="button" class="btn btn-danger mb-2"  value="delete" id="theme1_delete" style="display: none;" >
+                <input type="button" class="btn btn-secondary mb-2"  value="add" id="theme1_setting" >
+            </div>
+        </form>
+        <form id="form_theme2">
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Theme2</span></div>
+                <input type="text" name="theme" id="theme2" class="form-control" >
+            </div>
+            <div class="row" style="text-align: center;margin-left:0.3%;margin-right:0.3%;padding-bottom:1%">
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top1</h3>
+                    
+                    <input type="text" name="top1" id="theme2_top1" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top2</h3>
+                    <input type="text" name="top2" id="theme2_top2" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top3</h3>
+                    <input type="text" name="top3" id="theme2_top3" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>                   
+               
+            </div>
+            <div style="text-align:right!important"> 
+                <input type="button" class="btn btn-danger mb-2"  value="delete" id="theme2_delete" style="display: none;" >   
+                <input type="button" class="btn btn-secondary mb-2"  value="add" id="theme2_setting" >
+            </div>
+        </form>
+        <form id="form_theme3">
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Theme3</span></div>
+                <input type="text" name="theme" id="theme3" class="form-control" >
+            </div>
+            <div class="row" style="text-align: center;margin-left:0.3%;margin-right:0.3%;padding-bottom:1%">
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top1</h3>
+                    
+                    <input type="text" name="top1" id="theme3_top1" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top2</h3>
+                    <input type="text" name="top2" id="theme3_top2" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>
+                <div class="col-md-4 mt-2" style="border:1px solid silver;padding-top:1%;padding-bottom:1%">
+                    <h3>Top3</h3>
+                    <input type="text" name="top3" id="theme3_top3" class="form-control" placeholder="Pin" style="margin-top:5%">
+                </div>                   
+               
+            </div>
+            <div style="text-align:right!important">    
+                <input type="button" class="btn btn-danger mb-2"  value="delete" id="theme3_delete" style="display: none;" >
+                <input type="button" class="btn btn-secondary mb-2"  value="add" id="theme3_setting" >
+            </div>
+        </form>
+    </div>
+</table>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        var data = JSON.parse('<%- data %>');
+        for(var i=0;i<data.length;i++){
+            $("#theme"+(i+1)).val(data[i].THEME);
+            $("#theme"+(i+1)).attr("disabled",true);
+            $("#theme"+(i+1)+"_top1").val(data[i].TOP1);
+            $("#theme"+(i+1)+"_top1").attr("disabled",true);
+            $("#theme"+(i+1)+"_top2").val(data[i].TOP2);
+            $("#theme"+(i+1)+"_top2").attr("disabled",true);
+            $("#theme"+(i+1)+"_top3").val(data[i].TOP3);
+            $("#theme"+(i+1)+"_top3").attr("disabled",true);
+            $("#theme"+(i+1)+"_setting").val("setting");
+            $("#theme"+(i+1)+"_delete").css("display","inline-block");
+        }
+        $(".btn").off("click").on("click",(e)=>{
+            var id = e.target.id;
+            var number = id.substring(5,6);
+            //alert(number);
+            var value = e.target.value;
+            if(value === "add"){
+                $.ajax({
+                url:"/admin/ranking/add",
+                type:"post",
+                data:$("#form_theme"+number).serialize(),
+                success:(data)=>{
+                    location.reload();
+                },
+                error:()=>{
+                    alert("add error");
+                    location.reload();
+                }
+            })
+            }else if(value === "setting"){
+                $("#theme"+number+"_top1").attr("disabled",false);              
+                $("#theme"+number+"_top2").attr("disabled",false);               
+                $("#theme"+number+"_top3").attr("disabled",false);
+                $("#"+id).val('finish');
+            }else if(value ==="delete"){
+                alert($("#theme"+number).val());
+                $.ajax({
+                url:"/admin/ranking/delete",
+                type:"post",
+                data:{theme:$("#theme"+number).val()},
+                success:(data)=>{
+                    location.reload();
+                },
+                error:()=>{
+                    alert("delete error");
+                    location.reload();
+                }
+            })
+            }else if(value ==="finish"){                
+                $.ajax({
+                url:"/admin/ranking/setting",
+                type:"post",
+                data:{
+                    theme:$("#theme"+number).val(),
+                    top1:$("#theme"+number+"_top1").val(),
+                    top2:$("#theme"+number+"_top2").val(),
+                    top3:$("#theme"+number+"_top3").val()
+                },
+                success:(data)=>{
+                    location.reload();
+                },
+                error:()=>{
+                    alert("setting error");
+                    location.reload();
+                }
+            })
+            }
+           
+        })
+    </script>
+</body>
+
+</html>
