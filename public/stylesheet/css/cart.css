@@ -31,3 +31,15 @@ td .btn{
   .dropdown-item:hover{
     background-color: silver!important;
   }
+  #change_tag ul li{
+  float:left;
+  list-style-type: none;
+  margin-right:0.5%;
+  margin-bottom:2%;
+  border:1px solid silver;
+  width:10%;
+  text-align: center;
+}
+#receipt{
+  background-color: rgb(197, 208, 219);
+}

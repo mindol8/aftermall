@@ -23,7 +23,7 @@
         type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-  
+
 </head>
 <!--Coded with love by Mutiullah Samim-->
 
@@ -42,11 +42,11 @@
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
-              
+
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Shop</a></li>
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -63,9 +63,14 @@
     </nav>
     <br><br><br><br>
     <div class="container">
-        
+        <div id="change_tag">
+            <ul>
+                <li id="cart"><a class="btn">Cart</a></li>
+                <li id="receipt"><a class="btn">Receipt</a></li>
+            </ul>
+        </div>
         <div id="table_view" class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table id="cart_table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -84,29 +89,52 @@
             <form method="POST" action="/order">
                 <div style="text-align: center;">
                     <input type="submit" class="btn btn-secondary" value="buy" id="buy">
-                </div>                
+                </div>
             </form>
         </div>
-   
-    </div>
-<!-- Footer-->
-<footer class="footer py-4">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
-            
-            <div class="col-lg-4 my-3 my-lg-0">
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="col-lg-4 text-lg-right">
-               <div>E-mail:&nbsp;service@autoinmall.com</div> 
-           
+        <div id="receipt_view" style="display: none;">
+            <div id="receipt_list" style="margin-bottom:5%">
+                <br><br>
+
+                <table id="receipt_table" class="table table-bordered ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Cart Id</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Order Number</th>
+                            <th scope="col" colspan="2">Item Name/PIN</th>
+
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price($)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
-</footer>
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">Copyright © 2020 AUTOINMall </div>
+
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-right">
+                    <div>E-mail:&nbsp;service@autoinmall.com</div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -117,50 +145,51 @@
     <script src="../stylesheet/mail/contact_me.js"></script>
     <!-- Core theme JS-->
     <script src="../stylesheet/js/cart.js"></script>
-      <!--import -->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <!--import -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
         var username = '<%- username %>';
         var data = JSON.parse('<%- data %>');
+        var receipt = JSON.parse('<%- receipt %>');
         if (data) {
             var length = data.length;
             var total = 0.0;
             for (var i = 0; i < length; i++) {
-                if(data[i].PRICE!="no data"){
-                    $("tbody").append(
-                    '<tr id="temp">' +
-                    '<th scope="row">' + (i + 1) + '</th>' +
-                    '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
-                    '<td>' + data[i].PARTS_NUM + '</td>' +
-                    '<td>' + data[i].VOLUME + '</td>' +
-                    '<td>$ ' + Number(data[i].PRICE).toFixed(2) + '</td> ' +
-                    '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click('+i+');"></td>' +
-                    '</tr>'
-                )
-                }else{
-                    $("tbody").append(
+                if (data[i].PRICE != "no data") {
+                    $("#cart_table tbody").append(
                         '<tr id="temp">' +
-                    '<th scope="row">' + (i + 1) + '</th>' +
-                    '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
-                    '<td>' + data[i].PARTS_NUM + '</td>' +
-                    '<td>' + data[i].VOLUME + '</td>' +
-                    '<td>N/A</td> ' +
-                    '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click('+i+');"></td>' +
-                    '</tr>'
+                        '<th scope="row">' + (i + 1) + '</th>' +
+                        '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
+                        '<td>' + data[i].PARTS_NUM + '</td>' +
+                        '<td>' + data[i].VOLUME + '</td>' +
+                        '<td>$ ' + Number(data[i].PRICE).toFixed(2) + '</td> ' +
+                        '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click(' + i + ');"></td>' +
+                        '</tr>'
+                    )
+                } else {
+                    $("#cart_table tbody").append(
+                        '<tr id="temp">' +
+                        '<th scope="row">' + (i + 1) + '</th>' +
+                        '<td><a href="/item/info?pin=' + data[i].PIN + '" style="color:black;,text-decoration: none;">' + data[i].ITEM + '</a></td>' +
+                        '<td>' + data[i].PARTS_NUM + '</td>' +
+                        '<td>' + data[i].VOLUME + '</td>' +
+                        '<td>N/A</td> ' +
+                        '<td><input type="button" class="btn btn-secondary delete" value="delete" id="temp_btn" onclick="on_click(' + i + ');"></td>' +
+                        '</tr>'
                     )
                 }
-               
-                if(!isNaN(data[i].PRICE)){
+
+                if (!isNaN(data[i].PRICE)) {
                     total = parseFloat(total) + parseFloat(Number(data[i].PRICE));
                 }
-               
+
                 $("#temp").attr("id", i);
                 $("#temp_btn").attr("id", "no." + String(i));
 
                 //
             }
-            $("tbody").append(
+            $("#cart_table tbody").append(
                 '<tr>' +
                 '<th scope="row" colspan="4">TOTAL</th>' +
                 '<td colspan="2">$ ' + total.toFixed(2) + '</td> ' +
@@ -168,21 +197,53 @@
             )
 
         }
-        function on_click(i){
+        for (var j = 0; j < receipt.length; j++) {
+            if (j === 0) {
+                $("#receipt_table tbody").html(
+                    ' <tr>' +
+                    '   <td rowspan="2">' + receipt[j].CART_ID + '</td>' +
+                    '  <td rowspan="2">' + receipt[j].DATE + '</td>' +
+                    ' <td rowspan="2">' + receipt[j].ORDER_NUM + '</td>' +
+                    ' <td colspan="2"><a style="color:black" href="/item/info?pin='+ receipt[j].PIN+'">' + receipt[j].ITEM_NAME + '</a></td>' +
+                    '<td rowspan="2">' + receipt[j].VOLUME + '</td>' +
+                    '<td rowspan="2">' + receipt[j].PRICE + '</td>' +
+                    '</tr>' +
+                    ' <tr>' +
+                    '<td colspan="2"><a style="color:black" href="/item/info?pin='+ receipt[j].PIN+'">' + receipt[j].PIN + '</a></td>    ' +
+                    '</tr>'
+                );
+            } else {
+                $("#receipt_table tbody").append(
+                    ' <tr>' +
+                    '   <td rowspan="2">' + receipt[j].CART_ID + '</td>' +
+                    '  <td rowspan="2">' + receipt[j].DATE + '</td>' +
+                    ' <td rowspan="2">' + receipt[j].ORDER_NUM + '</td>' +
+                    ' <td colspan="2"><a style="color:black" href="/item/info?pin='+ receipt[j].PIN+'">' + receipt[j].ITEM_NAME + '</a></td>' +
+                    '<td rowspan="2">' + receipt[j].VOLUME + '</td>' +
+                    '<td rowspan="2">' + receipt[j].PRICE + '</td>' +
+                    '</tr>' +
+                    ' <tr>' +
+                        '<td colspan="2"><a style="color:black" href="/item/info?pin='+ receipt[j].PIN+'">' + receipt[j].PIN + '</a></td>    ' +
+                    '</tr>'
+                );
+            }
+        }
+
+        function on_click(i) {
             $.ajax({
-                url:"/cart/delete",
-                type:"post",
-                data:data[i],
-                success:(data)=>{
+                url: "/cart/delete",
+                type: "post",
+                data: data[i],
+                success: (data) => {
                     location.reload();
                 },
-                error:()=>{
+                error: () => {
 
                 }
             })
         }
 
-        
+
     </script>
 </body>
 

@@ -34,7 +34,7 @@ function paypal(str){
                 location.href="/receipt?condition=success&id="+rsp.imp_uid+"&uid="+ rsp.merchant_uid
                     +"&total="+ rsp.paid_amount+"&card="+ rsp.apply_num
                     + "name="+rsp.buyer_name+"&address="+buyer_addr+"&zipcode="
-                    +buyer_postcode+"&email="+buyer_email;
+                    +buyer_postcode+"&email="+buyer_email+"&date="+rsp.paid_at;
                 
     
             }).fail(function(data) {

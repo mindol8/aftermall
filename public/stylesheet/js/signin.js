@@ -8,6 +8,7 @@
         $("#confirm").off("click").on("click", function () {
             var userid = $("#userId").val();
             var userpw = $("#userPw").val();
+            //alert(userid+"  "+userpw);
             if (userid != null && userpw != null) {
                 $.ajax({
                     url: '/signin/confirm',

@@ -44,7 +44,7 @@
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Shop</a></li>
           <li class="nav-item" id="resizemenu">
             <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">Account</a>
@@ -157,8 +157,7 @@
             <h3 style="text-align: center;margin-top: 10%;margin-bottom: 15%;">No item<br>Please Search Item</h3>
           </div>
         </div>
-
-
+        
       </div>
     </div>
   </div>
@@ -199,6 +198,7 @@
     var carbrand = JSON.parse('<%- carbrand %>');
     var rate;
     var category = JSON.parse('<%- category %>');
+ 
     
     for (var i = 0; i < carbrand.length; i++) {
                 $("#select_brands").append(

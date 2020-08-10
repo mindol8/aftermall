@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <input type="checkbox" name="test" value="1">check1
+        <input type="checkbox" name="test" value="2">check2
+        <input type="checkbox" name="test" value="3">check3
+        <input type="button" class="btn" value="btn">
+    </body>
+    <script>
+        $(".btn").off("click").on("click",()=>{
+            for(var i=0;i<$("input[name='test']:checked").length;i++){
+                alert($("input[name='test']:checked")[i].val());
+            }   
+           
+        })
+        
+    </script>
+</html>

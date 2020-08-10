@@ -592,16 +592,19 @@ router.post("/admin/item/delete", (req, res) => {
             img_list[3] = row[0].IMG4;
             img_list[4] = row[0].IMG5;
             console.log(img_list);
-            var file_list = row[0].FILE_LIST.split(";");
-            for (var j = 0; j < file_list.length; j++) {
-                fs.unlink("./public/stylesheet/img/item/" + file_list[i], (del_file_err) => {
-                    if (del_file_err) {
-                        console.log(err);
-                    } else {
-                        console.log("success");
-                    }
-                })
-            }
+            if(row[0].FILE_LIST){
+                var file_list = row[0].FILE_LIST.split(";");
+                for (var j = 0; j < file_list.length; j++) {
+                    fs.unlink("./public/stylesheet/img/item/" + file_list[i], (del_file_err) => {
+                        if (del_file_err) {
+                            console.log(err);
+                        } else {
+                            console.log("success");
+                        }
+                    })
+                }
+            }          
+           
             mysqlDB.query("DELETE FROM ITEMINFO WHERE ITEM_NUM = ?", [req.body.pin], function (err2, row2) {
                 if (err2) {
                     console.log(err2);
@@ -998,6 +1001,50 @@ router.get("/signup", function (req, res) {
     res.render("signup.html");
 })
 
+//reset email
+router.post("/reset/password", (req, res) => {
+    var sess = req.session;
+    console.log(req.body);
+  
+    mysqlDB.query("SELECT EMAIL,SALT FROM USER WHERE USER_ID = ?",[req.body.id],(err,row)=>{
+        if(err){
+            res.send("Please check your ID");
+        }else{
+            if(!row[0]){
+                res.send("Please check your ID");
+            }else{
+                if(row[0].EMAIL === req.body.to){
+                    var ranNum = Math.floor(Math.random()*((1024*1024)+1)).toString(); //0~1024*1024
+                    console.log(ranNum);
+                    mysqlDB.query("UPDATE USER SET USER_PW = ? WHERE USER_ID = ?",[crypto.createHash("sha512").update(ranNum + row[0].SALT).digest("hex"),req.body.id],(err2,row2)=>{
+                        if(err2){
+                            res.send("Reset Password error");
+                        }else{
+                            var data = {
+                                fromEmail: req.body.from,
+                                toEmail: req.body.to,
+                                subject: "Email Verification-AutoinMall",
+                                html:  
+                                "<p>Your password has been set to <strong>"+ranNum+"</strong></p>" +
+                                "<a href='https://autoinmall.com' target = '_blank'>Go to Autoinmall</a>" +
+                                "<p>Thank you</p>" +
+                                "<p>Autoinmall</p>"
+                            };
+                            nodemailer.sendmail(data, () => {
+                                res.send("");
+                            });
+                        }
+                    })
+                   
+                }else{
+                    res.send("Please check your E-mail");
+                }
+            }
+            
+          
+        }
+    })
+})
 //send check email before signup
 async function checkEmail(param) {
     var data = {
@@ -1468,7 +1515,8 @@ router.post("/review/confirm", (req, res) => {
 //order
 router.post("/order", (req, res) => {
     var sess = req.session;
-    mysqlDB.query("SELECT DISTINCT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ?", [sess.userid], (err, row) => {
+    var date = new Date();
+    mysqlDB.query("SELECT DISTINCT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ? AND CART_ID = 'before'", [sess.userid], (err, row) => {
         if (err) {
             console.log(err);
         } else {
@@ -1479,6 +1527,8 @@ router.post("/order", (req, res) => {
                 } else {
                     var dest = JSON.stringify(row2);
                     res.render("order.html", { username: sess.username, cart: data, email: sess.email, dest: dest });
+                  
+                    
                 }
             })
 
@@ -1493,7 +1543,7 @@ router.post("/item/cart", (req, res) => {
     var parts_num = req.body.item_parts_num;
     var volume = req.body.item_volume;
     var user = req.session.userid;
-    var cart_id = user + "_" + name;
+   
     var original = req.body.volume_original;
     console.log(original);
     var data;
@@ -1501,7 +1551,7 @@ router.post("/item/cart", (req, res) => {
     //no price
     if (price === "") {
         data = {
-            CART_ID: cart_id,
+            
             ID: user,
             ITEM: name,
             PRICE: "no data",
@@ -1513,7 +1563,7 @@ router.post("/item/cart", (req, res) => {
         price = parseFloat(price) * parseFloat(volume);//new input
         //console.log("have a price");
         data = {
-            CART_ID: cart_id,
+           
             ID: user,
             ITEM: name,
             PRICE: price,
@@ -1526,10 +1576,10 @@ router.post("/item/cart", (req, res) => {
     if (!user) {
         res.send("GO SIGNIN");
     } else {
-        mysqlDB.query("SELECT * FROM CART WHERE CART_ID = ?", [cart_id], (err, row) => {
+        mysqlDB.query("SELECT * FROM CART WHERE PIN = ? AND CART_ID = 'before'", [pin], (err, row) => {
             if (err) {
 
-                console.log(err);
+                console.log("err1"+err);
             } else {
                 //first item input
                 console.log(row[0]);
@@ -1537,15 +1587,15 @@ router.post("/item/cart", (req, res) => {
                     //console.log("no item in the cart");
                     mysqlDB.query("INSERT INTO CART SET ?", data, (err2, row2) => {
                         if (err2) {
-                            console.log(err2);
+                            console.log("err2"+err2);
 
                         } else {
                             //console.log("success to insert item firt time");
                             //update ITEM
                             var new_volume = parseInt(original) - parseInt(volume);
-                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ?", [new_volume, pin], (err4, row4) => {
+                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ? ", [new_volume, pin], (err4, row4) => {
                                 if (err4) {
-                                    console.log(err4);
+                                    console.log("err4"+err4);
 
                                 } else {
                                     console.log("finish success");
@@ -1558,15 +1608,15 @@ router.post("/item/cart", (req, res) => {
                     var new_volume = parseInt(original) - parseInt(volume);
                     volume = parseInt(row[0].VOLUME) + parseInt(volume);//add volume
                     price = parseFloat(price) + parseFloat(row[0].PRICE);//new + before                    
-                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE CART_ID = ?", [volume, price, cart_id], (err3, row3) => {
+                    mysqlDB.query("UPDATE CART SET VOLUME = ?, PRICE = ? WHERE PIN = ? AND CART_ID = 'before'", [volume, price, pin], (err3, row3) => {
                         if (err3) {
                             console.log(err3);
 
                         } else {
                             //update ITEM                                        
-                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ?", [new_volume, pin], (err4, row4) => {
+                            mysqlDB.query("UPDATE ITEM SET VOLUME = ? WHERE PIN = ? AND CART_ID = 'before'", [new_volume, pin], (err4, row4) => {
                                 if (err3) {
-                                    console.log(err4);
+                                    console.log("err3"+err3);
 
                                 } else {
                                     console.log("finish success");
@@ -1589,12 +1639,12 @@ router.post("/item/cart", (req, res) => {
 //delete item in the cart
 router.post("/cart/delete", (req, res) => {
     //console.log(req.body);
-    mysqlDB.query("DELETE FROM CART WHERE PIN = ?", [req.body.PIN], (err, row) => {
+    mysqlDB.query("DELETE FROM CART WHERE PIN = ? AND CART_ID = 'before'", [req.body.PIN], (err, row) => {
         if (err) {
             console.log(err);
         } else {
 
-            mysqlDB.query("UPDATE ITEM SET VOLUME = VOLUME + ? WHERE PIN = ?", [req.body.VOLUME, req.body.PIN], (err2, row2) => {
+            mysqlDB.query("UPDATE ITEM SET VOLUME = VOLUME + ? WHERE PIN = ? AND CART_ID = 'before'", [req.body.VOLUME, req.body.PIN], (err2, row2) => {
                 if (err2) {
                     console.log(err2);
                 } else {
@@ -1612,6 +1662,8 @@ router.get("/shop", function (req, res) {
     //  console.log("get shop");
     sess = req.session;
     sess.carmanufacturer = null;
+    var page = req.query.page;
+    console.log(page);
     mysqlDB.query("SELECT ID FROM CATEGORY_LIST", (err, row) => {
         if (err) {
             console.log(err);
@@ -1625,8 +1677,19 @@ router.get("/shop", function (req, res) {
                     var category = JSON.stringify(row);
                     sess = req.session;
                     sess.category = category;
+                    mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM",(err2,row2)=>{
+                        if(err2){
+                            console.log(err3);
+                        }else{            
+                            var data2 = JSON.stringify(row2);
+                            data2 = data2.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+    
+                            
+                            res.render("shop.html", { username: sess.username, info: data2, category: sess.category,carbrand:carbrand });
+                        }
+                    })
 
-                res.render("shop.html", { username: sess.username, info: JSON.stringify('undefined'), category: sess.category,carbrand:carbrand });
+               
                 }})
         }
     })
@@ -1640,12 +1703,20 @@ router.get("/cart", function (req, res) {
     if (!sess.username) {
         res.render("signin.html", { flag: 'no', username: sess.username });
     } else {
-        mysqlDB.query("SELECT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE ID = ?", [sess.userid], (err, row) => {
+        mysqlDB.query("SELECT ITEM, VOLUME, PRICE, PARTS_NUM, PIN FROM CART WHERE CART_ID = 'before' AND ID = ?", [sess.userid], (err, row) => {
             if (err) {
                 console.log(err);
             } else {
                 var data = JSON.stringify(row);
-                res.render("cart.html", { username: sess.username, data: data });
+                mysqlDB.query("SELECT * FROM RECEIPT,CART WHERE CART_ID = CART_NUM AND ID = ?", [sess.userid], (err2, row2) => {
+                    if (err) {
+                        console.log(err2);
+                    } else {
+                        var data2 = JSON.stringify(row2);
+                        res.render("cart.html", { username: sess.username, data: data,receipt:data2 });
+                    }
+                })
+        
             }
         })
 
@@ -1718,6 +1789,8 @@ router.get("/receipt", (req, res) => {
     var zipcode = req.query.zipcode;
     var email = req.query.email;
     var name = req.query.name;
+    var date = req.query.date;
+    var cart_id = "AM"+req.session.userid+date;
     var data;
     var sess = req.session;
     if (condition === "success") {
@@ -1727,6 +1800,7 @@ router.get("/receipt", (req, res) => {
             uid: uid,
             total: total,
             card: card,
+            date:date,
             name:name,
             email:email,
             address:address,
@@ -1736,17 +1810,28 @@ router.get("/receipt", (req, res) => {
             RECIPIENT:sess.userid,
             ORDER_NUM:uid,
             PIN:id,
+            Date:date,
             ADDRESS:address,
             ZIPCODE:zipcode,
             EMAIL:email,
             TOTAL:total,
-            CARD_APPLY_NUM:card
+            CARD_APPLY_NUM:card,
+            CART_NUM : cart_id
         }
         mysqlDB.query("INSERT INTO RECEIPT SET ?",[data_set],(err,row)=>{
             if(err){
                 console.log(err);
             }else{
-                console.log("insert success");
+                //after payment success, set cart id 
+                mysqlDB.query("UPDATE CART SET CART_ID = ? WHERE ID = ? AND CART_ID = 'before'",[cart_id,sess.userid],(err3,row3)=>{
+                    if(err3){
+                        console.log(err3);
+                    }else{
+                        console.log(data);
+                        res.render("receipt.html", { username: sess.username, data: JSON.stringify(data) });
+                    }   
+                })
+               
             }
         })
     } else {
@@ -1755,9 +1840,10 @@ router.get("/receipt", (req, res) => {
             err: err,
             name:name
         }
+        console.log(data);
+        res.render("receipt.html", { username: sess.username, data: JSON.stringify(data) });
     }
-    console.log(data);
-    res.render("receipt.html", { username: sess.username, data: JSON.stringify(data) });
+    
 })
 //express run
 http.createServer(app).listen(app.get('port'), function () {

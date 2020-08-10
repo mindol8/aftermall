@@ -90,4 +90,17 @@
 
     })
 
+    $("#cart").off("click").on("click",()=>{
+        $("#receipt").css("background-color","rgb(197, 208, 219)");
+        $("#cart").css("background-color","white");
+        $("#receipt_view").css("display","none");
+        $("#table_view").css("display","block");
+    })
+
+    $("#receipt").off("click").on("click",()=>{
+        $("#cart").css("background-color","rgb(197, 208, 219)");
+        $("#receipt").css("background-color","white");
+        $("#table_view").css("display","none");
+        $("#receipt_view").css("display","block");
+    })
 })(jQuery); // End of use strict

@@ -27,6 +27,10 @@
         type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+     <!--sweetalert2-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+         rel="stylesheet">
     <!-- Core theme CSS (includes Bootstrap)-->
 </head>
 <!--Coded with love by Mutiullah Samim-->
@@ -51,7 +55,7 @@
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li> 
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>                   
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Shop</a></li>                  
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -113,7 +117,7 @@
                     Don't have an account? <a href="/signup" class="ml-2">Sign Up</a>
                 </div>
                 <div class="d-flex justify-content-center links">
-                    <a href="/findpw">Forgot your password?</a>
+                    <a style="cursor: pointer; color:#fed136" id="findpw">Forgot your password?</a>
                 </div>
             </div>
         </div>
@@ -220,6 +224,58 @@
     
             })
         }
+        $("#findpw").off("click").on("click",()=>{
+            Swal.fire({
+                title: 'Setting new Password',
+                html:
+                '<div class="input-group mb-1">'+
+                        '<div class="input-group-prepend">'+
+                            '<span class="input-group-text">ID</span></div>'+
+                        '<input type="text" id="id" placeholder="Please insert your ID" class="form-control" style="width:180px">'+
+                    '</div>'+
+                '<div class="input-group mb-1">'+
+                        '<div class="input-group-prepend">'+
+                            '<span class="input-group-text">E-mail</span></div>'+
+                        '<input type="email" id="email" placeholder="Please insert your e-mail" class="form-control" style="width:180px">'+
+                    '</div>'
+                    ,
+                showCancelButton: true,
+                showConfirmbutton:true,
+                preConfirm:()=>{
+                    $.ajax({
+                        url:'/reset/password',
+                        type:"post",
+                        data:{
+                            from:"service@autoinmall.com",
+                            to:$("#email").val(),
+                            id:$("#id").val()
+                        },
+                        success:(msg)=>{
+                            if(msg){
+                                Swal.fire({
+                                    icon:'error',
+                                    title: 'Setting new Password',
+                                    text: msg
+                                })
+                            }else{
+                                Swal.fire({
+                                    icon:'success',
+                                    title: 'Setting new Password',
+                                    text: 'Please check your e-mail'
+                                })
+                            }                         
+                        },
+                        error:()=>{
+                            Swal.fire({
+                                icon:'error',
+                                title: 'Setting new Password',
+                                text: 'Fail to sending e-mail'
+                            })
+                        }
+                    })
+                }   
+            })
+        })
     </script>
 </body>
 
