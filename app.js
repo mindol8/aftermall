@@ -69,6 +69,17 @@ const upload_car_brand = multer({
     }),
 });
 
+//shop img route
+const shop_img = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/stylesheet/img/mall');
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    }),
+});
 
 //main page router
 app.use('/', router);
@@ -1238,123 +1249,131 @@ router.get("/search", function (req, res) {
         }else{
             var carbrand = JSON.stringify(row_brand);
             carbrand = carbrand.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-            if (itembrand) {
-                //itembrand
-                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND BRAND_I = ?", [itembrand], function (err, row) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        //  console.log(itembrand+"\n"+row[0]);
-                        var data = JSON.stringify(row);
-                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
+            mysqlDB.query("SELECT * FROM MALLIMG",(mallimg_err,mallimg_row)=>{
+                if(mallimg_err){
+                    console.log(mallimg_err);
+                }else{
+                    var mallimg = JSON.stringify(mallimg_row);
+                    if (itembrand) {
+                        //itembrand
+                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND BRAND_I = ?", [itembrand], function (err, row) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                //  console.log(itembrand+"\n"+row[0]);
+                                var data = JSON.stringify(row);
+                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg});
+                            }
+                        })
                     }
-                })
-            }
-            else {
-        
-                if (parts_num) {
-                    //parts_num
-                    mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [parts_num], function (err, row) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            var data = JSON.stringify(row);
-                            data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                            res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
+                    else {
+                
+                        if (parts_num) {
+                            //parts_num
+                            mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND PARTS_NUM = ?", [parts_num], function (err, row) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    var data = JSON.stringify(row);
+                                    data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                    res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                }
+                            })
                         }
-                    })
+                        else if (!req.query.category) {
+                            if (!model) {
+                                //brand
+                
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                
+                            } else if (!version) {
+                                //brand & model
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? ", [brand, model], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand ,img_list:mallimg});
+                                    }
+                                })
+                
+                            } else {
+                                //brand & model & version
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand, model, version], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                            }
+                        } else {
+                            if (!brand) {
+                                //category
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? ", [main, sub], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                            }
+                            else if (!model) {
+                                //brand & category
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? ", [main, sub, brand], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                
+                            } else if (!version) {
+                                //brand & model & category
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? ", [main, sub, brand, model], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                
+                            } else {
+                                //brand & model & version & category
+                                mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [main, sub, brand, model, version], function (err, row) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var data = JSON.stringify(row);
+                                        data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                        res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                    }
+                                })
+                            }
+                        }
+                
+                    }
                 }
-                else if (!req.query.category) {
-                    if (!model) {
-                        //brand
-        
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ?", [brand], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-        
-                    } else if (!version) {
-                        //brand & model
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? ", [brand, model], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-        
-                    } else {
-                        //brand & model & version
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [brand, model, version], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-                    }
-                } else {
-                    if (!brand) {
-                        //category
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? ", [main, sub], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-                    }
-                    else if (!model) {
-                        //brand & category
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? ", [main, sub, brand], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-        
-                    } else if (!version) {
-                        //brand & model & category
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? ", [main, sub, brand, model], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-        
-                    } else {
-                        //brand & model & version & category
-                        mysqlDB.query("SELECT * FROM ITEM, ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ? AND BASE_M = ? AND DETAIL_M = ?", [main, sub, brand, model, version], function (err, row) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var data = JSON.stringify(row);
-                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-                            }
-                        })
-                    }
-                }
-        
-            }
+            })
+           
         }
     })
    
@@ -1373,27 +1392,36 @@ router.get("/shop/item", function (req, res) {
         }else{
             var carbrand = JSON.stringify(row_brand);
             carbrand = carbrand.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-    if (sess.carmanufacturer) {
-        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [main, sub, sess.carmanufacturer], function (err, row) {
-            if (err) {
-                console.log(err);
-            } else {
-                var data = JSON.stringify(row)
-                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand });
-            }
-        })
-    } else {
-        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [main, sub], function (err, row) {
-            if (err) {
-                console.log(err);
-            } else {
-                var data = JSON.stringify(row)
-                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-                res.render("shop.html", { username: sess.username, info: data, category: sess.category ,carbrand:carbrand});
-            }
-        })
-    }}
+            mysqlDB.query("SELECT * FROM MALLIMG",(mallimg_err,mallimg_row)=>{
+                if(mallimg_err){
+                    console.log(mallimg_err);
+                }else{
+                    var mallimg = JSON.stringify(mallimg_row);
+                   // console.log(mallimg);
+                    if (sess.carmanufacturer) {
+                        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ? AND CAR_M = ?", [main, sub, sess.carmanufacturer], function (err, row) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                var data = JSON.stringify(row)
+                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                res.render("shop.html", { username: sess.username, info: data, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                            }
+                        })
+                    } else {
+                        mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM AND MAIN_C = ? AND SUB_C = ?", [main, sub], function (err, row) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                var data = JSON.stringify(row)
+                                data = data.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
+                                res.render("shop.html", { username: sess.username, info: data, category: sess.category ,carbrand:carbrand ,img_list:mallimg});
+                            }
+                        })
+                    }
+                }
+            })
+    }
         })
 })
 
@@ -1680,12 +1708,20 @@ router.get("/shop", function (req, res) {
                     mysqlDB.query("SELECT * FROM ITEM,ITEMINFO WHERE PIN = ITEM_NUM",(err2,row2)=>{
                         if(err2){
                             console.log(err3);
-                        }else{            
+                        }else{  
+                            console.log(row2);          
                             var data2 = JSON.stringify(row2);
                             data2 = data2.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');
-    
+                            mysqlDB.query("SELECT * FROM MALLIMG",(mallimg_err,mallimg_row)=>{
+                                if(mallimg_err){
+                                    console.log(mallimg_err);
+                                }else{
+                                    var mallimg = JSON.stringify(mallimg_row);
+                                    res.render("shop.html", { username: sess.username, info: data2, category: sess.category,carbrand:carbrand,img_list:mallimg });
+                                }
+                            })
                             
-                            res.render("shop.html", { username: sess.username, info: data2, category: sess.category,carbrand:carbrand });
+                            
                         }
                     })
 
@@ -1696,6 +1732,47 @@ router.get("/shop", function (req, res) {
 
 })
 
+//shop img
+router.get('/admin/shopimg',(req,res)=>{
+    mysqlDB.query("SELECT * FROM MALLIMG",(err,row)=>{
+        if(err){
+            console.log(err);
+        }else{
+            var data = JSON.stringify(row);
+            if(row === ""){
+                data={info:"noinfo"};
+            }
+            res.render('shopimg.html',{img_list:data});
+        }
+    })
+  
+})
+//shop img setting
+router.post('/shopimg/change',shop_img.array("img"),(req,res)=>{
+   console.log(req.files);
+   console.log(req.body);
+   var img1;
+   var img2 ;
+   var img3; 
+   if(req.files){
+       if(req.files[0]){img1 = req.files[0].filename;}else{img1 = req.body.org1}
+       if(req.files[1]){img2 = req.files[1].filename;}else{img2 = req.body.org2}
+       if(req.files[2]){img3 = req.files[2].filename;}else{img3 = req.body.org3}
+    mysqlDB.query("UPDATE MALLIMG SET IMG1 = ?, IMG2 = ?, IMG3 = ? WHERE IMG_SET = 'mall'",[img1,img2,img3],(err,row)=>{
+        if(err){
+            console.log(err);
+            res.send("err");
+        }else{
+            res.send("success");
+        }
+       } )
+   }else{
+       res.send("err");
+   }
+  
+     
+  
+})
 
 //cart router
 router.get("/cart", function (req, res) {

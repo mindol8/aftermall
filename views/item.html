@@ -185,6 +185,11 @@
           </form>
           <div class="input-group mt-2">
             <div class="input-group-prepend">
+                <span class="input-group-text" style="width:120px;">Pin</span></div>
+                <input type="text" class="form-control" disabled id="pin">
+        </div>
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
                 <span class="input-group-text">Download Files</span></div>
            <div id="item_file" style="border:1px solid silver;padding-top:1%;padding-right: 1%;padding-left: 1%;width:100%">               
           
@@ -195,8 +200,7 @@
             <div class="card-body">
               <p id="item_desc">
               </p>
-            </div>
-            
+            </div>            
           </div>
           <!-- /.card -->
 
@@ -398,8 +402,10 @@
         "Car Brand: " + info[0].CAR_M + "<br>" +
         "Item Brand: " + info[0].BRAND_I + "<br>" +
         "Item manufacturer: " + info[0].ITEM_M + "<br>"
+        
       );
       $("#item_head span").html(rate + " " + info[0].RATE + " stars");
+      $("#pin").val(info[0].PIN);
       $("#item_desc").html(info[0].ITEM_DESC);
       $("#volume_original").val(Number(info[0].VOLUME));
       $("#item_name").val(info[0].ITEM_NAME);

@@ -84,6 +84,8 @@
                 aria-haspopup="true" aria-expanded="false" onclick="link('/admin/category');">Category</a>
                 <a id="ranking" style="color:black!important" class="list-group-item"
                 aria-haspopup="true" aria-expanded="false" onclick="link('/admin/ranking');">Ranking</a>
+                <a id="ranking" style="color:black!important" class="list-group-item"
+                aria-haspopup="true" aria-expanded="false" onclick="link('/admin/shopimg');">Shop Image</a>
             </div>        
             <div class="capsulate-window">
                 <iframe src="/admin/user" frameborder="0" style="width:100%;height:100%" scrolling="no"></iframe>
@@ -190,7 +192,7 @@
         $("iframe").off('load').on('load',()=>{
            // alert($("iframe").contents().find("body").height());
            var height = $("iframe").contents().find("body").height();
-          //alert(height);
+         // alert(height);
            if(height < 450){
             $(".capsulate-window").css("height","450px");
             $(".body-container").css("height","450px");

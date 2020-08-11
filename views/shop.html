@@ -130,14 +130,16 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="../stylesheet/img/about/6.jpg" alt="First slide" width="900px"
-                height="150px">
+              <img class="d-block img-fluid" id="slide1_img" alt="First slide" width="900px"
+                height="100px">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="../stylesheet/img/about/4.jpg" alt="Second slide">
+              <img class="d-block img-fluid" id="slide2_img" alt="Second slide"  width="900px"
+              height="100px">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="../stylesheet/img/about/5.jpg" alt="Third slide">
+              <img class="d-block img-fluid" id="slide3_img" alt="Third slide"  width="900px"
+              height="100px">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -198,8 +200,12 @@
     var carbrand = JSON.parse('<%- carbrand %>');
     var rate;
     var category = JSON.parse('<%- category %>');
- 
-    
+    var imglist = JSON.parse('<%- img_list %>');
+
+    $("#slide1_img").attr("src","../stylesheet/img/mall/"+imglist[0].IMG1);    
+    $("#slide2_img").attr("src","../stylesheet/img/mall/"+imglist[0].IMG2);    
+    $("#slide3_img").attr("src","../stylesheet/img/mall/"+imglist[0].IMG3);    
+
     for (var i = 0; i < carbrand.length; i++) {
                 $("#select_brands").append(
                     '<option value = "' + carbrand[i].NAME + '">' + carbrand[i].NAME + '</option>'
@@ -270,6 +276,7 @@
        $(".result").html('<p><small>'+info.length+' results > </small></p>');
       //item
       for (var i = 0; i < length; i++) {
+              
         switch (info[i].RATE) {
           case 0:
             rate = "&#9734; &#9734; &#9734; &#9734; &#9734;";
@@ -304,8 +311,10 @@
               '<a href="/item/info?pin=' + info[i].PIN + '" data-toggle="tooltip" title="'+info[i].ITEM_NAME+'">' + info[i].ITEM_NAME + '</a>' +
               '</h4>' +
               '<h5>$' + info[i].PRICE + '</h5>' +
-              '<p class="card-text">Pin:(' + info[i].PIN +
-              ')</p><p class="card-text">' +
+              '<p class="card-text">Car Brand: ' + info[i].CAR_M +
+              '</p><p class="card-text">' +
+                '<p class="card-text">Item Brand: ' + info[i].BRAND_I +
+              '</p><p class="card-text">' +
                 '<a class="btn btn-info btn-block" href="/item/info?pin=' + info[i].PIN + '">Show Detail</a>'+
               '</div>' +
               '<div class="card-footer">' +
@@ -323,8 +332,10 @@
                 '<a href="/item/info?pin=' + info[i].PIN + '" data-toggle="tooltip" title="'+info[i].ITEM_NAME+'">' + info[i].ITEM_NAME + '</a>' +
               '</h4>' +
               '<h5>$' + info[i].PRICE + '</h5>' +
-              '<p class="card-text">Pin:(' + info[i].PIN +
-              ')</p><p class="card-text">' +
+              '<p class="card-text">Car Brand: ' + info[i].CAR_M +
+              '</p><p class="card-text">' +
+                '<p class="card-text">Item Brand: ' + info[i].BRAND_I +
+              '</p><p class="card-text">' +
               '<a class="btn btn-info btn-block" href="/item/info?pin=' + info[i].PIN + '">Show Detail</a>'+           
               '</div>' +
               '<div class="card-footer">' +
@@ -345,8 +356,10 @@
                 '<a href="/item/info?pin=' + info[i].PIN + '" data-toggle="tooltip" title="'+info[i].ITEM_NAME+'">' + info[i].ITEM_NAME + '</a>' +
               '</h4>' +
               '<h5>N/A</h5>' +
-              '<p class="card-text">Pin:(' + info[i].PIN +
-              ')</p><p class="card-text">' +
+              '<p class="card-text">Car Brand: ' + info[i].CAR_M +
+              '</p><p class="card-text">' +
+                '<p class="card-text">Item Brand: ' + info[i].BRAND_I +
+              '</p><p class="card-text">' +
                 '<a class="btn btn-info btn-block" href="/item/info?pin=' + info[i].PIN + '">Show Detail</a>'+
               '</div>' +
               '<div class="card-footer">' +
@@ -364,8 +377,10 @@
                 '<a href="/item/info?pin=' + info[i].PIN + '" data-toggle="tooltip" title="'+info[i].ITEM_NAME+'">' + info[i].ITEM_NAME + '</a>' +
               '</h4>' +
               '<h5>N/A</h5>' +
-              '<p class="card-text">Pin:(' + info[i].PIN +
-              ')</p><p class="card-text">' +
+              '<p class="card-text">Car Brand: ' + info[i].CAR_M +
+              '</p><p class="card-text">' +
+                '<p class="card-text">Item Brand: ' + info[i].BRAND_I +
+              '</p><p class="card-text">' +
                 '<a class="btn btn-info btn-block" href="/item/info?pin=' + info[i].PIN + '">Show Detail</a>'+
               '</div>' +
               '<div class="card-footer">' +

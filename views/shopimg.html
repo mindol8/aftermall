@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+       
+    
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+            type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../stylesheet/css/styles.css" rel="stylesheet" />
+        <link href="../stylesheet/css/index.css" rel="stylesheet" />
+        <!--sweetalert2-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"
+            rel="stylesheet">
+        <!--swiper-->
+        <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.css">
+        <link rel="stylesheet" href="https://unpkg.com/swiper@5.4.5/css/swiper.min.css">
+        <script src="https://unpkg.com/swiper@5.4.5/js/swiper.js"></script>
+        <script src="https://unpkg.com/swiper@5.4.5/js/swiper.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+       
+            <div class="input-group mb-1" style="border:1px solid silver">
+                <div class="input-group-prepend">
+                    <img src="../stylesheet/img/item/no_img.png" id="thumb1" style="width:500px;height:200px">
+                </div>
+                    <input type="file" name="img1" class="form-control">
+            </div>
+
+            <div class="input-group mb-1" style="border:1px solid silver">
+                <div class="input-group-prepend">
+                    <img src="../stylesheet/img/item/no_img.png" id="thumb2" style="width:500px;height:200px">
+                </div>
+                    <input type="file" name="img2" class="form-control">
+            </div>
+            
+            <div class="input-group mb-1" style="border:1px solid silver">
+                <div class="input-group-prepend">
+                    <img src="../stylesheet/img/item/no_img.png" id="thumb3" style="width:500px;height:200px">
+                </div>
+                    <input type="file" name="img3" class="form-control">
+            </div>
+         
+                <input type="button" class="btn btn-secondary mt-3 btn-block" value="setting">
+        
+         
+           
+            
+        </div>
+         <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        $(document).ready(()=>{
+            var img_list = JSON.parse('<%- img_list %>');
+            if(img_list){
+               
+                $("#thumb1").attr('src',"../stylesheet/img/mall/"+img_list[0].IMG1);
+                $("#thumb2").attr('src',"../stylesheet/img/mall/"+img_list[0].IMG2);
+                $("#thumb3").attr('src',"../stylesheet/img/mall/"+img_list[0].IMG3);
+              
+            }
+             //insert img and check it     
+             $("input[name='img1']").on("change", () => {                
+                var file =  $("input[name='img1']")[0].files;
+                var img_file;                               
+                img_file = file[0];
+                var src = URL.createObjectURL(img_file);
+                $("#thumb1").attr("src",src);
+            })
+
+            $("input[name='img2']").on("change", () => {                
+                var file =  $("input[name='img2']")[0].files;
+                var img_file;                               
+                img_file = file[0];
+                var src = URL.createObjectURL(img_file);
+                $("#thumb2").attr("src",src);
+            })
+            
+            $("input[name='img3']").on("change", () => {                
+                var file =  $("input[name='img3']")[0].files;
+                var img_file;                               
+                img_file = file[0];
+                var src = URL.createObjectURL(img_file);
+                $("#thumb3").attr("src",src);
+            })
+            
+
+            $(".btn").off("click").on("click",()=>{
+                var formdata = new FormData();
+                formdata.append("img",$("input[name='img1']")[0].files[0]);
+                formdata.append("img",$("input[name='img2']")[0].files[0]);
+                formdata.append("img",$("input[name='img3']")[0].files[0]);
+                formdata.append("org1",img_list[0].IMG1);
+                formdata.append("org2",img_list[0].IMG2);
+                formdata.append("org3",img_list[0].IMG3);
+                $.ajax({
+                    url:"/shopimg/change",
+                    type:"post",
+                    data:formdata,
+                    contentType: false,
+                        processData: false,
+                    success:()=>{
+                        location.reload();
+                    },
+                    error:()=>{
+                        alert("fail");
+                    }
+                })
+            })
+        })
+    </script>
+    </body>
+</html>

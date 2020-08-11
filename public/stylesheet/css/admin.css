@@ -43,3 +43,6 @@
  width:80%;
  height:500px;
 }
+a{
+  cursor: pointer;
+}
