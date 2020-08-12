@@ -46,8 +46,8 @@
                     
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Shop</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Mall</a></li>-->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Mall</a></li>
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Account</a>
@@ -377,16 +377,16 @@
 
                 } else {
                     var attribute = {
-                        username: name.val(),
+                        username: name.val(), 
                         userid: userid,
                         useremail: email.val(),
                         userphone: phone.val(),
                         userzipcode: zipcode.val(),
-                        useraddress: address.val()
-
+                        useraddress: address.val(),
+                        orgemail:useremail
                     }
                     $.ajax({
-                        url: "/accout/setting",
+                        url: "/account/certification",
                         type: "post",
                         data: attribute,
                         success: function (data) {
@@ -403,6 +403,7 @@
                                 address.attr("readonly", true);
                                 name.attr("readonly", true);
                                 setting_flag = false;
+                                location.href("/");
                             })
 
                         }

@@ -83,10 +83,10 @@
             </button>
             <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rank">Rank</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#brands">Brands</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#rank">Rank</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#brands">Brands</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop?page=1">Mall</a></li>-->
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/shop">Shop</a></li>
                     <li class="nav-item" id="resizemenu">
                         <div class="dropdown"><a class="nav-link js-scroll-trigger dropdown-toggle" href="#"
@@ -337,7 +337,8 @@
 
 
             $("#payment").off("click").on("click",()=>{
-                var name = name_list.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');     
+                if($("#zipcode").val() && $("#address").val()){
+                    var name = name_list.replace(/\\r/gi, '').replace(/\\n/gi, '<br>').replace(/\\t/gi, '_&nbsp;').replace(/\\f/gi, ' ');     
                 var data = {
                     name:username,
                     email:$("#email").val(),
@@ -348,6 +349,14 @@
 
                 }
                 paypal(JSON.stringify(data));
+                }else{
+                    Swal.fire({
+                        title:"error",
+                        icon:"error",
+                        text:"Please check your Address or Zipcode"
+                    })
+                }
+               
             })
         </script>
 </body>

@@ -969,25 +969,62 @@ router.post("/admin/item/setting", upload.fields([{name:"img", maxCount:5},{name
 
 })
 
-
-//update account info
-router.post("/accout/setting", function (req, res) {
+//update account certification
+router.post("/account/certification",(req,res)=>{
     // console.log("setting");
     var attr = req.body;
-    // console.log(attr);
-
-    if (!isNaN(attr.userphone) && !isNaN(attr.userzipcode)) {
-        mysqlDB.query("UPDATE USER SET NAME = ?, EMAIL =?, PHONE=?, ADDRESS=?, ZIPCODE=? WHERE USER_ID = ?", [attr.username, attr.useremail, attr.userphone, attr.useraddress, attr.userzipcode, attr.userid], function (err, row) {
+     console.log(attr);
+    if(attr.orgemail === attr.useremail){
+        if (!isNaN(attr.userphone) && !isNaN(attr.userzipcode)) {
+            mysqlDB.query("UPDATE USER SET NAME = ?, PHONE=?, ADDRESS=?, ZIPCODE=? WHERE USER_ID = ?", [attr.username,attr.userphone, attr.useraddress, attr.userzipcode, attr.userid], function (err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    sess = req.session;
+                    sess.username = attr.username;
+                    res.send("success");
+                }
+            })
+        }else{
+            console.log("wrong form");
+            res.send("err");
+        }
+    }else{
+        mysqlDB.query("UPDATE USER SET LOCK_ACC = 0 WHERE USER_ID = ?", [attr.userid], function (err, row) {
             if (err) {
                 console.log(err);
             } else {
-                sess = req.session;
-                sess.username = attr.username;
+                var data = {
+                    fromEmail: 'service@autoinmall.com',
+                    toEmail: attr.useremail,
+                    subject: "Email Verification-AutoinMall",
+                    html:  
+                    "<p>Please click this URL to certification e-mail</p>" +
+                    "<a href='https://autoinmall.com/account/setting?email="+attr.useremail+"&id="+attr.userid+"' target = '_blank'>Go to Autoinmall</a>" +
+                    "<p>Thank you</p>" +
+                    "<p>Autoinmall</p>"
+                };
+                nodemailer.sendmail(data, () => {
+                    //res.send("");
+                });
                 res.send("success");
             }
-        })
+        })     
     }
+   
+})
 
+//update account info
+router.get("/account/setting", function (req, res) {
+    var id = req.query.id;
+    var email = req.query.email;
+    mysqlDB.query("UPDATE USER SET LOCK_ACC = 1, EMAIL = ? WHERE  AND USER_ID = ?", [email,id], function (err, row) {
+        if (err) {
+            console.log(err);
+        } else {
+            location.href("/");
+        }
+    })
 })
 
 router.post("/account/password", function (req, res) {

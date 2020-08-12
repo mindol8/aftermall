@@ -121,3 +121,9 @@ body {
   left: -11%;
   width:122%;
 }
+
+form a{
+  font-size:20px;
+  cursor: pointer;
+  color: yellow;
+}
