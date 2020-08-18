@@ -483,7 +483,13 @@
         var itembrand = JSON.parse('<%- itembrand %>');
         var carbrand = JSON.parse('<%- carbrand %>');
         var ranking = JSON.parse('<%- ranking %>');
+        var main_img = '<%- main_img %>';
+        //alert(main_img);
            //ranking
+        $(document).ready(()=>{
+           // alert("url("+main_img+")");
+            $(".masthead").css("background-image","url('"+main_img+"')");
+        })
         for (var m = 0; m < ranking.length; m++) {
             if(m <5){
                console.log(m+"is small");   

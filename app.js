@@ -111,7 +111,16 @@ app.use(function (req, res, next) {
             
                                     var ranking = JSON.stringify(row4);
                                     //console.log(ranking.length);
-                                    res.render('index.html', { username: sess.username, category: sess.category, itembrand: data, carbrand: car,ranking:ranking});
+                                    mysqlDB.query("SELECT MAIN_IMG FROM MALLIMG WHERE IMG_SET = 'mall'",(err5,row5)=>{
+                                        if(err5){
+                                            console.log(err5);
+                                        }else{
+                                            var main_img = row5[0].MAIN_IMG;
+                                            console.log(main_img);
+                                            res.render('index.html', { username: sess.username, category: sess.category, itembrand: data, carbrand: car,ranking:ranking,main_img:main_img});
+                                        }
+                                    })
+                                    
                                 }
                             })
                             
@@ -1778,6 +1787,39 @@ router.get("/shop", function (req, res) {
 
 })
 
+//main page img
+router.get('/admin/mainimg',(req,res)=>{
+    mysqlDB.query("SELECT MAIN_IMG FROM MALLIMG WHERE IMG_SET = 'mall'",(err,row)=>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }else{
+            res.render('mainimg.html',{img:row[0].MAIN_IMG});
+        }
+    })
+  
+})
+//main img setting
+router.post('/mainimg/change',shop_img.single("img"),(req,res)=>{
+    console.log(req.file);
+    console.log(req.body);
+    var img1;
+    if(req.file){
+        img1 = '../../stylesheet/img/mall/'+req.file.filename;
+    }else{
+        img1 = req.body.org1
+    }
+     mysqlDB.query("UPDATE MALLIMG SET MAIN_IMG = ? WHERE IMG_SET = 'mall'",[img1],(err,row)=>{
+         if(err){
+             console.log(err);
+             res.send("err");
+         }else{
+             res.send("success");
+         }
+        } )
+    
+   
+ })
 //shop img
 router.get('/admin/shopimg',(req,res)=>{
     mysqlDB.query("SELECT * FROM MALLIMG",(err,row)=>{
