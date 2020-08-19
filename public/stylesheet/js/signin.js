@@ -4,7 +4,68 @@
     $(document).ready(function () {
 
         //send sign in data to server      
+        $("#userPw").keypress(function(e) { 
 
+            if (e.keyCode == 13){
+                var userid = $("#userId").val();
+            var userpw = $("#userPw").val();
+            //alert(userid+"  "+userpw);
+            if (userid != null && userpw != null) {
+                $.ajax({
+                    url: '/signin/confirm',
+                    type: 'post',
+                    data: $('form').serialize(),
+                    success: function (data) {
+                        if (data === "signin fail:wrong Id#") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Wrong ID',
+                                text: 'Sign in Fail!',
+
+                            })
+
+                        } else if (data === "signin fail:wrong password$") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Wrong Password',
+                                text: 'Sign in Fail!',
+
+                            })
+
+                        } else if(data === "signin fail:check Email first@"){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Not checking Email',
+                                text: 'Sign in Fail!',
+
+                            })
+                        }else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sign in',
+                                text: 'Welcome ' + data + "!!!",
+                            }).then(() => {
+                                location.href = "/";
+                            })
+
+                        }
+
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Fail',
+                            text: 'Sign in Fail!',
+
+                        })
+                    }
+                })
+            }
+        
+            }    
+        });
+                
+        
         $("#confirm").off("click").on("click", function () {
             var userid = $("#userId").val();
             var userpw = $("#userPw").val();
